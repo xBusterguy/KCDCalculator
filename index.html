@@ -27,6 +27,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}tr.r{cursor:pointer}tr.r
 <p class="s">Enter what you pay for raw materials, then see the cost to craft each piece and the selling price with your markup. All prices are in groschen (gr.).</p>
 
 <div class="card"><h2>1. Raw material prices</h2><div class="grid" id="raw"></div>
+<details style="margin-top:10px"><summary>Herbs, food and other goods</summary><div class="grid" id="raw2" style="margin-top:8px"></div></details>
 <details style="margin-top:10px"><summary>Intermediate parts (optional)</summary>
 <p class="s" style="margin:6px 0">Leave blank and the price is worked out from the raw materials above. Type a price if you buy the part instead of crafting it.</p>
 <div class="grid" id="int"></div></details>
@@ -39,7 +40,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}tr.r{cursor:pointer}tr.r
 <label class="f">Search<input id="q" placeholder="e.g. cuirass"></label></div></div>
 
 <div class="card wrap"><table><thead><tr><th>Piece</th><th>Craft</th><th>Lv</th><th class="n">Bench fee</th><th class="n">Total cost</th><th class="n">Sell at</th><th class="n">Profit</th></tr></thead><tbody id="rows"></tbody></table>
-<p class="s" style="margin:8px 0 0">Covers Smithing, Armouring, Tailoring and part of Bowyery; cosmetic variants of the same recipe are merged into one entry. Click a row for the full breakdown. Sell price is rounded up to a whole groschen. Cost is per single piece (batch recipes such as arrows are divided by their yield). The bench fee (the “+ N gr.” on the wiki) is included in the total cost; for batch recipes it is divided by the yield.</p></div>
+<p class="s" style="margin:8px 0 0">Covers Smithing, Armouring, Tailoring, Bowyery, Jewelling, Alchemy and Brewing; cosmetic variants of the same recipe are merged into one entry. Click a row for the full breakdown. Sell price is rounded up to a whole groschen. Cost is per single piece (batch recipes such as arrows are divided by their yield). The bench fee (the “+ N gr.” on the wiki) is included in the total cost; for batch recipes it is divided by the yield.</p></div>
 
 <div class="card"><details><summary>Add a custom recipe</summary>
 <div class="bar" style="margin-top:8px">
@@ -51,10 +52,11 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}tr.r{cursor:pointer}tr.r
 <button id="add">Add</button></div><p class="s" id="msg" style="margin:6px 0 0"></p></details></div>
 </main>
 <script>
-const RAW={O:"Iron ore",C:"Coal",K:"Copper ore",A:"Silver ore",G:"Gold ore",L:"Logs",H:"Hides",N:"Nettles",R:"Pine resin",W:"Owl feathers",F:"Wolf pelts",V:"White wolf pelts",P:"River pearls",U:"Pure silver nuggets",S:"Fine silver",M:"Meteoric iron",D:"Sulphur",E:"Saltpetre",T:"Antlers"};
+const RAW={O:"Iron ore",C:"Coal",K:"Copper ore",A:"Silver ore",G:"Gold ore",L:"Logs",H:"Hides",N:"Nettles",R:"Pine resin",W:"Owl feathers",F:"Wolf pelts",V:"White wolf pelts",P:"River pearls",U:"Pure silver nuggets",M:"Meteoric iron",D:"Sulphur",E:"Saltpetre",T:"Antlers",X:"Exotic wood",Z:"Tincal",Q:"Dogfish skin",J:"Jasper",u:"Dragon claw",v:"Weapon stub"};
 // code:[name, yield, ingredients, coin fee]
-const INT={x:["Scrap metal",3,{O:1,C:1},0],i:["Iron",3,{O:2,C:1},1],s:["Steel",2,{O:3,C:2},0],l:["Leather",2,{H:1},0],p:["Padding",2,{N:3,l:1},0],b:["Bowstrings",3,{H:1,R:1},0],h:["Hafts",2,{L:2,R:1},0],c:["Copper",1,{K:2,C:1},0],f:["Frankfurt steel",2,{s:2,C:2,L:1},0],t:["Toledo steel",2,{f:2,A:1,C:2},0],z:["Fastening material",5,{i:1,C:1},0],q:["Pig skin",1,{H:1},0],w:["Cow skin",1,{H:2},0],d:["Deer skin",1,{H:2,R:1},0],y:["Coin sword pommel",2,{i:1},0],g:["Sword guard (ordinary/straight)",1,{i:1,x:1},0],j:["Horned sword guard",2,{s:1,i:1},0],e:["Reinforced sword guard",2,{s:1,i:1},0],m:["Pear sword pommel",2,{i:1,c:1},0],n:["Eight-sided sword pommel",2,{i:1,c:1},0],a:["Antler shards",2,{T:1},0],o:["Decorated sword pommel",2,{c:1,S:2},0]};
-const CR={S:"Smithing",A:"Armouring",T:"Tailoring",B:"Bowyery"};
+const INT={x:["Scrap metal",3,{O:1,C:1},0],i:["Iron",3,{O:2,C:1},1],s:["Steel",2,{O:3,C:2},0],l:["Leather",2,{H:1},0],p:["Padding",2,{N:3,l:1},0],b:["Bowstrings",3,{H:1,R:1},0],h:["Hafts",2,{L:2,R:1},0],c:["Copper",1,{K:2,C:1},0],f:["Frankfurt steel",2,{s:2,C:2,L:1},0],t:["Toledo steel",2,{f:2,A:1,C:2},0],z:["Fastening material",5,{i:1,C:1},0],q:["Pig skin",1,{H:1},0],w:["Cow skin",1,{H:2},0],d:["Deer skin",1,{H:2,R:1},0],y:["Coin sword pommel",2,{i:1},0],g:["Sword guard (ordinary/straight)",1,{i:1,x:1},0],j:["Horned sword guard",2,{s:1,i:1},0],e:["Reinforced sword guard",2,{s:1,i:1},0],m:["Pear sword pommel",2,{i:1,c:1},0],n:["Eight-sided sword pommel",2,{i:1,c:1},0],a:["Antler shards",2,{T:1},0],o:["Decorated sword pommel",2,{c:1,S:2},0],k:["Sheet steel",2,{t:2,C:3},0],S:["Fine silver",2,{A:1,C:1},0],r:["Rock pitch",1,{R:3,C:2},0],B:["Enamel powder",3,{c:1,R:1,C:1},0],I:["Acidum chloridum",1,{N:2,belladonna:1,C:1},0],Y:["Coloured gold",2,{G:1,c:1,S:1},0],linen:["Linen",1,{flax:2},0],malt:["Barley malt",3,{barley:1},0],lcoal:["Leached coal",1,{charcoal:2,N:1},0]};
+const RAW2={tusks:"Boar tusks",yew:"Ancient yew staves",rantlers:"Royal antlers",rcrystal:"Rock crystals",barley:"Barley",hops:"Hops",grapes:"Grapes",honey:"Honey",amber:"Amber",oak:"Oak heartwood",aseeds:"Ancient seeds",plums:"Plums",mint:"Mint",wormwood:"Wormwood",chamomile:"Chamomile",sage:"Sage",thistle:"Thistle",dandelion:"Dandelion",belladonna:"Belladonna",valerian:"Valerian",wort:"St John’s wort",eyebright:"Eyebright",poppy:"Poppy",ginger:"Ginger",marigold:"Marigold",comfrey:"Comfrey",cobwebs:"Cobwebs",feverfew:"Feverfew",elder:"Elderberry leaves",mandrake:"Mandrake root",amandrake:"Ancient mandrake",charcoal:"Charcoal",flax:"Flax"};Object.assign(RAW,RAW2);
+const CR={S:"Smithing",A:"Armouring",T:"Tailoring",B:"Bowyery",J:"Jewelling",Y:"Alchemy",W:"Brewing"};
 // Craft|Level|Pieces (same recipe, ; separated)|Yield|Ingredients (code+qty)|Coin fee
 const DATA=`S|1|Training bludgeon;Farmer Matthew’s pitchfork;Training axe;Training longsword (plain);Staff;Training sword;Torch;Club;Old dagger|1|C1|1
 S|1|Painted pavese|1|L1|1
@@ -418,10 +420,146 @@ B|5|Cuman folded bow|1|K1L17b6H1R2l1|17
 B|5|Poacher’s bow|1|K1L17b6H1R2l1|35
 B|5|Artemis’ crossbow|1|K1L13b7T1H1R2s1|59
 B|6|Battle shot;Fine bolt|10|L1s1|0
-B|6|Black arrow|10|L1W1s1|0`;
+B|6|Black arrow|10|L1W1s1|0
+S|5|Noble’s hunting sword|1|c1t2i2z1X1l1|0
+S|5|Calvaria axe|1|Y2Z1Q2X1t1k1K1h1|0
+S|6|Basilard|1|z1c1X1t1i1K2s5C19H2L5l2|38
+S|7|Lion’s roar Kilij|1|Y2B1J2I1X1Q2t2K1l1|0
+S|10|Dragon fang Axe|1|t2d1z2i2X2u1s36C26h11U2M1|93
+S|10|St. George’s sword|1|Y2r1B2X1g1o1t2A1s26l11C19U2M1|92
+S|10|Longsword of the Four Evangelists|1|v1f2i2I1B1s55l23C41U2M1|636
+S|10|Lingua belli longsword|1|I1Z2Y1j1n1t2k1A3G1s54l22C39U2M1|881
+B|6|Ornate Cuman bow|1|K1L18b6H1R3l2|18
+B|6|Miners’ crossbow|1|K1L16b9T1H1R3s2|40
+B|7|Decorated field crossbow|1|K2L21b13T1H3R5s3|153
+B|8|Cuman chief’s bow|1|A1s16b25L24{tusks}2T1{yew}1|66
+B|8|Heavy crossbow|1|A1s19b29L26{tusks}2T2{yew}1|254
+B|9|Reinforced heavy crossbow|1|A2G1s27b40L35{tusks}4T2{yew}2|283
+B|9|Elm longbow;Ash longbow|1|A1G1s24b36L32{tusks}4T2{yew}2|98
+B|10|Pistole;Hook gun;Master’s handgonne|1|A2G1s28b42L38{tusks}3T2{yew}2{rantlers}1|630
+B|10|Marksman’s hook gun;Pushko’s Push’em|1|A2G1s28b43L37{tusks}4T2{yew}2{rantlers}1|688
+J|1|Parler’s spectacles;Cheap ring;Brass brooch with lettering;Silver brooch|1|K1|1
+J|2|Decorated headpiece;Barnabas’ Ring;Decorated headpiece (style 2);Decorated headpiece (style 3);Tin cross|1|K1|1
+J|2|Lord Semine’s necklace;Ordinary ring|1|K1|2
+J|3|Narrow headband;Narrow headband (style 2);Oats’ ring (Samuel);Virgin Mary medallion|1|K2C1|2
+J|3|Old ring;Engraved silver ring|1|K3C1|3
+J|3|Silver brooch enamelled|1|K3C2|4
+J|3|Engraved gemstone ring|1|K4C3|5
+J|3|Spectacles|1|K4C3|6
+J|4|Gemstone silver ring|1|S1C1|6
+J|5|Scapular with saint;Voivode’s necklace|1|S2C1s1|1
+J|5|Women’s brooche|1|S2C1s1|4
+J|6|Scapular with aperture|1|S3C1s1|7
+J|6|Noble gloves (Rings)|1|S1H2C5s1|9
+J|6|Silver cross with garnet|1|S3C1s1|11
+J|7|Silver cross with insignia|1|S4C2s1|13
+J|8|Gemstone ring|1|S5s1C6{rcrystal}1|16
+J|8|Scapular with insignia|1|S6s2C8{rcrystal}1|22
+J|8|Golden heraldic brooch|1|G6S3s9{rcrystal}1|42
+J|9|Pavlena’s necklace|1|{rantlers}1S6s2C7|20
+J|9|Golden initial brooch;Golden cross with garnets|1|G8S4s9{rcrystal}1P1|52
+J|9|Golden cross with pearls|1|P1G5S3s3|52
+J|10|Golden cross ring;Solid gold ring|1|G10S5s9{rcrystal}2P1|62
+W|1|Beer|6|{malt}1{hops}1|0
+W|1|Cheap wine|4|{grapes}2|0
+W|2|Troskowitz beer|6|{malt}2{hops}1|1
+W|3|Wine|3|{grapes}2|1
+W|3|Jitschine beer|3|{malt}2{hops}2|1
+W|4|Mead|3|{honey}1{hops}1|1
+W|5|Aujezd beer|3|{malt}3{hops}2|1
+W|5|Fine wine|3|{grapes}3|1
+W|6|Wine from Loretz|3|{grapes}3|1
+W|7|Turnau beer|3|{malt}4{hops}3|1
+W|8|Rose hip wine|3|{grapes}3{honey}1{oak}1|1
+W|8|Ancient moonshine|2|{aseeds}1{plums}3L1|1
+W|9|Wedding beer|3|{malt}4{hops}3{honey}1{amber}1|1
+W|10|Schnapps|2|{plums}3L1{amber}1{oak}1|1
+Y|1|Bandage|1|N5|0
+Y|1|Bandage (recipe 2)|2|{linen}1N1|0
+Y|1|Moonshine|4|{mint}2{wormwood}2|2
+Y|1|Weak Chamomile decoction|2|{chamomile}2{sage}1|1
+Y|1|Soap|4|{thistle}2{dandelion}1{charcoal}1|6
+Y|1|Leached coal|1|{charcoal}2N1|0
+Y|1|Weak Saviour Schnapps|2|N1{belladonna}2|1
+Y|1|Weak Cockerel|2|{valerian}1{mint}2|6
+Y|2|Chamomile decoction|2|{chamomile}2{sage}1|1
+Y|2|Saviour Schnapps|2|N1{belladonna}2|1
+Y|2|Weak Hair o’ the Dog|2|{hops}1{wort}1{mint}1|4
+Y|2|Weak Embrocation|2|{eyebright}1{poppy}1{tusks}1|2
+Y|2|Cockerel|2|{valerian}1{mint}2|8
+Y|2|Weak Anti-inflammatory potion|3|N2{valerian}2{ginger}1|8
+Y|3|Rock Pitch|1|R3C2|0
+Y|3|Weak Mintha perfume|2|{dandelion}3{marigold}1{mint}1|4
+Y|3|Strong Chamomile decoction|3|{chamomile}2{sage}1|6
+Y|3|Weak Bowman’s brew|2|{eyebright}2{wort}1T1|2
+Y|3|Weak Nighthawk|2|{eyebright}2{belladonna}1{chamomile}1|1
+Y|3|Strong Saviour Schnapps|3|N1{belladonna}2|3
+Y|3|Hair o’ the Dog|2|{hops}1{wort}1{mint}1|6
+Y|3|Embrocation|2|{eyebright}1{poppy}1{tusks}1|2
+Y|3|Strong Cockerel|3|{valerian}1{mint}2|14
+Y|3|Anti-inflammatory potion|4|N2{valerian}2{ginger}1|14
+Y|4|Enamel powder|3|c1R1C1|0
+Y|4|Weak Digestive potion|2|N1{thistle}2{charcoal}1|2
+Y|4|Mintha perfume|2|{dandelion}3{marigold}1{mint}1|6
+Y|4|Weak Aesop|2|{belladonna}1{tusks}1{comfrey}2|2
+Y|4|Bowman’s brew|2|{eyebright}2{wort}1T1|2
+Y|4|Nighthawk|2|{eyebright}2{belladonna}1{chamomile}1|3
+Y|4|Henry’s Chamomile decoction|3|{chamomile}2{sage}1|10
+Y|4|Henry’s Saviour Schnapps|3|N1{belladonna}2|8
+Y|4|Strong Hair o’ the Dog|3|{hops}1{wort}1{mint}1|13
+Y|4|Strong Embrocation|3|{eyebright}1{poppy}1{tusks}1|8
+Y|4|Strong Anti-inflammatory potion|5|N2{valerian}2{ginger}1|22
+Y|4|Henry’s Cockerel|3|{valerian}1{mint}2|20
+Y|5|Acidum chloridum|1|N2{belladonna}1C1|0
+Y|5|Digestive potion|2|N1{thistle}2{charcoal}1|4
+Y|5|Weak Marigold decoction|2|N1{marigold}2|4
+Y|5|Scattershot (Alchemy)|7|D1E1{lcoal}1|1
+Y|5|Weak Painkiller brew|2|{poppy}3{comfrey}1{marigold}1|7
+Y|5|Strong Mintha Perfume|3|{dandelion}3{marigold}1{mint}1|12
+Y|5|Aesop|2|{belladonna}1{tusks}1{comfrey}2|2
+Y|5|Weak Lion perfume|2|{sage}2{mint}2|7
+Y|5|Strong Bowman’s brew|3|{eyebright}2{wort}1T1|4
+Y|5|Strong Nighthawk|3|{eyebright}2{belladonna}1{chamomile}1|11
+Y|5|Henry’s Anti-inflammatory potion|6|N2{valerian}2{ginger}1|28
+Y|5|Henry’s Hair o’ the Dog|3|{hops}1{wort}1{mint}1|18
+Y|5|Henry’s Embrocation|3|{eyebright}1{poppy}1{tusks}1|13
+Y|6|Strong Digestive potion|3|N1{thistle}2{charcoal}1|9
+Y|6|Weak Quickfinger potion|2|{eyebright}2{valerian}2{cobwebs}1|6
+Y|6|Marigold decoction|2|N1{marigold}2|7
+Y|6|Painkiller brew|2|{poppy}3{comfrey}1{marigold}1|9
+Y|6|Lead ball (Alchemy)|5|D1E1{charcoal}1|18
+Y|6|Strong Aesop|3|{belladonna}1{tusks}1{comfrey}2|6
+Y|6|Henry’s Mintha perfume|3|{dandelion}3{marigold}1{mint}1|18
+Y|6|Lion perfume|2|{sage}2{mint}2|10
+Y|6|Weak fragrant oil|2|{chamomile}3{sage}1{valerian}1|8
+Y|6|Henry’s Bowman’s brew|3|{eyebright}2{wort}1T1|10
+Y|6|Henry’s Nighthawk|3|{eyebright}2{belladonna}1{chamomile}1|16
+Y|7|Fever tonic|1|{feverfew}3{ginger}2{elder}1|1
+Y|7|Quickfinger potion|2|{eyebright}2{valerian}2{cobwebs}1|8
+Y|7|Henry’s Digestive potion|3|N1{thistle}2{charcoal}1|14
+Y|7|Strong Marigold Decoction|3|N1{marigold}2|15
+Y|7|Weak Mandrake decoction|1|{mandrake}1{sage}2P1|1
+Y|7|Strong Painkiller brew|3|{poppy}3{comfrey}1{marigold}1|18
+Y|7|Weak St. Roch’s potion|2|{wort}2{ginger}1{chamomile}2|6
+Y|7|Henry’s Aesop|3|{belladonna}1{tusks}1{comfrey}2|12
+Y|7|Strong Lion Perfume|3|{sage}2{mint}2|20
+Y|7|Fragrant oil|2|{chamomile}3{sage}1{valerian}1|10
+Y|8|Strong Quickfinger potion|3|{eyebright}2{valerian}2{cobwebs}1{amandrake}1|18
+Y|8|Henry’s Marigold Decoction|3|N1{marigold}2{amandrake}1|19
+Y|8|St. Roch’s potion|2|{wort}2{ginger}1{chamomile}2{amandrake}1|7
+Y|8|Mandrake decoction|1|{mandrake}1{sage}2P1|1
+Y|8|Henry’s Painkiller brew|3|{poppy}3{comfrey}1{marigold}1{amandrake}1|24
+Y|8|Strong Fragrant oil|3|{chamomile}3{sage}1{valerian}1{amandrake}1|22
+Y|8|Henry’s Lion perfume|3|{sage}2{mint}2{amandrake}1|28
+Y|9|Strong St. Roch’s potion|3|{wort}2{ginger}1{chamomile}2{amandrake}1{rcrystal}1|14
+Y|9|Henry’s Quickfinger potion|3|{eyebright}2{valerian}2{cobwebs}1{amandrake}1{rcrystal}1|24
+Y|9|Strong Mandrake Decoction|1|{mandrake}1{sage}2P1|1
+Y|9|Henry’s Fragrant oil|3|{chamomile}3{sage}1{valerian}1{amandrake}1{rcrystal}1|27
+Y|10|Henry’s St. Roch’s potion|3|{wort}2{ginger}1{chamomile}2{amandrake}1{rcrystal}1{rantlers}1|16
+Y|10|Henry’s Mandrake Decoction|1|{mandrake}1{sage}2P1|1`;
 
 const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const items=DATA.split("\n").flatMap(l=>{const [c,lv,ns,y,i,f]=l.split("|"),r={};i.replace(/([A-Za-z])(\d+)/g,(m,k,q)=>r[k]=+q);return ns.split(";").map(n=>({c:CR[c],l:+lv,n,y:+y,f:+f,r}))});
+const items=DATA.split("\n").flatMap(l=>{const [c,lv,ns,y,i,f]=l.split("|"),r={};i.replace(/\{(\w+)\}(\d+)|([A-Za-z])(\d+)/g,(m,w,a,k,b)=>r[w||k]=+(a||b));return ns.split(";").map(n=>({c:CR[c],l:+lv,n,y:+y,f:+f,r}))});
 let P={},custom=[],open=new Set();
 try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");custom=JSON.parse(localStorage.getItem("kcd-c")||"[]")}catch(e){}
 const OLD={ore:"O",coal:"C",cu:"K",ag:"A",au:"G",logs:"L",hides:"H",nettles:"N",resin:"R",owl:"W",wolf:"F",wwolf:"V",pearls:"P",pnug:"U",fsilver:"S",meteor:"M",scrap:"x",iron:"i",steel:"s",leather:"l",padding:"p",bowstring:"b",haft:"h",copper:"c",frank:"f",toledo:"t",fasten:"z"};
@@ -438,7 +576,7 @@ const f1=n=>(Math.round(n*10)/10).toLocaleString("en-GB");
 const all=()=>items.concat(custom);
 
 function field(id,label){return`<label class="f">${label}<input type="number" min="0" step="0.1" data-id="${id}" value="${ov(id)?P[id]:""}"></label>`}
-$("raw").innerHTML=Object.keys(RAW).map(k=>field(k,RAW[k])).join("");
+$("raw").innerHTML=Object.keys(RAW).filter(k=>!(k in RAW2)).map(k=>field(k,RAW[k])).join("");$("raw2").innerHTML=Object.keys(RAW2).map(k=>field(k,RAW2[k])).join("");
 $("int").innerHTML=Object.keys(INT).map(k=>field(k,INT[k][0])).join("");
 document.querySelectorAll("[data-id]").forEach(e=>e.oninput=()=>{P[e.dataset.id]=e.value;save();update()});
 function update(){document.querySelectorAll("#int input").forEach(e=>e.placeholder="≈ "+f1(derived(e.dataset.id)));rows()}
