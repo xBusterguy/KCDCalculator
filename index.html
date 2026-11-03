@@ -566,7 +566,7 @@ const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&
 let P={},custom=[],S={tab:"Smithing",lv:0,mk:25,q:"",hp:false},open=new Set(),C={};
 try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");custom=JSON.parse(localStorage.getItem("kcd-c")||"[]");const st=JSON.parse(localStorage.getItem("kcd-s")||"{}");if(st.mk!=null)S.mk=st.mk;if(st.tab)S.tab=st.tab}catch(e){}
 custom.forEach(c=>c.k=K++);
-const save=()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-c",JSON.stringify(custom));localStorage.setItem("kcd-s",JSON.stringify({mk:S.mk,tab:S.tab}))}catch(e){}};
+let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-c",JSON.stringify(custom));localStorage.setItem("kcd-s",JSON.stringify({mk:S.mk,tab:S.tab}))}catch(e){}},250)};
 const all=()=>items.concat(custom);
 const name=id=>RAW[id]||(INT[id]&&INT[id][0])||id;
 const ov=id=>P[id]!==undefined&&P[id]!=="";
@@ -591,7 +591,15 @@ function mats(){
   $("matbody").innerHTML=`<h3>Raw materials</h3><div class="grid">${rk.map(fld).join("")}</div>`+(ik.length?`<h3>Intermediate parts</h3><p class="s">Leave blank to work it out from raw prices, or enter a price if you buy the part.</p><div class="grid">${ik.map(fld).join("")}</div>`:"");
   $("matbody").querySelectorAll("input").forEach(e=>e.oninput=()=>{P[e.dataset.id]=e.value;save();upd()});ph()}
 const ph=()=>$("matbody").querySelectorAll("input").forEach(e=>{if(INT[e.dataset.id])e.placeholder="≈ "+f1(derived(e.dataset.id))});
-let t;const upd=()=>{clearTimeout(t);t=setTimeout(()=>{C={};ph();rows()},120)};
+let t,RW=[];const set=(el,v)=>{if(el.textContent!==v)el.textContent=v};
+// Update numbers in place instead of rebuilding the whole table
+function patch(){
+  if(open.size||S.hp){rows();return}
+  const m=+S.mk||0;
+  for(const o of RW){const it=o.it,cost=(sum(it.r)+it.f)/it.y,sell=Math.ceil(cost*(1+m/100)),ms=[...missing(it.r)],tip=ms.length?"Unpriced: "+ms.join(", "):"";
+    set(o.tc,f1(cost));set(o.sc,String(sell));set(o.pc,"+"+f1(sell-cost));set(o.w,ms.length?" ⚠":"");if(o.w.title!==tip)o.w.title=tip}
+  shop()}
+const upd=()=>{clearTimeout(t);t=setTimeout(()=>{C={};ph();patch()},150)};
 
 function rows(){
   const m=+S.mk||0,L=vis(),cols=S.q?8:7;let h="",last=-1;
@@ -599,19 +607,20 @@ function rows(){
   for(const it of L){
     if(!S.q&&it.l!==last){h+=`<tr class="lh"><td colspan="${cols}">${it.l?"Level "+it.l:"Custom"}</td></tr>`;last=it.l}
     const batch=sum(it.r)+it.f,cost=batch/it.y,sell=Math.ceil(cost*(1+m/100)),ms=[...missing(it.r)];
-    h+=`<tr class="r" data-k="${it.k}"><td>${esc(it.n)}${it.y>1?" (×"+it.y+")":""}${ms.length?` <span class="w" title="Unpriced: ${esc(ms.join(", "))}">⚠</span>`:""}</td>${S.q?`<td>${esc(it.c)}</td>`:""}<td>${it.l||""}</td><td class="n">${it.f?f1(it.f/it.y):"–"}</td><td class="n">${f1(cost)}</td><td class="n"><b>${sell}</b></td><td class="n p">+${f1(sell-cost)}</td><td><input class="qty" type="number" min="0" step="1" data-o="${esc(kk(it))}" value="${ORD[kk(it)]||""}"></td></tr>`;
+    h+=`<tr class="r" data-k="${it.k}"><td>${esc(it.n)}${it.y>1?" (×"+it.y+")":""}<span class="w mw"${ms.length?` title="Unpriced: ${esc(ms.join(", "))}"`:""}>${ms.length?" ⚠":""}</span></td>${S.q?`<td>${esc(it.c)}</td>`:""}<td>${it.l||""}</td><td class="n">${it.f?f1(it.f/it.y):"–"}</td><td class="n tc">${f1(cost)}</td><td class="n sc"><b>${sell}</b></td><td class="n p pc">+${f1(sell-cost)}</td><td><input class="qty" type="number" min="0" step="1" data-o="${esc(kk(it))}" value="${ORD[kk(it)]||""}"></td></tr>`;
     if(open.has(it.k)){
       const D=Object.entries(it.r).map(([k,q])=>`${q} × ${esc(name(k))} @ ${f1(unit(k))} = ${f1(q*unit(k))}`);
       if(it.f)D.push(`Bench fee: ${it.f}`);
       h+=`<tr class="bd"><td colspan="${cols}">${D.join("<br>")}<br><b>Batch total: ${f1(batch)}</b>${it.y>1?` ÷ ${it.y} pieces`:""}${ms.length?`<br><span class="w">Unpriced: ${esc(ms.join(", "))}</span>`:""}</td></tr>`}
   }
   $("rows").innerHTML=h||`<tr><td colspan="${cols}">No pieces match.</td></tr>`;
+  {const by={};L.forEach(i=>by[i.k]=i);RW=[...$("rows").querySelectorAll("tr.r")].map(tr=>({it:by[tr.dataset.k],tc:tr.querySelector(".tc"),sc:tr.querySelector(".sc b"),pc:tr.querySelector(".pc"),w:tr.querySelector(".mw")}))}
   $("note").textContent=L.length+" pieces. Click a row for the breakdown. Total cost = materials + bench fee (divided by yield for batches). Sell price is rounded up to a whole groschen; cosmetic variants with the same recipe are merged.";shop();
 }
 $("rows").onclick=e=>{if(e.target.closest("input"))return;const r=e.target.closest("tr.r");if(!r)return;const k=+r.dataset.k;open.has(k)?open.delete(k):open.add(k);rows()};
 const hh=()=>document.documentElement.style.setProperty("--hh",$("top").offsetHeight+"px");
 function render(){tabs();mats();rows();hh()}
-$("mk").value=S.mk;$("mk").oninput=e=>{S.mk=e.target.value;save();rows()};
+$("mk").value=S.mk;$("mk").oninput=e=>{S.mk=e.target.value;save();patch()};
 $("hp").onchange=e=>{S.hp=e.target.checked;rows()};
 let qt;$("q").oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{S.q=e.target.value.trim();render()},150)};
 $("reset").onclick=()=>{if(!confirm("Clear every price you have entered?"))return;P={};C={};save();mats();rows()};
