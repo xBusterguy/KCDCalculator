@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark"><meta name="description" content="Compare KCD Roleplay crops by value per harvest, value per hour and time window.">
+<title>Farming Efficiency – KCD Tools</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/site.js"></script>
+<style>main{padding-top:6px}
+input[type=number]{width:80px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.stat{border:1px solid var(--bd);border-radius:8px;padding:8px 10px}.stat small{display:block;color:var(--mut)}.stat b{font-size:1.1rem;color:var(--ac)}
+table{min-width:760px}th,td{white-space:nowrap}
+tr.best td{background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.meter{height:8px;border-radius:4px;background:var(--bar);min-width:2px}.mt{min-width:130px}
+td input[type=number]{width:64px;padding:3px 5px}.rk{color:var(--mut);width:1.5em}</style></head><body><nav class="site"><a class="brand" href="index.html">⚒️ KCD Tools</a><a href="crafting.html">Crafting</a><a href="farming.html" aria-current=page>Farming</a><button id="theme" type="button" title="Switch light / dark theme" aria-label="Switch light or dark theme">◐</button></nav>
+<main>
+<h1>Farming Efficiency</h1>
+<p class="s">Compare every crop by value and by time. Change your trade level and strip conditions and the ranking updates.</p>
+
+<div class="card"><div class="bar">
+<label class="f">Trade level<select id="lv"></select></label>
+<label class="f" style="flex-direction:row;align-items:center;gap:6px;padding-bottom:6px"><input id="ww" type="checkbox"> Weeded &amp; watered (×1.84)</label>
+<label class="f">Strips<input id="st" type="number" min="1" step="1"></label>
+<label class="f">Time window (hours)<input id="win" type="number" min="1" step="1"></label>
+<label class="f">Compare against<select id="ref"></select></label>
+<label class="f">Sort by<select id="sort"><option value="vph">Value per hour</option><option value="vh">Value per harvest</option><option value="wv">Value in window</option><option value="time">Fastest growing</option><option value="name">Name</option></select></label>
+<label class="f" style="flex-direction:row;align-items:center;gap:6px;padding-bottom:6px"><input id="rd" type="checkbox"> Round loads to whole numbers</label>
+<button id="reset">Reset worth</button></div>
+<p class="s" style="margin:10px 0 0" id="mult"></p></div>
+
+<div class="card"><div class="stats" id="stats"></div></div>
+
+<div class="card wrap"><table><thead><tr><th></th><th>Crop</th><th class="n">Grows</th><th class="n">Loads / strip</th><th class="n">Worth / load</th><th class="n">Value / harvest</th><th class="n">Value / hour</th><th class="mt">Efficiency</th><th class="n">vs <span id="rn">best</span></th><th class="n" id="wh">Harvests in window</th><th class="n">Window value</th></tr></thead><tbody id="rows"></tbody></table>
+<p class="s" style="margin:8px 0 0">Values are in groschen. Edit “Worth / load” to use your own selling price. Harvests in window counts whole harvests only, so a crop that takes longer than the window shows none.</p></div>
+</main>
+<footer class="site">Unofficial fan tool. Recipes and crops from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Prices and settings are saved in your browser only.</footer>
+<script>
+const CROPS=[["Cabbage",5,6,7],["Carrots",4,6,6],["Onions",6,7,7],["Barley",10,5,9],["Hay",8,6,6],["Hops",12,10,3],["Grapes",15,10,3],["Plums",18,8,3],["Sage",7,10,3],["Chamomile",7,10,3],["Hemp fibre",9,7,5],["Flax",8,6,6]];
+const $=i=>document.getElementById(i);
+let S={lv:10,ww:true,st:1,win:24,rd:true,sort:"vph",ref:"best"},W={};
+try{Object.assign(S,JSON.parse(localStorage.getItem("kcd-farm")||"{}"));W=JSON.parse(localStorage.getItem("kcd-farm-w")||"{}")}catch(e){}
+const save=()=>{try{localStorage.setItem("kcd-farm",JSON.stringify(S));localStorage.setItem("kcd-farm-w",JSON.stringify(W))}catch(e){}};
+const f1=n=>(Math.round(n*100)/100).toLocaleString("en-GB",{maximumFractionDigits:2});
+$("lv").innerHTML=[...Array(10)].map((_,i)=>`<option value="${i+1}">Level ${i+1} (+${i*5}%)</option>`).join("");
+$("ref").innerHTML='<option value="best">Best crop</option>'+CROPS.map(c=>`<option>${c[0]}</option>`).join("");
+$("lv").value=S.lv;$("ww").checked=S.ww;$("st").value=S.st;$("win").value=S.win;$("rd").checked=S.rd;$("sort").value=S.sort;$("ref").value=S.ref;
+function calc(){
+  const mult=(S.ww?1.84:1)*(1+0.05*(S.lv-1)),st=Math.max(1,S.st),win=Math.max(1,S.win);
+  return{mult,rows:CROPS.map(([n,h,b,w0])=>{
+    const worth=W[n]??w0;let loads=b*mult;if(S.rd)loads=Math.round(loads);
+    const vh=loads*worth*st,hv=Math.floor(win/h);
+    return{n,h,loads,worth,vh,vph:vh/h,hv,wv:hv*vh}})}
+}
+function render(){
+  const {mult,rows}=calc(),best=rows.reduce((a,b)=>b.vph>a.vph?b:a),
+    refR=S.ref=="best"?best:rows.find(r=>r.n==S.ref)||best,
+    byVh=rows.reduce((a,b)=>b.vh>a.vh?b:a),byWv=rows.reduce((a,b)=>b.wv>a.wv?b:a),fast=rows.reduce((a,b)=>b.h<a.h?b:a);
+  const key={vph:r=>-r.vph,vh:r=>-r.vh,wv:r=>-r.wv,time:r=>r.h,name:r=>r.n};
+  const sorted=[...rows].sort((a,b)=>S.sort=="name"?a.n.localeCompare(b.n):key[S.sort](a)-key[S.sort](b));
+  $("mult").textContent=`Yield multiplier ×${f1(mult)} on the base loads per strip (${S.ww?"weeded & watered ×1.84, ":""}trade bonus ×${f1(1+0.05*(S.lv-1))}).`;
+  $("rn").textContent=S.ref=="best"?"best":refR.n;$("wh").textContent=`Harvests in ${S.win} h`;
+  $("stats").innerHTML=[["Best value per hour",best.n,f1(best.vph)+" gr./h"],["Best value per harvest",byVh.n,f1(byVh.vh)+" gr."],[`Best in ${S.win} h`,byWv.n,byWv.wv?f1(byWv.wv)+" gr. ("+byWv.hv+"×)":"none fit"],["Fastest to grow",fast.n,fast.h+" h"]].map(([a,b,c])=>`<div class="stat"><small>${a}</small><b>${b}</b> · ${c}</div>`).join("");
+  $("rows").innerHTML=sorted.map((r,i)=>`<tr class="${r.n==best.n?"best":""}"><td class="rk">${i+1}</td><td><b>${r.n}</b></td><td class="n">${r.h} h</td><td class="n">${f1(r.loads)}</td><td class="n"><input type="number" min="0" step="0.5" data-n="${r.n}" value="${r.worth}"></td><td class="n">${f1(r.vh)}</td><td class="n"><b>${f1(r.vph)}</b></td><td class="mt"><div class="meter" style="width:${Math.max(1,r.vph/best.vph*100)}%"></div></td><td class="n">${Math.round(r.vph/refR.vph*100)}%</td><td class="n">${r.hv||"–"}</td><td class="n">${r.wv?f1(r.wv):"–"}</td></tr>`).join("");
+}
+const bind=(id,k,f=v=>v)=>$(id).onchange=e=>{S[k]=f(e.target.type=="checkbox"?e.target.checked:e.target.value);save();render()};
+bind("lv","lv",Number);bind("ww","ww");bind("st","st",v=>Math.max(1,Math.floor(+v)||1));bind("win","win",v=>Math.max(1,Math.floor(+v)||24));bind("rd","rd");bind("sort","sort");bind("ref","ref");
+$("rows").onchange=e=>{const i=e.target.closest("input");if(!i)return;const v=parseFloat(i.value);if(isNaN(v)||v<0)delete W[i.dataset.n];else W[i.dataset.n]=v;save();render()};
+$("reset").onclick=()=>{W={};save();render()};
+render();
+</script></body></html>
