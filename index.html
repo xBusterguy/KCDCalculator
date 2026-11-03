@@ -32,7 +32,7 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 tr.r{cursor:pointer}tr.r:hover{background:var(--bg)}
 tr.lh td{background:var(--bg);color:var(--ac);font-weight:bold;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
 .bd td{color:var(--mut);font-size:.85rem;padding:8px 14px}
-.w{color:var(--bad)}.p{color:var(--ok)}
+.qty{width:64px;padding:3px 5px}.w{color:var(--bad)}.p{color:var(--ok)}
 </style></head><body><main>
 <header class="top" id="top"><h1>Crafting Cost Calculator</h1>
 <div class="bar">
@@ -43,7 +43,8 @@ tr.lh td{background:var(--bg);color:var(--ac);font-weight:bold;font-size:.8rem;l
 <div id="tabs"></div><div class="chips" id="lvs"></div></header>
 <div class="layout">
 <aside class="card"><details id="matd" open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><div id="matbody"></div></details></aside>
-<section><div class="card wrap"><table><thead id="th"></thead><tbody id="rows"></tbody></table>
+<section><div class="card" id="ordc"><details id="ordd"><summary id="ords">Order &amp; shopping list</summary><div id="ordb" style="margin-top:8px"></div></details></div>
+<div class="card wrap"><table><thead id="th"></thead><tbody id="rows"></tbody></table>
 <p class="s" id="note" style="margin:8px 0 0"></p></div>
 <div class="card"><details><summary>Add a custom recipe</summary>
 <div class="bar" style="margin-top:8px">
@@ -593,27 +594,56 @@ const ph=()=>$("matbody").querySelectorAll("input").forEach(e=>{if(INT[e.dataset
 let t;const upd=()=>{clearTimeout(t);t=setTimeout(()=>{C={};ph();rows()},120)};
 
 function rows(){
-  const m=+S.mk||0,L=vis(),cols=S.q?7:6;let h="",last=-1;
-  $("th").innerHTML=`<tr><th>Piece</th>${S.q?"<th>Craft</th>":""}<th>Lv</th><th class="n">Bench fee</th><th class="n">Total cost</th><th class="n">Sell at</th><th class="n">Profit</th></tr>`;
+  const m=+S.mk||0,L=vis(),cols=S.q?8:7;let h="",last=-1;
+  $("th").innerHTML=`<tr><th>Piece</th>${S.q?"<th>Craft</th>":""}<th>Lv</th><th class="n">Bench fee</th><th class="n">Total cost</th><th class="n">Sell at</th><th class="n">Profit</th><th>Qty</th></tr>`;
   for(const it of L){
     if(!S.q&&it.l!==last){h+=`<tr class="lh"><td colspan="${cols}">${it.l?"Level "+it.l:"Custom"}</td></tr>`;last=it.l}
     const batch=sum(it.r)+it.f,cost=batch/it.y,sell=Math.ceil(cost*(1+m/100)),ms=[...missing(it.r)];
-    h+=`<tr class="r" data-k="${it.k}"><td>${esc(it.n)}${it.y>1?" (×"+it.y+")":""}${ms.length?` <span class="w" title="Unpriced: ${esc(ms.join(", "))}">⚠</span>`:""}</td>${S.q?`<td>${esc(it.c)}</td>`:""}<td>${it.l||""}</td><td class="n">${it.f?f1(it.f/it.y):"–"}</td><td class="n">${f1(cost)}</td><td class="n"><b>${sell}</b></td><td class="n p">+${f1(sell-cost)}</td></tr>`;
+    h+=`<tr class="r" data-k="${it.k}"><td>${esc(it.n)}${it.y>1?" (×"+it.y+")":""}${ms.length?` <span class="w" title="Unpriced: ${esc(ms.join(", "))}">⚠</span>`:""}</td>${S.q?`<td>${esc(it.c)}</td>`:""}<td>${it.l||""}</td><td class="n">${it.f?f1(it.f/it.y):"–"}</td><td class="n">${f1(cost)}</td><td class="n"><b>${sell}</b></td><td class="n p">+${f1(sell-cost)}</td><td><input class="qty" type="number" min="0" step="1" data-o="${esc(kk(it))}" value="${ORD[kk(it)]||""}"></td></tr>`;
     if(open.has(it.k)){
       const D=Object.entries(it.r).map(([k,q])=>`${q} × ${esc(name(k))} @ ${f1(unit(k))} = ${f1(q*unit(k))}`);
       if(it.f)D.push(`Bench fee: ${it.f}`);
-      h+=`<tr class="bd"><td colspan="${cols+1}">${D.join("<br>")}<br><b>Batch total: ${f1(batch)}</b>${it.y>1?` ÷ ${it.y} pieces`:""}${ms.length?`<br><span class="w">Unpriced: ${esc(ms.join(", "))}</span>`:""}</td></tr>`}
+      h+=`<tr class="bd"><td colspan="${cols}">${D.join("<br>")}<br><b>Batch total: ${f1(batch)}</b>${it.y>1?` ÷ ${it.y} pieces`:""}${ms.length?`<br><span class="w">Unpriced: ${esc(ms.join(", "))}</span>`:""}</td></tr>`}
   }
-  $("rows").innerHTML=h||`<tr><td colspan="${cols+1}">No pieces match.</td></tr>`;
-  $("note").textContent=L.length+" pieces. Click a row for the breakdown. Total cost = materials + bench fee (divided by yield for batches). Sell price is rounded up to a whole groschen; cosmetic variants with the same recipe are merged.";
+  $("rows").innerHTML=h||`<tr><td colspan="${cols}">No pieces match.</td></tr>`;
+  $("note").textContent=L.length+" pieces. Click a row for the breakdown. Total cost = materials + bench fee (divided by yield for batches). Sell price is rounded up to a whole groschen; cosmetic variants with the same recipe are merged.";shop();
 }
-$("rows").onclick=e=>{const r=e.target.closest("tr.r");if(!r)return;const k=+r.dataset.k;open.has(k)?open.delete(k):open.add(k);rows()};
+$("rows").onclick=e=>{if(e.target.closest("input"))return;const r=e.target.closest("tr.r");if(!r)return;const k=+r.dataset.k;open.has(k)?open.delete(k):open.add(k);rows()};
 const hh=()=>document.documentElement.style.setProperty("--hh",$("top").offsetHeight+"px");
 function render(){tabs();mats();rows();hh()}
 $("mk").value=S.mk;$("mk").oninput=e=>{S.mk=e.target.value;save();rows()};
 $("hp").onchange=e=>{S.hp=e.target.checked;rows()};
 let qt;$("q").oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{S.q=e.target.value.trim();render()},150)};
 $("reset").onclick=()=>{if(!confirm("Clear every price you have entered?"))return;P={};C={};save();mats();rows()};
+const ORD=(()=>{try{return JSON.parse(localStorage.getItem("kcd-o")||"{}")}catch(e){return{}}})();
+const saveO=()=>{try{localStorage.setItem("kcd-o",JSON.stringify(ORD))}catch(e){}};
+const kk=i=>i.c+"|"+i.n+"|"+i.l;let TXT="";
+$("rows").oninput=e=>{const i=e.target.closest(".qty");if(!i)return;const v=Math.max(0,Math.floor(+i.value||0));v?ORD[i.dataset.o]=v:delete ORD[i.dataset.o];saveO();if(v&&Object.keys(ORD).length==1)$("ordd").open=true;shop()};
+function shop(){
+  const m=+S.mk||0,L=all().filter(i=>ORD[kk(i)]>0),B=$("ordb");
+  if(!L.length){$("ords").textContent="Order & shopping list";TXT="";B.innerHTML='<p class="s">Type a quantity in the Qty column of any piece to build an order. You get the combined materials to buy and the total cost.</p>';return}
+  const dem={},crafted={};let fee=0,rev=0,pcs=0;const add=(id,q)=>dem[id]=(dem[id]||0)+q;
+  const prow=L.map(it=>{const q=ORD[kk(it)],n=Math.ceil(q/it.y),cost=(sum(it.r)+it.f)/it.y,sell=Math.ceil(cost*(1+m/100));fee+=n*it.f;rev+=q*sell;pcs+=q;for(const k in it.r)add(k,n*it.r[k]);
+    return`<tr><td>${esc(it.n)}</td><td class="n">${q}</td><td class="n">${n}</td><td class="n">${f1(cost)}</td><td class="n">${sell}</td><td><button data-rm="${esc(kk(it))}" title="Remove">×</button></td></tr>`}).join("");
+  const seq=[],seen=new Set(),visit=id=>{if(seen.has(id)||!INT[id])return;seen.add(id);for(const k in INT[id][2])visit(k);seq.push(id)};
+  Object.keys(INT).forEach(visit);seq.reverse();
+  for(const id of seq){if(!dem[id]||ov(id))continue;const [,y,r,f]=INT[id],n=Math.ceil(dem[id]/y-1e-9);fee+=n*f;crafted[id]=n;for(const k in r)add(k,n*r[k]);delete dem[id]}
+  const buy=Object.keys(dem).sort((a,b)=>name(a).localeCompare(name(b)));let mat=0;
+  const brow=buy.map(id=>{const q=dem[id],u=unit(id),c=q*u;mat+=c;return`<tr><td>${esc(name(id))}${u>0?"":' <span class="w">no price</span>'}</td><td class="n">${q}</td><td class="n">${f1(u)}</td><td class="n">${f1(c)}</td></tr>`}).join("");
+  const crow=Object.entries(crafted).map(([id,n])=>`${esc(INT[id][0])} ×${n*INT[id][1]} (${n} craft${n>1?"s":""})`).join(", "),tot=mat+fee;
+  TXT=buy.map(id=>`${dem[id]} × ${name(id)}`).join("\n")+`\nBench fees: ${f1(fee)} gr.\nTotal cost: ${f1(tot)} gr.`;
+  $("ords").textContent=`Order & shopping list — ${pcs} piece${pcs>1?"s":""}, ${f1(tot)} gr.`;
+  B.innerHTML=`<div class="wrap"><table style="min-width:420px"><thead><tr><th>Piece</th><th class="n">Qty</th><th class="n">Crafts</th><th class="n">Cost ea.</th><th class="n">Sell ea.</th><th></th></tr></thead><tbody>${prow}</tbody></table></div>
+<h3>Materials to buy</h3><div class="wrap"><table style="min-width:360px"><thead><tr><th>Material</th><th class="n">Qty</th><th class="n">Price</th><th class="n">Cost</th></tr></thead><tbody>${brow}</tbody></table></div>
+${crow?`<p class="s" style="margin-top:8px">Parts crafted along the way: ${crow}</p>`:""}
+<p style="margin:10px 0 4px"><b>Materials ${f1(mat)}</b> + <b>bench fees ${f1(fee)}</b> = <b>${f1(tot)} gr.</b><br>Selling at ${m}% markup: <b>${f1(rev)} gr.</b> · Profit: <b class="${rev>=tot?"p":"w"}">${f1(rev-tot)} gr.</b></p>
+<p class="s">Totals count whole crafts, so leftovers from batch recipes (such as 10 arrows) are paid for but only sold if you order them.</p>
+<p style="margin:0"><button id="ordcopy">Copy shopping list</button> <button id="ordclear">Clear order</button></p>`}
+$("ordb").onclick=e=>{const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.rm){delete ORD[b.dataset.rm];saveO();rows()}
+  else if(b.id=="ordclear"){if(confirm("Clear the whole order?")){for(const k in ORD)delete ORD[k];saveO();rows()}}
+  else if(b.id=="ordcopy"){const done=()=>b.textContent="Copied!",fb=()=>{const t=document.createElement("textarea");t.value=TXT;document.body.appendChild(t);t.select();try{document.execCommand("copy");done()}catch(x){alert(TXT)}t.remove()};
+    try{navigator.clipboard.writeText(TXT).then(done,fb)}catch(x){fb()}}};
 addEventListener("resize",hh);
 if(matchMedia("(max-width:899px)").matches)$("matd").open=false;
 
