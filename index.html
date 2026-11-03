@@ -48,10 +48,11 @@ if(t)document.documentElement.dataset.theme=t;
 addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme");if(!b)return;
 b.onclick=function(){var d=document.documentElement,c=d.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),n=c=="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem(k,n)}catch(e){}}})})();
 </script>
-</head><body><nav class="site"><a class="brand" href="index.html">⚒️ KCD Tools</a><a href="crafting.html">Crafting</a><a href="farming.html">Farming</a><button id="theme" type="button" title="Switch light / dark theme" aria-label="Switch light or dark theme">◐</button></nav>
-<main><div class="hero"><h1>KCD Tools</h1><p>Two calculators for Kingdom Come: Deliverance II roleplay. Enter your own prices, pick a craft or crop, and see what is worth your time.</p></div>
+</head><body><nav class="site"><a class="brand" href="index.html">⚒️ KCD Tools</a><a href="crafting.html">Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><button id="theme" type="button" title="Switch light / dark theme" aria-label="Switch light or dark theme">◐</button></nav>
+<main><div class="hero"><h1>KCD Tools</h1><p>Calculators for Kingdom Come: Deliverance II roleplay. Enter your own prices, pick a craft or crop, and see what is worth your time.</p></div>
 <div class="tiles">
 <a class="tile" href="crafting.html"><h2>Crafting cost calculator →</h2><p>Material prices, bench fees and markup for Smithing, Armouring, Tailoring, Bowyery, Jewelling, Alchemy, Brewing, Cooking and Carpentry. Build an order and get a shopping list.</p></a>
-<a class="tile" href="farming.html"><h2>Farming efficiency →</h2><p>Compare every crop by value per harvest, value per hour and value in a time window, for your trade level and strip conditions.</p></a></div>
+<a class="tile" href="farming.html"><h2>Farming efficiency →</h2><p>Compare every crop by value per harvest, value per hour and value in a time window, for your trade level and strip conditions.</p></a>
+<a class="tile" href="loadouts.html"><h2>Loadout builder →</h2><p>Set up armour and weapon loadouts at different levels and compare what each costs to craft and sell.</p></a></div>
 <div class="card" style="margin-top:14px"><h2>Good to know</h2><p class="s" style="margin:0">Everything you enter stays in your own browser, so nothing is shared between devices.</p></div></main>
 <footer class="site">Unofficial fan tool. Recipes and crops from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Prices and settings are saved in your browser only.</footer></body></html>
