@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark"><meta name="description" content="Build armour and weapon loadouts for KCD Roleplay and compare crafting cost and selling price.">
+<meta name="color-scheme" content="light dark"><meta name="description" content="Build armour and weapon loadouts for KCD Roleplay, see what they cost to craft, and share them as text or a picture.">
 <title>Loadout Builder – KCD Tools</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
 <style>
@@ -56,20 +56,17 @@ main{max-width:1280px;padding-top:6px}
 .sel{width:100%;max-width:230px;text-overflow:ellipsis}
 table{min-width:0}th,td{padding:4px 6px}td:first-child{white-space:nowrap;color:var(--mut);font-size:.85rem}
 tr.tot td{font-weight:bold;border-top:2px solid var(--bd);color:var(--tx)}
-.meter{height:8px;border-radius:4px;background:var(--bar);min-width:2px}
 .btns{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.btns button{font-size:.8rem;padding:3px 8px}
 .top{display:flex;gap:8px;align-items:center}
 </style></head><body>
 <nav class="site"><a class="brand" href="index.html">⚒️ KCD Tools</a><a href="crafting.html">Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html" aria-current=page>Loadouts</a><button id="theme" type="button" title="Switch light / dark theme" aria-label="Switch light or dark theme">◐</button></nav>
 <main>
 <h1>Loadout Builder</h1>
-<p class="s">Pick a full set of armour and a weapon for each loadout, set a crafting level, and compare what each costs to craft and sell. Material prices are shared with the crafting calculator.</p>
+<p class="s">Pick a full set of armour and a weapon for each loadout, set a crafting level, and see what it costs to craft. Copy it as text or save it as a picture to share. Material prices are shared with the crafting calculator.</p>
 <div class="card"><div class="bar" style="margin:0">
-<label class="f">Markup %<input id="mk" type="number" min="0" step="1" style="width:80px"></label>
 <label class="f">New loadout level<select id="nl"></select></label>
 <button id="add" class="pri" type="button">Add loadout</button>
 <button id="reset" type="button">Clear prices</button></div></div>
-<div class="card wrap" id="cmpc"><h2>Comparison</h2><div id="cmp"></div></div>
 <div class="los" id="los"></div>
 <div class="card" style="margin-top:14px"><details open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px">Materials used by your loadouts. Leave an intermediate part blank to work it out from the raw prices.</p><div id="mat"></div></details></div>
 </main>
@@ -475,14 +472,14 @@ DATA.split("\n").forEach(l=>{const [c,lv,ns,y,i,f]=l.split("|"),r={};i.replace(R
   for(const n of ns.split(";")){const nm=n.toLowerCase();for(const sl in RULES)for(const [cc,re,ex] of RULES[sl])if(cc==c&&re.test(nm)&&!(ex&&ex.test(nm))&&!(c=="B"&&+y>1)){const it={key:CR[c]+"|"+n+"|"+lv,c:CR[c],l:+lv,n,y:+y,f:+f,r,sl};byKey[it.key]=it;bySlot[sl].push(it)}}});
 for(const sl in bySlot)bySlot[sl].sort((a,b)=>a.l-b.l||a.n.localeCompare(b.n));
 let P={},S={mk:25},LO=[],C={},LR={};
-try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");const st=JSON.parse(localStorage.getItem("kcd-s")||"{}");if(st.mk!=null)S.mk=st.mk;LO=JSON.parse(localStorage.getItem("kcd-lo")||"[]")}catch(e){}
+try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");LO=JSON.parse(localStorage.getItem("kcd-lo")||"[]")}catch(e){}
 LO.forEach(lo=>{for(const s in lo.sel)if(!byKey[lo.sel[s]])lo.sel[s]=""});
-let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-lo",JSON.stringify(LO));const st=JSON.parse(localStorage.getItem("kcd-s")||"{}");st.mk=S.mk;localStorage.setItem("kcd-s",JSON.stringify(st))}catch(e){}},250)};
+let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-lo",JSON.stringify(LO))}catch(e){}},250)};
 const name=id=>RAW[id]||(INT[id]&&INT[id][0])||id,ov=id=>P[id]!==undefined&&P[id]!=="";
 const sum=r=>{let a=0;for(const k in r)a+=r[k]*unit(k);return a};
 const derived=id=>{const [,y,r,f]=INT[id];return(sum(r)+f)/y};
 const unit=id=>id in C?C[id]:(C[id]=ov(id)?(+P[id]||0):INT[id]?derived(id):0);
-const pc=it=>(sum(it.r)+it.f)/it.y,sellOf=c=>Math.ceil(c*(1+(+S.mk||0)/100));
+const pc=it=>(sum(it.r)+it.f)/it.y;
 function missing(r,s=new Set()){for(const k in r){if(ov(k))continue;if(INT[k])missing(INT[k][2],s);else if(!(+P[k]>0))s.add(name(k))}return s}
 const SEQ=(()=>{const q=[],seen=new Set(),v=id=>{if(seen.has(id)||!INT[id])return;seen.add(id);for(const k in INT[id][2])v(k);q.push(id)};Object.keys(INT).forEach(v);return q.reverse()})();
 function plan(sel){const dem={},cr={};let fee=0;const add=(id,q)=>dem[id]=(dem[id]||0)+q;
@@ -490,9 +487,9 @@ function plan(sel){const dem={},cr={};let fee=0;const add=(id,q)=>dem[id]=(dem[i
   for(const id of SEQ){if(!dem[id]||ov(id))continue;const [,y,r,f]=INT[id],n=Math.ceil(dem[id]/y-1e-9);fee+=n*f;cr[id]=n;for(const k in r)add(k,n*r[k]);delete dem[id]}
   let mat=0;const buy=Object.keys(dem).sort((a,b)=>name(a).localeCompare(name(b))).map(id=>{const q=dem[id],u=unit(id),c=q*u;mat+=c;return{id,q,u,c}});
   return{buy,cr,fee,mat}}
-function calc(lo){let cost=0,sell=0,n=0;const sel=[],ms=new Set();
-  for(const [sl] of SLOTS){const it=byKey[lo.sel[sl]];if(!it)continue;const c=pc(it);cost+=c;sell+=sellOf(c);n++;sel.push(it);missing(it.r,ms)}
-  return{cost,sell,n,ms,pl:plan(sel)}}
+function calc(lo){let cost=0,n=0;const sel=[],ms=new Set();
+  for(const [sl] of SLOTS){const it=byKey[lo.sel[sl]];if(!it)continue;const c=pc(it);cost+=c;n++;sel.push(it);missing(it.r,ms)}
+  return{cost,n,ms,pl:plan(sel)}}
 function fill(lo,mode){for(const [sl] of SLOTS){const c=bySlot[sl].filter(i=>i.l<=lo.lv);if(!c.length){lo.sel[sl]="";continue}
   const top=Math.max(...c.map(i=>i.l)),t=c.filter(i=>i.l==top).sort((a,b)=>(mode=="cheap"?1:-1)*(pc(a)-pc(b))||a.n.localeCompare(b.n));lo.sel[sl]=t[0].key}}
 const mkLo=(lv,mode="rich")=>{const lo={id:"l"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),name:"Level "+lv+" loadout",lv,sel:{}};fill(lo,mode);return lo};
@@ -503,10 +500,11 @@ const lvOpts=[...Array(10)].map((_,i)=>`<option value="${i+1}">Level ${i+1}</opt
 function render(){
   $("los").innerHTML=LO.map(lo=>`<div class="card" data-id="${lo.id}"><div class="top"><input class="nm" value="${esc(lo.name)}" aria-label="Loadout name"><select class="lv" aria-label="Crafting level">${lvOpts.replace(`value="${lo.lv}"`,`value="${lo.lv}" selected`)}</select></div>
 <div class="btns"><button type="button" data-a="rich">Fill: top tier (priciest)</button><button type="button" data-a="cheap">Fill: top tier (cheapest)</button><button type="button" data-a="clear">Clear</button><button type="button" data-a="dup">Duplicate</button><button type="button" data-a="del">Delete</button></div>
-<table><thead><tr><th>Slot</th><th>Piece</th><th class="n">Cost</th><th class="n">Sells</th></tr></thead><tbody>${SLOTS.map(([sl,lb])=>`<tr data-sl="${sl}"><td>${lb}</td><td><select class="sel">${opts(sl,lo.lv).replace(`value="${esc(lo.sel[sl]||"~")}"`,`value="${esc(lo.sel[sl])}" selected`)}</select></td><td class="n cc"></td><td class="n sc"></td></tr>`).join("")}
-<tr class="tot"><td colspan="2">Total <span class="w mw"></span></td><td class="n tc"></td><td class="n ts"></td></tr></tbody></table>
+<div class="btns"><span class="s" style="margin:0">Export:</span><button type="button" data-a="txt">Copy text</button><button type="button" data-a="txtm">Copy with materials</button><button type="button" data-a="png">Save picture</button><button type="button" data-a="cpng">Copy picture</button></div><textarea class="exp" rows="7" hidden readonly style="width:100%;margin:4px 0" aria-label="Exported text"></textarea>
+<table><thead><tr><th>Slot</th><th>Piece</th><th class="n">Cost</th></tr></thead><tbody>${SLOTS.map(([sl,lb])=>`<tr data-sl="${sl}"><td>${lb}</td><td><select class="sel">${opts(sl,lo.lv).replace(`value="${esc(lo.sel[sl]||"~")}"`,`value="${esc(lo.sel[sl])}" selected`)}</select></td><td class="n cc"></td></tr>`).join("")}
+<tr class="tot"><td colspan="2">Total <span class="w mw"></span></td><td class="n tc"></td></tr></tbody></table>
 <p class="s to" style="margin:8px 0 0"></p><details style="margin-top:6px"><summary>Shopping list</summary><div class="sh"></div></details></div>`).join("");
-  LR={};document.querySelectorAll("#los .card").forEach(el=>{LR[el.dataset.id]={el,rows:[...el.querySelectorAll("tr[data-sl]")].map(tr=>({sl:tr.dataset.sl,cc:tr.querySelector(".cc"),sc:tr.querySelector(".sc")})),tc:el.querySelector(".tc"),ts:el.querySelector(".ts"),mw:el.querySelector(".mw"),to:el.querySelector(".to"),sh:el.querySelector(".sh")}});
+  LR={};document.querySelectorAll("#los .card").forEach(el=>{LR[el.dataset.id]={el,rows:[...el.querySelectorAll("tr[data-sl]")].map(tr=>({sl:tr.dataset.sl,cc:tr.querySelector(".cc")})),tc:el.querySelector(".tc"),mw:el.querySelector(".mw"),to:el.querySelector(".to"),sh:el.querySelector(".sh")}});
   mats();patch()}
 function mats(){const u=new Set(),walk=r=>{for(const k in r)if(!u.has(k)){u.add(k);if(INT[k])walk(INT[k][2])}};
   LO.forEach(lo=>{for(const sl in lo.sel){const it=byKey[lo.sel[sl]];if(it)walk(it.r)}});
@@ -515,25 +513,53 @@ function mats(){const u=new Set(),walk=r=>{for(const k in r)if(!u.has(k)){u.add(
   $("mat").querySelectorAll("input").forEach(e=>e.oninput=()=>{P[e.dataset.id]=e.value;save();upd()});ph()}
 const ph=()=>$("mat").querySelectorAll("input").forEach(e=>{if(INT[e.dataset.id])e.placeholder="≈ "+f1(derived(e.dataset.id))});
 const set=(el,v)=>{if(el.textContent!==v)el.textContent=v};
-function patch(){const R=LO.map(lo=>({lo,c:calc(lo)})),mx=Math.max(1,...R.map(r=>r.c.cost),...R.map(r=>r.c.sell));
-  for(const {lo,c} of R){const L=LR[lo.id];if(!L)continue;
-    for(const r of L.rows){const it=byKey[lo.sel[r.sl]],cost=it?pc(it):0;set(r.cc,it?f1(cost):"–");set(r.sc,it?String(sellOf(cost)):"–")}
-    set(L.tc,f1(c.cost));set(L.ts,String(c.sell));set(L.mw,c.ms.size?"⚠":"");L.mw.title=c.ms.size?"Unpriced: "+[...c.ms].join(", "):"";
-    set(L.to,c.n?`Material outlay with whole crafts: ${f1(c.pl.mat)} + bench fees ${f1(c.pl.fee)} = ${f1(c.pl.mat+c.pl.fee)} gr. Profit at ${S.mk}% markup: ${f1(c.sell-c.cost)} gr.`:"Choose pieces to see totals.");
-    L.sh.innerHTML=c.n?`<div class="wrap"><table><thead><tr><th>Material</th><th class="n">Qty</th><th class="n">Price</th><th class="n">Cost</th></tr></thead><tbody>${c.pl.buy.map(b=>`<tr><td style="color:var(--tx)">${esc(name(b.id))}${b.u>0?"":' <span class="w">no price</span>'}</td><td class="n">${b.q}</td><td class="n">${f1(b.u)}</td><td class="n">${f1(b.c)}</td></tr>`).join("")}</tbody></table></div>${Object.keys(c.pl.cr).length?`<p class="s" style="margin:6px 0 0">Parts crafted along the way: ${Object.entries(c.pl.cr).map(([id,n])=>esc(INT[id][0])+" ×"+n*INT[id][1]).join(", ")}</p>`:""}`:""}
-  const f=R[0];$("cmp").innerHTML=`<table style="min-width:620px"><thead><tr><th>Loadout</th><th class="n">Lvl</th><th class="n">Pieces</th><th class="n">Crafting cost</th><th class="n">vs first</th><th class="n">Sell price</th><th class="n">Profit</th><th style="width:22%"></th></tr></thead><tbody>${R.map(({lo,c},i)=>`<tr><td style="color:var(--tx)"><b>${esc(lo.name)}</b>${c.ms.size?' <span class="w" title="Some materials have no price">⚠</span>':""}</td><td class="n">${lo.lv}</td><td class="n">${c.n}</td><td class="n"><b>${f1(c.cost)}</b></td><td class="n">${i?(c.cost>=f.c.cost?"+":"")+f1(c.cost-f.c.cost):"–"}</td><td class="n">${c.sell}</td><td class="n p">+${f1(c.sell-c.cost)}</td><td><div class="meter" style="width:${Math.max(1,c.cost/mx*100)}%"></div></td></tr>`).join("")}</tbody></table>`}
+function patch(){
+  for(const lo of LO){const L=LR[lo.id];if(!L)continue;const c=calc(lo);
+    for(const r of L.rows){const it=byKey[lo.sel[r.sl]];set(r.cc,it?f1(pc(it)):"–")}
+    set(L.tc,f1(c.cost));set(L.mw,c.ms.size?"⚠":"");L.mw.title=c.ms.size?"Unpriced: "+[...c.ms].join(", "):"";
+    set(L.to,c.n?`Material outlay with whole crafts: ${f1(c.pl.mat)} + bench fees ${f1(c.pl.fee)} = ${f1(c.pl.mat+c.pl.fee)} gr.`:"Choose pieces to see the cost.");
+    L.sh.innerHTML=c.n?`<div class="wrap"><table><thead><tr><th>Material</th><th class="n">Qty</th><th class="n">Price</th><th class="n">Cost</th></tr></thead><tbody>${c.pl.buy.map(b=>`<tr><td style="color:var(--tx)">${esc(name(b.id))}${b.u>0?"":' <span class="w">no price</span>'}</td><td class="n">${b.q}</td><td class="n">${f1(b.u)}</td><td class="n">${f1(b.c)}</td></tr>`).join("")}</tbody></table></div>${Object.keys(c.pl.cr).length?`<p class="s" style="margin:6px 0 0">Parts crafted along the way: ${Object.entries(c.pl.cr).map(([id,n])=>esc(INT[id][0])+" ×"+n*INT[id][1]).join(", ")}</p>`:""}`:""}}
 let t;const upd=()=>{clearTimeout(t);t=setTimeout(()=>{C={};ph();patch()},150)};
 $("los").onchange=e=>{const el=e.target,card=el.closest(".card"),lo=LO.find(x=>x.id==card.dataset.id);if(!lo)return;
   if(el.classList.contains("sel")){lo.sel[el.closest("tr").dataset.sl]=el.value;save();mats();patch()}
   else if(el.classList.contains("lv")){lo.lv=+el.value;for(const s in lo.sel){const it=byKey[lo.sel[s]];if(it&&it.l>lo.lv)lo.sel[s]=""}save();render()}};
 $("los").oninput=e=>{const el=e.target;if(!el.classList.contains("nm"))return;const lo=LO.find(x=>x.id==el.closest(".card").dataset.id);if(lo){lo.name=el.value;save();patch()}};
 $("los").onclick=e=>{const b=e.target.closest("button[data-a]");if(!b)return;const i=LO.findIndex(x=>x.id==b.closest(".card").dataset.id),lo=LO[i],a=b.dataset.a;
+  if(["txt","txtm","png","cpng"].includes(a)){exp(lo,a,b);return}
   if(a=="clear")lo.sel={};else if(a=="dup"){if(LO.length>=6)return;LO.splice(i+1,0,{...lo,id:mkLo(1).id,name:lo.name+" copy",sel:{...lo.sel}})}
   else if(a=="del"){if(!confirm("Delete “"+lo.name+"”?"))return;LO.splice(i,1)}else fill(lo,a);
   save();render()};
 $("add").onclick=()=>{if(LO.length>=6){alert("You can compare up to 6 loadouts. Delete one first.");return}LO.push(mkLo(+$("nl").value));save();render()};
-$("mk").value=S.mk;$("mk").oninput=e=>{S.mk=e.target.value;save();patch()};
 $("reset").onclick=()=>{if(!confirm("Clear every price you have entered?"))return;P={};C={};save();mats();patch()};
+const sel_=lo=>SLOTS.map(([sl,lb])=>[lb,byKey[lo.sel[sl]]]).filter(x=>x[1]);
+function txt(lo,m){const c=calc(lo),L=[lo.name+" (crafting level "+lo.lv+")"];
+  sel_(lo).forEach(([lb,it])=>L.push(lb+": "+it.n+" – "+f1(pc(it))+" gr."));
+  L.push("Total cost to make: "+f1(c.cost)+" gr.");
+  if(m){L.push("","Materials:");c.pl.buy.forEach(b=>L.push(b.q+" × "+name(b.id)));if(c.pl.fee)L.push("Bench fees: "+f1(c.pl.fee)+" gr.")}
+  if(c.ms.size)L.push("(Some material prices are missing, so the cost may be low.)");
+  return L.join("\n")}
+const say=(b,msg)=>{const o=b.textContent;b.textContent=msg;setTimeout(()=>b.textContent=o,1500)};
+function copyText(text,b){const show=()=>{const ta=b.closest(".card").querySelector(".exp");ta.hidden=false;ta.value=text;ta.focus();ta.select();say(b,"Select and copy below")};
+  try{navigator.clipboard.writeText(text).then(()=>say(b,"Copied!"),show)}catch(e){show()}}
+function draw(lo){
+  const c=calc(lo),cs=getComputedStyle(document.documentElement),v=n=>cs.getPropertyValue(n).trim()||"#000",rows=sel_(lo),mats=c.pl.buy,W=760,P=26,RH=30,mr=Math.ceil(mats.length/2);
+  const H=P+70+rows.length*RH+50+(mats.length?46+mr*24+(c.pl.fee?24:0):0)+(c.ms.size?24:0)+36,cv=document.createElement("canvas");cv.width=W*2;cv.height=H*2;
+  const x=cv.getContext("2d");x.scale(2,2);x.fillStyle=v("--card");x.fillRect(0,0,W,H);x.strokeStyle=v("--ac");x.lineWidth=3;x.strokeRect(1.5,1.5,W-3,H-3);
+  const F=(sz,w="")=>x.font=`${w} ${sz}px Georgia,"Times New Roman",serif`,fit=(t,mw)=>{while(t.length>3&&x.measureText(t).width>mw)t=t.slice(0,-2);return t},line=(y,w)=>{x.strokeStyle=v("--bd");x.lineWidth=w;x.beginPath();x.moveTo(P,y);x.lineTo(W-P,y);x.stroke()};
+  let y=P+26;x.textAlign="left";F(28,"bold");x.fillStyle=v("--ac");x.fillText(fit(lo.name,W-2*P),P,y);
+  y+=26;F(14);x.fillStyle=v("--mut");x.fillText("Crafting level "+lo.lv+" · cost to make",P,y);y+=10;
+  rows.forEach(([lb,it],i)=>{const ty=y+i*RH;line(ty,1);F(13);x.textAlign="left";x.fillStyle=v("--mut");x.fillText(lb,P,ty+20);F(15);x.fillStyle=v("--tx");x.fillText(fit(it.n,W-2*P-230),P+170,ty+20);x.textAlign="right";x.fillText(f1(pc(it))+" gr.",W-P,ty+20)});
+  y+=rows.length*RH;line(y,2);F(17,"bold");x.textAlign="left";x.fillStyle=v("--tx");x.fillText("Total cost to make",P,y+28);x.textAlign="right";x.fillStyle=v("--ac");x.fillText(f1(c.cost)+" gr.",W-P,y+28);y+=44;
+  if(mats.length){x.textAlign="left";F(14,"bold");x.fillStyle=v("--mut");x.fillText("MATERIALS NEEDED",P,y+14);y+=26;F(14);x.fillStyle=v("--tx");
+    mats.forEach((b,i)=>x.fillText(fit(b.q+" × "+name(b.id),W/2-P-10),i<mr?P:W/2+10,y+(i%mr)*24+14));y+=mr*24;if(c.pl.fee){x.fillStyle=v("--mut");x.fillText("Bench fees: "+f1(c.pl.fee)+" gr.",P,y+16);y+=24}}
+  x.textAlign="left";F(12);x.fillStyle=v("--mut");if(c.ms.size){x.fillText("Some material prices are missing, so the cost may be low.",P,y+12);y+=22}
+  x.fillText("KCD Tools",P,H-14);return cv}
+function dl(bl,fn,b){const a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download=fn;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);say(b,"Saved!")}
+function exp(lo,a,b){
+  if(!sel_(lo).length)return say(b,"Pick pieces first");
+  if(a=="txt"||a=="txtm")return copyText(txt(lo,a=="txtm"),b);
+  const fn=(lo.name.replace(/[^\w]+/g,"-").replace(/^-|-$/g,"")||"loadout")+".png";
+  draw(lo).toBlob(bl=>{if(a=="cpng"&&navigator.clipboard&&window.ClipboardItem)navigator.clipboard.write([new ClipboardItem({"image/png":bl})]).then(()=>say(b,"Copied!"),()=>dl(bl,fn,b));else dl(bl,fn,b)})}
 $("nl").innerHTML=lvOpts;$("nl").value=7;
 render();
 </script></body></html>
