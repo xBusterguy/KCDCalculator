@@ -1,11 +1,9 @@
 # KCD Tools
 
-Static website with two calculators for KCD Roleplay: a crafting cost calculator and a farming efficiency comparison.
-
-Each page is fully self-contained (styles, scripts and recipe data are inside the HTML file), so it displays correctly wherever it is opened.
+Static website with calculators for KCD Roleplay: a crafting cost calculator, a farming efficiency comparison and a loadout builder.
 
 - `index.html` home, `crafting.html`, `farming.html`, `loadouts.html`, `404.html`
-- Crafting recipes are in the `DATA` block near the top of the first script in `crafting.html`.
+- `assets/recipes.js` holds every crafting recipe. **Edit recipes here only.** Both the crafting page and the loadout page read it.
 
-Keep all the HTML files in the same folder so the navigation links work.
+Upload the whole folder, keeping the `assets` folder next to the HTML files, so the pages and the recipe data stay together.
 Deploy: repository Settings > Pages > Deploy from branch > `main` / root.
