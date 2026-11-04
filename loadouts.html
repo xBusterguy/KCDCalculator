@@ -53,8 +53,9 @@ main{max-width:1280px;padding-top:6px}
 .los{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr));gap:14px;align-items:start}
 .los .card{margin:0}
 .nm{font-weight:bold;font-size:1.05rem;color:var(--ac);min-width:0;flex:1}
-.sel{width:100%;max-width:230px;text-overflow:ellipsis}
+.sel{width:100%;max-width:260px;text-overflow:ellipsis}
 table{min-width:0}th,td{padding:4px 6px}td:first-child{white-space:nowrap;color:var(--mut);font-size:.85rem}
+tr.grp td{background:var(--bg);color:var(--ac);font-weight:bold;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;padding:3px 6px}
 tr.tot td{font-weight:bold;border-top:2px solid var(--bd);color:var(--tx)}
 .btns{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.btns button{font-size:.8rem;padding:3px 8px}
 .top{display:flex;gap:8px;align-items:center}
@@ -459,11 +460,14 @@ B|9|Elm longbow;Ash longbow|1|A1G1s24b36L32{tusks}4T2{yew}2|98
 B|10|Pistole;Hook gun;Master’s handgonne|1|A2G1s28b42L38{tusks}3T2{yew}2{rantlers}1|630
 B|10|Marksman’s hook gun;Pushko’s Push’em|1|A2G1s28b43L37{tusks}4T2{yew}2{rantlers}1|688`;
 const RX=/\{(\w+)\}(\d+)|([A-Za-z])(\d+)/g;
-const SLOTS=[["helmet","Helmet"],["coif","Coif / collar"],["body","Body armour"],["torso","Gambeson"],["arms","Arm armour"],["hands","Gauntlets / gloves"],["legs","Leg armour"],["hose","Hose"],["boots","Boots / shoes"],["weapon","Weapon"],["shield","Shield"]];
-const RULES={helmet:[["A",/bascinet|kettle hat|skullcap|scullcap|helmet/]],coif:[["A",/coif|collar|mail hood/],["T",/coif|collar/]],
-body:[["A",/cuirass|brigandine|hauberk|chainmail|rusted plate/,/sleeves|gauntlets|legs|chausses|coif/],["T",/kastenbrust/]],torso:[["T",/gambeson|aketon|pourpoint|waffenrock/]],
-arms:[["A",/sleeves|plate arms|couters/]],hands:[["A",/gauntlets/],["T",/gloves|mitts|hand wrap/]],legs:[["A",/legs|chausses|leg armour/],["T",/poleyn/]],
-hose:[["T",/hose|chausses|trousers/]],boots:[["T",/boots|shoes/]],
+const SLOTS=[["head_cap","Head – Cap or helmet"],["head_coif","Head – Coif or padded coif"],["head_hood","Head – Hood"],["head_collar","Head – Collar"],["body_plate","Body – Plate"],["body_tunic","Body – Tunic or gambeson"],["body_mail","Body – Chainmail"],["hands_gloves","Hands – Gloves or gauntlets"],["hands_sleeves","Hands – Sleeves"],["legs_hose","Legs – Hose or padded hose"],["legs_cuisses","Legs – Cuisses"],["legs_shoes","Legs – Shoes"],["weapon","Weapon – Main weapon"],["shield","Weapon – Shield"]];
+const RULES={head_cap:[["A",/bascinet|kettle hat|skullcap|scullcap|helmet/],["T",/\bcap\b|hat\b|bonnet|headband|headscarf|veil|wreath/]],
+head_coif:[["A",/coif/],["T",/coif/]],head_hood:[["A",/mail hood/],["T",/hood|chaperon/]],head_collar:[["A",/collar/],["T",/collar|\bscarf\b/]],
+body_plate:[["A",/cuirass|brigandine|rusted plate/,/sleeves|gauntlets|legs|chausses/],["T",/kastenbrust/]],
+body_tunic:[["T",/tunic|gambeson|aketon|pourpoint|waffenrock|coat\b|caftan|robe|cotehardie|surcoat|dress|shirt|habit|apron/]],
+body_mail:[["A",/hauberk|chainmail/,/gauntlets|coif/]],
+hands_gloves:[["A",/gauntlets/],["T",/gloves|mitts|hand wrap/]],hands_sleeves:[["A",/sleeves|plate arms|couters/],["T",/sleeves/]],
+legs_hose:[["T",/hose|chausses|trousers|leggings/]],legs_cuisses:[["A",/legs|chausses|leg armour/],["T",/poleyn/]],legs_shoes:[["T",/boots|shoes/]],
 weapon:[["S",/./,/horseshoe|shield|pavese|pitchfork|torch/],["B",/bow|crossbow|pistole|hook gun|handgonne|push/,/arrow|bolt|shot|ball/]],shield:[["S",/shield|pavese/]]};
 const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const f1=n=>(Math.round(n*10)/10).toLocaleString("en-GB");
@@ -473,7 +477,7 @@ DATA.split("\n").forEach(l=>{const [c,lv,ns,y,i,f]=l.split("|"),r={};i.replace(R
 for(const sl in bySlot)bySlot[sl].sort((a,b)=>a.l-b.l||a.n.localeCompare(b.n));
 let P={},S={mk:25},LO=[],C={},LR={};
 try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");LO=JSON.parse(localStorage.getItem("kcd-lo")||"[]")}catch(e){}
-LO.forEach(lo=>{for(const s in lo.sel)if(!byKey[lo.sel[s]])lo.sel[s]=""});
+LO.forEach(lo=>{const o=lo.sel||{};lo.sel={};for(const k in o){const it=byKey[o[k]];if(it)lo.sel[it.sl]=o[k]}});
 let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-lo",JSON.stringify(LO))}catch(e){}},250)};
 const name=id=>RAW[id]||(INT[id]&&INT[id][0])||id,ov=id=>P[id]!==undefined&&P[id]!=="";
 const sum=r=>{let a=0;for(const k in r)a+=r[k]*unit(k);return a};
@@ -501,7 +505,7 @@ function render(){
   $("los").innerHTML=LO.map(lo=>`<div class="card" data-id="${lo.id}"><div class="top"><input class="nm" value="${esc(lo.name)}" aria-label="Loadout name"><select class="lv" aria-label="Crafting level">${lvOpts.replace(`value="${lo.lv}"`,`value="${lo.lv}" selected`)}</select></div>
 <div class="btns"><button type="button" data-a="rich">Fill: top tier (priciest)</button><button type="button" data-a="cheap">Fill: top tier (cheapest)</button><button type="button" data-a="clear">Clear</button><button type="button" data-a="dup">Duplicate</button><button type="button" data-a="del">Delete</button></div>
 <div class="btns"><span class="s" style="margin:0">Export:</span><button type="button" data-a="txt">Copy text</button><button type="button" data-a="txtm">Copy with materials</button><button type="button" data-a="png">Save picture</button><button type="button" data-a="cpng">Copy picture</button></div><textarea class="exp" rows="7" hidden readonly style="width:100%;margin:4px 0" aria-label="Exported text"></textarea>
-<table><thead><tr><th>Slot</th><th>Piece</th><th class="n">Cost</th></tr></thead><tbody>${SLOTS.map(([sl,lb])=>`<tr data-sl="${sl}"><td>${lb}</td><td><select class="sel">${opts(sl,lo.lv).replace(`value="${esc(lo.sel[sl]||"~")}"`,`value="${esc(lo.sel[sl])}" selected`)}</select></td><td class="n cc"></td></tr>`).join("")}
+<table><thead><tr><th>Slot</th><th>Piece</th><th class="n">Cost</th></tr></thead><tbody>${SLOTS.map(([sl,lb],i)=>{const [g,nm]=lb.split(" – "),gh=i==0||SLOTS[i-1][1].split(" – ")[0]!=g?`<tr class="grp"><td colspan="3">${g}</td></tr>`:"";return gh+`<tr data-sl="${sl}"><td>${nm}</td><td><select class="sel">${opts(sl,lo.lv).replace(`value="${esc(lo.sel[sl]||"~")}"`,`value="${esc(lo.sel[sl])}" selected`)}</select></td><td class="n cc"></td></tr>`}).join("")}
 <tr class="tot"><td colspan="2">Total <span class="w mw"></span></td><td class="n tc"></td></tr></tbody></table>
 <p class="s to" style="margin:8px 0 0"></p><details style="margin-top:6px"><summary>Shopping list</summary><div class="sh"></div></details></div>`).join("");
   LR={};document.querySelectorAll("#los .card").forEach(el=>{LR[el.dataset.id]={el,rows:[...el.querySelectorAll("tr[data-sl]")].map(tr=>({sl:tr.dataset.sl,cc:tr.querySelector(".cc")})),tc:el.querySelector(".tc"),mw:el.querySelector(".mw"),to:el.querySelector(".to"),sh:el.querySelector(".sh")}});
@@ -548,7 +552,7 @@ function draw(lo){
   const F=(sz,w="")=>x.font=`${w} ${sz}px Georgia,"Times New Roman",serif`,fit=(t,mw)=>{while(t.length>3&&x.measureText(t).width>mw)t=t.slice(0,-2);return t},line=(y,w)=>{x.strokeStyle=v("--bd");x.lineWidth=w;x.beginPath();x.moveTo(P,y);x.lineTo(W-P,y);x.stroke()};
   let y=P+26;x.textAlign="left";F(28,"bold");x.fillStyle=v("--ac");x.fillText(fit(lo.name,W-2*P),P,y);
   y+=26;F(14);x.fillStyle=v("--mut");x.fillText("Crafting level "+lo.lv+" · cost to make",P,y);y+=10;
-  rows.forEach(([lb,it],i)=>{const ty=y+i*RH;line(ty,1);F(13);x.textAlign="left";x.fillStyle=v("--mut");x.fillText(lb,P,ty+20);F(15);x.fillStyle=v("--tx");x.fillText(fit(it.n,W-2*P-230),P+170,ty+20);x.textAlign="right";x.fillText(f1(pc(it))+" gr.",W-P,ty+20)});
+  rows.forEach(([lb,it],i)=>{const ty=y+i*RH;line(ty,1);F(13);x.textAlign="left";x.fillStyle=v("--mut");x.fillText(fit(lb,215),P,ty+20);F(15);x.fillStyle=v("--tx");x.fillText(fit(it.n,W-2*P-290),P+225,ty+20);x.textAlign="right";x.fillText(f1(pc(it))+" gr.",W-P,ty+20)});
   y+=rows.length*RH;line(y,2);F(17,"bold");x.textAlign="left";x.fillStyle=v("--tx");x.fillText("Total cost to make",P,y+28);x.textAlign="right";x.fillStyle=v("--ac");x.fillText(f1(c.cost)+" gr.",W-P,y+28);y+=44;
   if(mats.length){x.textAlign="left";F(14,"bold");x.fillStyle=v("--mut");x.fillText("MATERIALS NEEDED",P,y+14);y+=26;F(14);x.fillStyle=v("--tx");
     mats.forEach((b,i)=>x.fillText(fit(b.q+" × "+name(b.id),W/2-P-10),i<mr?P:W/2+10,y+(i%mr)*24+14));y+=mr*24;if(c.pl.fee){x.fillStyle=v("--mut");x.fillText("Bench fees: "+f1(c.pl.fee)+" gr.",P,y+16);y+=24}}
