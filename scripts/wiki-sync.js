@@ -18,13 +18,16 @@ const RECIPES = path.resolve(opt("--recipes") || path.join(__dirname, "..", "ass
 
 // ---------- read the page as plain text ----------
 const ENT = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", times: "×", rsquo: "’", lsquo: "‘", ndash: "–", mdash: "—", hellip: "…" };
+// Repeat a replacement until nothing changes, so removed pieces cannot join up into new tags
+const again = (h, rx, to) => { let p; do { p = h; h = h.replace(rx, to); } while (h !== p); return h; };
 function htmlToText(h) {
-  h = h.replace(/<(script|style|noscript)[\s\S]*?<\/\1>/gi, "")
-    .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(/<\/t[dh]\s*>/gi, "\t")
-    .replace(/<br\s*\/?>|<\/(tr|p|div|h[1-6]|li|summary|section|article|details|table|thead|tbody)\s*>/gi, "\n")
-    .replace(/<[^>]+>/g, "")
-    .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e) => e[0] === "#" ? String.fromCodePoint(e[1].toLowerCase() === "x" ? parseInt(e.slice(2), 16) : +e.slice(1)) : (ENT[e.toLowerCase()] ?? m));
+  h = again(h, /<(script|style|noscript)[\s\S]*?<\/\1>/gi, "");
+  h = again(h, /<!--[\s\S]*?-->/g, "");
+  h = h.replace(/<\/t[dh]\s*>/gi, "\t")
+    .replace(/<br\s*\/?>|<\/(tr|p|div|h[1-6]|li|summary|section|article|details|table|thead|tbody)\s*>/gi, "\n");
+  h = again(h, /<[^>]*>/g, "");
+  // decode entities last and in one pass, so "&lt;" is never turned into a tag and stripped again
+  h = h.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e) => e[0] === "#" ? String.fromCodePoint(e[1].toLowerCase() === "x" ? parseInt(e.slice(2), 16) : +e.slice(1)) : (ENT[e.toLowerCase()] ?? m));
   return h;
 }
 async function readPage() {
