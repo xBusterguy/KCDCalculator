@@ -1,0 +1,91 @@
+name: Check wiki for recipe changes
+
+# Every Monday (and whenever you press "Run workflow") this reads the recipes page on
+# wiki.kcdroleplay.com, compares it with assets/recipes.js and opens a pull request with
+# the differences. Review the pull request and press Merge to publish the update.
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Open a pull request with the changes (untick to only report)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency: wiki-sync
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      APPLY: ${{ github.event_name == 'schedule' || inputs.apply }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Read the wiki and compare
+        id: sync
+        run: |
+          flags=""
+          [ "$APPLY" = "true" ] && flags="--apply"
+          set +e
+          node scripts/wiki-sync.js $flags --report wiki-report.md
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Check the updated recipes are valid
+        id: valid
+        if: steps.sync.outputs.code == '10'
+        run: |
+          set +e
+          node scripts/check-recipes.js
+          ok=$?
+          if [ $ok -ne 0 ]; then
+            git checkout -- assets/recipes.js
+            echo "The automatic update failed the recipe check, so it was not applied. Please review by hand." >> wiki-report.md
+          fi
+          echo "ok=$ok" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Open or update the pull request
+        id: pr
+        if: steps.sync.outputs.code == '10' && steps.valid.outputs.ok == '0'
+        run: |
+          if git diff --quiet -- assets/recipes.js; then
+            echo "opened=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b wiki-sync
+          git add assets/recipes.js
+          git commit -m "Update recipes from the wiki"
+          git push --force origin wiki-sync
+          gh pr create --base "${{ github.event.repository.default_branch }}" --head wiki-sync \
+            --title "Update recipes from the wiki" --body-file wiki-report.md \
+            || gh pr edit wiki-sync --body-file wiki-report.md
+          echo "opened=true" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update an issue when a person needs to look
+        if: steps.sync.outputs.code == '2' || (steps.sync.outputs.code == '10' && steps.pr.outputs.opened != 'true')
+        run: |
+          if [ "${{ steps.sync.outputs.code }}" = "2" ]; then
+            title="Could not read the wiki recipes page"
+          else
+            title="Wiki recipes differ from the site"
+          fi
+          n=$(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[0].number')
+          if [ -n "$n" ]; then
+            gh issue comment "$n" --body-file wiki-report.md
+          else
+            gh issue create --title "$title" --body-file wiki-report.md
+          fi

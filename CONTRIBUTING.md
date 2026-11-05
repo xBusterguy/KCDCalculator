@@ -195,3 +195,7 @@ Then use its id in recipes as described above.
 ## Other changes
 
 The pages are plain HTML, CSS and JavaScript with no build step. Open `index.html` in a browser to try a change. Keep the `assets` folder next to the pages.
+
+## Automatic wiki check
+
+`scripts/wiki-sync.js` compares `assets/recipes.js` with the wiki and (with `--apply`) edits only the lines that changed. The weekly workflow `.github/workflows/wiki-sync.yml` runs it and opens a pull request. You can still edit `assets/recipes.js` by hand at any time; the check will simply report anything that no longer matches the wiki.
