@@ -61,11 +61,13 @@ tr.grp td{background:var(--bg);color:var(--ac);font-weight:bold;font-size:.75rem
 tr.tot td{font-weight:bold;border-top:2px solid var(--bd);color:var(--tx)}
 .btns{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.btns button{font-size:.8rem;padding:3px 8px}
 .top{display:flex;gap:8px;align-items:center}
+.st{font-size:.72rem;color:var(--mut);margin-top:2px;line-height:1.3}.st b{color:var(--tx);font-weight:normal}
+.ts{margin:8px 0 0;padding:8px;border:1px solid var(--bd);border-radius:8px;font-size:.8rem}.ts:empty{display:none}.ts div{margin:2px 0}.ts b{color:var(--ac)}
 </style></head><body>
 <nav class="site"><a class="brand" href="index.html">⚒️ KCD Tools</a><a href="crafting.html">Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html" aria-current=page>Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><button id="theme" type="button" title="Switch light / dark theme" aria-label="Switch light or dark theme">◐</button></nav>
 <main>
 <h1>Loadout Builder</h1>
-<p class="s">Pick a full set of armour and a weapon for each loadout, set a crafting level, and see what it costs to craft. Copy it as text or save it as a picture to share. The fill buttons prefer armour pieces and use clothing only where a slot has no armour. Material prices are shared with the crafting calculator.</p>
+<p class="s">Pick a full set of armour and a weapon for each loadout, set a crafting level, and see what it costs to craft. Copy it as text or save it as a picture to share. The fill buttons prefer armour pieces and use clothing only where a slot has no armour. Stats from <a href="https://inara.cz/kingdom-come-deliverance-2/" target="_blank" rel="noopener noreferrer">Inara</a> are shown under each piece and in the drop-downs (stab/slash/blunt) so you can compare gear. They are for best-quality items, and pieces with several variants show the shared base stats. Material prices are shared with the crafting calculator.</p>
 <div class="card"><div class="bar" style="margin:0">
 <label class="f">New loadout level<select id="nl"></select></label>
 <button id="add" class="pri" type="button">Add loadout</button>
@@ -76,6 +78,7 @@ tr.tot td{font-weight:bold;border-top:2px solid var(--bd);color:var(--tx)}
 </main>
 <footer class="site">Unofficial fan tool. Recipes from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Recipe data updated <span id="ru"></span>. Prices and settings are saved in your browser only.<div class="sig">Made by <b>Busterguy</b> · Found a bug or have an issue? Contact me on <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord.</div><div class="sig">Open source: <a href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer">view the repo</a> or <a href="https://github.com/xBusterguy/KCDCalculator/issues/new/choose" target="_blank" rel="noopener noreferrer">report an issue</a> on GitHub.</div></footer>
 <script src="assets/recipes.js"></script>
+<script src="assets/stats.js"></script>
 <script>
 if(typeof DATA==="undefined"){document.body.insertAdjacentHTML("afterbegin",'<p style="margin:16px;padding:12px;border:1px solid #b03a2e;border-radius:8px">Recipe data (assets/recipes.js) failed to load. Upload the whole website folder, including the assets folder, next to this page.</p>');throw new Error("recipes.js missing")}
 {const e=document.getElementById("ru");if(e)e.textContent=RECIPES_UPDATED}
@@ -118,17 +121,34 @@ function fill(lo,mode){for(const [sl] of SLOTS){let c=bySlot[sl].filter(i=>i.l<=
   const top=Math.max(...c.map(i=>i.l)),t=c.filter(i=>i.l==top).sort((a,b)=>(mode=="cheap"?1:-1)*(pc(a)-pc(b))||a.n.localeCompare(b.n));lo.sel[sl]=t[0].key}}
 const mkLo=(lv,mode="rich")=>{const lo={id:"l"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),name:"Level "+lv+" loadout",lv,sel:{}};fill(lo,mode);return lo};
 if(!LO.length)LO=[4,7,10].map(l=>mkLo(l));
-const OPT={},opts=(sl,lv)=>OPT[sl+lv]||(OPT[sl+lv]=(()=>{let h='<option value="">— none —</option>',g=-1;for(const it of bySlot[sl]){if(it.l>lv)break;if(it.l!=g){if(g>=0)h+="</optgroup>";h+=`<optgroup label="Level ${it.l}">`;g=it.l}h+=`<option value="${esc(it.key)}">${esc(it.n)}</option>`}return h+(g>=0?"</optgroup>":"")})());
+const NS=x=>x.replace(/[’‘]/g,"'").replace(/[“”]/g,'"').toLowerCase().trim(),SC={};
+function statOf(it){if(it.n in SC)return SC[it.n];let r=null;if(typeof STATS!=="undefined"){const x=NS(it.n),y=x.replace(/\s*\([^)]*\)/g,"").trim();
+  for(const c of [STATS_ALIAS[x],x,y,y.replace(/\s*-\s*[^-]*$/,"")])if(c&&STATS[c]){r=STATS[c];break}}return SC[it.n]=r}
+const AN=["Stab","Slash","Blunt","Dur.","Char","Cons.","Noise","Vis."];
+function sline(it){const s=statOf(it);if(!s)return"";const [k,,...v]=s;
+  if(k=="a")return`Defence <b>${v[0]}/${v[1]}/${v[2]}</b> (stab/slash/blunt) · Char <b>${v[4]}</b> · Noise <b>${v[6]}</b> · Vis <b>${v[7]}</b> · Cons <b>${v[5]}</b> · Dur <b>${v[3]}</b>`;
+  if(k=="w")return`Attack <b>${v[0]}/${v[1]}/${v[2]}</b> (stab/slash/blunt) · Defence <b>${v[3]}</b> · Dur <b>${v[4]}</b> · STR/AGI <b>${v[5]}/${v[6]}</b>`;
+  if(k=="r")return`Power <b>${v[0]}</b> · Dur <b>${v[1]}</b> · STR/AGI <b>${v[2]}/${v[3]}</b>`;
+  return`Defence <b>${v[0]}</b> · Dur <b>${v[1]}</b>`}
+function slabel(it){const s=statOf(it);if(!s)return"";const [k,,...v]=s;return k=="a"?` · ${v[0]}/${v[1]}/${v[2]}`:k=="w"?` · ${v[0]}/${v[1]}/${v[2]}`:k=="r"?` · Pow ${v[0]}`:` · Def ${v[0]}`}
+function totals(lo){const a=[0,0,0,0,0,0],w=[];let na=0;
+  for(const [sl] of SLOTS){const it=byKey[lo.sel[sl]];if(!it)continue;const s=statOf(it);if(!s)continue;const [k,,...v]=s;
+    if(k=="a"){na++;a[0]+=v[0];a[1]+=v[1];a[2]+=v[2];a[3]+=v[4];a[4]+=v[6];a[5]+=v[7]}else w.push([sl,it,k,v])}
+  const o=[];
+  if(na)o.push(`Armour totals (sum of ${na} piece${na>1?"s":""}): stab <b>${a[0]}</b> · slash <b>${a[1]}</b> · blunt <b>${a[2]}</b> · charisma <b>${a[3]}</b> · noise <b>${a[4]}</b> · visibility <b>${a[5]}</b>`);
+  for(const [sl,it,k,v] of w)o.push(sl=="shield"?`Shield: defence <b>${v[0]}</b>`:k=="r"?`Weapon: power <b>${v[0]}</b>`:`Weapon: attack <b>${v[0]}/${v[1]}/${v[2]}</b> · defence <b>${v[3]}</b>`);
+  return o}
+const OPT={},opts=(sl,lv)=>OPT[sl+lv]||(OPT[sl+lv]=(()=>{let h='<option value="">— none —</option>',g=-1;for(const it of bySlot[sl]){if(it.l>lv)break;if(it.l!=g){if(g>=0)h+="</optgroup>";h+=`<optgroup label="Level ${it.l}">`;g=it.l}h+=`<option value="${esc(it.key)}">${esc(it.n+slabel(it))}</option>`}return h+(g>=0?"</optgroup>":"")})());
 const lvOpts=[...Array(10)].map((_,i)=>`<option value="${i+1}">Level ${i+1}</option>`).join("");
 
 function render(){
   $("los").innerHTML=LO.map(lo=>`<div class="card" data-id="${lo.id}"><div class="top"><input class="nm" value="${esc(lo.name)}" aria-label="Loadout name"><select class="lv" aria-label="Crafting level">${lvOpts.replace(`value="${lo.lv}"`,`value="${lo.lv}" selected`)}</select></div>
 <div class="btns"><button type="button" data-a="rich">Fill: top tier (priciest)</button><button type="button" data-a="cheap">Fill: top tier (cheapest)</button><button type="button" data-a="clear">Clear</button><button type="button" data-a="dup">Duplicate</button><button type="button" data-a="del">Delete</button></div>
 <div class="btns"><span class="s" style="margin:0">Export:</span><button type="button" data-a="txt">Copy text</button><button type="button" data-a="txtm">Copy with materials</button><button type="button" data-a="png">Save picture</button><button type="button" data-a="cpng">Copy picture</button></div><textarea class="exp" rows="7" hidden readonly style="width:100%;margin:4px 0" aria-label="Exported text"></textarea>
-<table><thead><tr><th>Slot</th><th>Piece</th><th class="n">Cost</th></tr></thead><tbody>${SLOTS.map(([sl,lb],i)=>{const [g,nm]=lb.split(" – "),gh=i==0||SLOTS[i-1][1].split(" – ")[0]!=g?`<tr class="grp"><td colspan="3">${g}</td></tr>`:"";return gh+`<tr data-sl="${sl}"><td>${nm}</td><td><select class="sel">${opts(sl,lo.lv).replace(`value="${esc(lo.sel[sl]||"~")}"`,`value="${esc(lo.sel[sl])}" selected`)}</select></td><td class="n cc"></td></tr>`}).join("")}
+<table><thead><tr><th>Slot</th><th>Piece</th><th class="n">Cost</th></tr></thead><tbody>${SLOTS.map(([sl,lb],i)=>{const [g,nm]=lb.split(" – "),gh=i==0||SLOTS[i-1][1].split(" – ")[0]!=g?`<tr class="grp"><td colspan="3">${g}</td></tr>`:"";return gh+`<tr data-sl="${sl}"><td>${nm}</td><td><select class="sel">${opts(sl,lo.lv).replace(`value="${esc(lo.sel[sl]||"~")}"`,`value="${esc(lo.sel[sl])}" selected`)}</select><div class="st"></div></td><td class="n cc"></td></tr>`}).join("")}
 <tr class="tot"><td colspan="2">Total <span class="w mw"></span></td><td class="n tc"></td></tr></tbody></table>
-<p class="s to" style="margin:8px 0 0"></p><details style="margin-top:6px"><summary>Shopping list</summary><div class="sh"></div></details></div>`).join("");
-  LR={};document.querySelectorAll("#los .card").forEach(el=>{LR[el.dataset.id]={el,rows:[...el.querySelectorAll("tr[data-sl]")].map(tr=>({sl:tr.dataset.sl,cc:tr.querySelector(".cc")})),tc:el.querySelector(".tc"),mw:el.querySelector(".mw"),to:el.querySelector(".to"),sh:el.querySelector(".sh")}});
+<div class="ts"></div><p class="s to" style="margin:8px 0 0"></p><details style="margin-top:6px"><summary>Shopping list</summary><div class="sh"></div></details></div>`).join("");
+  LR={};document.querySelectorAll("#los .card").forEach(el=>{LR[el.dataset.id]={el,rows:[...el.querySelectorAll("tr[data-sl]")].map(tr=>({sl:tr.dataset.sl,cc:tr.querySelector(".cc"),st:tr.querySelector(".st")})),ts:el.querySelector(".ts"),tc:el.querySelector(".tc"),mw:el.querySelector(".mw"),to:el.querySelector(".to"),sh:el.querySelector(".sh")}});
   mats();patch()}
 function mats(){const u=new Set(),walk=r=>{for(const k in r)if(!u.has(k)){u.add(k);if(INT[k])walk(INT[k][2])}};
   LO.forEach(lo=>{for(const sl in lo.sel){const it=byKey[lo.sel[sl]];if(it)walk(it.r)}});
@@ -139,7 +159,8 @@ const ph=()=>$("mat").querySelectorAll("input").forEach(e=>{if(INT[e.dataset.id]
 const set=(el,v)=>{if(el.textContent!==v)el.textContent=v};
 function patch(){
   for(const lo of LO){const L=LR[lo.id];if(!L)continue;const c=calc(lo);
-    for(const r of L.rows){const it=byKey[lo.sel[r.sl]];set(r.cc,it?f1(pc(it)):"–")}
+    for(const r of L.rows){const it=byKey[lo.sel[r.sl]];set(r.cc,it?f1(pc(it)):"–");r.st.innerHTML=it?sline(it):""}
+    L.ts.innerHTML=totals(lo).map(x=>"<div>"+x+"</div>").join("");
     set(L.tc,f1(c.cost));set(L.mw,c.ms.size?"⚠":"");L.mw.title=c.ms.size?"Unpriced: "+[...c.ms].join(", "):"";
     set(L.to,c.n?`Material outlay with whole crafts: ${f1(c.pl.mat)} + bench fees ${f1(c.pl.fee)} = ${f1(c.pl.mat+c.pl.fee)} gr.`:"Choose pieces to see the cost.");
     L.sh.innerHTML=c.n?`<div class="wrap"><table><thead><tr><th>Material</th><th class="n">Qty</th><th class="n">Price</th><th class="n">Cost</th></tr></thead><tbody>${c.pl.buy.map(b=>`<tr><td style="color:var(--tx)">${esc(name(b.id))}${b.u>0?"":' <span class="w">no price</span>'}</td><td class="n">${b.q}</td><td class="n">${f1(b.u)}</td><td class="n">${f1(b.c)}</td></tr>`).join("")}</tbody></table></div>${Object.keys(c.pl.cr).length?`<p class="s" style="margin:6px 0 0">Parts crafted along the way: ${Object.entries(c.pl.cr).map(([id,n])=>esc(INT[id][0])+" ×"+n*INT[id][1]).join(", ")}</p>`:""}`:""}}
@@ -157,7 +178,8 @@ $("add").onclick=()=>{if(LO.length>=6){alert("You can compare up to 6 loadouts. 
 $("reset").onclick=()=>{if(!confirm("Clear every price you have entered?"))return;P={};C={};save();mats();patch()};
 const sel_=lo=>SLOTS.map(([sl,lb])=>[lb,byKey[lo.sel[sl]]]).filter(x=>x[1]);
 function txt(lo,m){const c=calc(lo),L=[lo.name+" (crafting level "+lo.lv+")"];
-  sel_(lo).forEach(([lb,it])=>L.push(lb+": "+it.n+" – "+f1(pc(it))+" gr."));
+  sel_(lo).forEach(([lb,it])=>{L.push(lb+": "+it.n+" – "+f1(pc(it))+" gr.");const s=sline(it).replace(/<\/?b>/g,"");if(s)L.push("   "+s)});
+  const tt=totals(lo).map(x=>x.replace(/<\/?b>/g,""));if(tt.length)L.push("",...tt);
   L.push("Total cost to make: "+f1(c.cost)+" gr.");
   if(m){L.push("","Materials:");c.pl.buy.forEach(b=>L.push(b.q+" × "+name(b.id)));if(c.pl.fee)L.push("Bench fees: "+f1(c.pl.fee)+" gr.")}
   if(c.ms.size)L.push("(Some material prices are missing, so the cost may be low.)");
@@ -166,14 +188,15 @@ const say=(b,msg)=>{const o=b.textContent;b.textContent=msg;setTimeout(()=>b.tex
 function copyText(text,b){const show=()=>{const ta=b.closest(".card").querySelector(".exp");ta.hidden=false;ta.value=text;ta.focus();ta.select();say(b,"Select and copy below")};
   try{navigator.clipboard.writeText(text).then(()=>say(b,"Copied!"),show)}catch(e){show()}}
 function draw(lo){
-  const c=calc(lo),cs=getComputedStyle(document.documentElement),v=n=>cs.getPropertyValue(n).trim()||"#000",rows=sel_(lo),mats=c.pl.buy,W=760,P=26,RH=30,mr=Math.ceil(mats.length/2);
-  const H=P+70+rows.length*RH+50+(mats.length?46+mr*24+(c.pl.fee?24:0):0)+(c.ms.size?24:0)+36,cv=document.createElement("canvas");cv.width=W*2;cv.height=H*2;
+  const c=calc(lo),cs=getComputedStyle(document.documentElement),v=n=>cs.getPropertyValue(n).trim()||"#000",rows=sel_(lo),mats=c.pl.buy,W=760,P=26,RH=40,mr=Math.ceil(mats.length/2);
+  const H=P+70+rows.length*RH+50+(totals(lo).length*20)+(mats.length?46+mr*24+(c.pl.fee?24:0):0)+(c.ms.size?24:0)+36,cv=document.createElement("canvas");cv.width=W*2;cv.height=H*2;
   const x=cv.getContext("2d");x.scale(2,2);x.fillStyle=v("--card");x.fillRect(0,0,W,H);x.strokeStyle=v("--ac");x.lineWidth=3;x.strokeRect(1.5,1.5,W-3,H-3);
   const F=(sz,w="")=>x.font=`${w} ${sz}px Georgia,"Times New Roman",serif`,fit=(t,mw)=>{while(t.length>3&&x.measureText(t).width>mw)t=t.slice(0,-2);return t},line=(y,w)=>{x.strokeStyle=v("--bd");x.lineWidth=w;x.beginPath();x.moveTo(P,y);x.lineTo(W-P,y);x.stroke()};
   let y=P+26;x.textAlign="left";F(28,"bold");x.fillStyle=v("--ac");x.fillText(fit(lo.name,W-2*P),P,y);
   y+=26;F(14);x.fillStyle=v("--mut");x.fillText("Crafting level "+lo.lv+" · cost to make",P,y);y+=10;
-  rows.forEach(([lb,it],i)=>{const ty=y+i*RH;line(ty,1);F(13);x.textAlign="left";x.fillStyle=v("--mut");x.fillText(fit(lb,215),P,ty+20);F(15);x.fillStyle=v("--tx");x.fillText(fit(it.n,W-2*P-290),P+225,ty+20);x.textAlign="right";x.fillText(f1(pc(it))+" gr.",W-P,ty+20)});
+  rows.forEach(([lb,it],i)=>{const ty=y+i*RH;line(ty,1);F(13);x.textAlign="left";x.fillStyle=v("--mut");x.fillText(fit(lb,215),P,ty+20);F(15);x.fillStyle=v("--tx");x.fillText(fit(it.n,W-2*P-290),P+225,ty+20);x.textAlign="right";x.fillText(f1(pc(it))+" gr.",W-P,ty+20);const sl=sline(it).replace(/<\/?b>/g,"");if(sl){F(11);x.textAlign="left";x.fillStyle=v("--mut");x.fillText(fit(sl,W-2*P-225),P+225,ty+35)}});
   y+=rows.length*RH;line(y,2);F(17,"bold");x.textAlign="left";x.fillStyle=v("--tx");x.fillText("Total cost to make",P,y+28);x.textAlign="right";x.fillStyle=v("--ac");x.fillText(f1(c.cost)+" gr.",W-P,y+28);y+=44;
+  {const tt=totals(lo).map(q=>q.replace(/<\/?b>/g,""));F(12);x.textAlign="left";x.fillStyle=v("--mut");tt.forEach(q=>{x.fillText(fit(q,W-2*P),P,y);y+=20});if(tt.length)y+=4}
   if(mats.length){x.textAlign="left";F(14,"bold");x.fillStyle=v("--mut");x.fillText("MATERIALS NEEDED",P,y+14);y+=26;F(14);x.fillStyle=v("--tx");
     mats.forEach((b,i)=>x.fillText(fit(b.q+" × "+name(b.id),W/2-P-10),i<mr?P:W/2+10,y+(i%mr)*24+14));y+=mr*24;if(c.pl.fee){x.fillStyle=v("--mut");x.fillText("Bench fees: "+f1(c.pl.fee)+" gr.",P,y+16);y+=24}}
   x.textAlign="left";F(12);x.fillStyle=v("--mut");if(c.ms.size){x.fillText("Some material prices are missing, so the cost may be low.",P,y+12);y+=22}

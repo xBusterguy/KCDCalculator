@@ -33,6 +33,7 @@ Everything runs in your browser. There is no account and nothing is sent anywher
 - Set up several loadouts at different crafting levels: 12 armour sections plus a weapon and a shield.
 - The fill buttons pick the highest-tier pieces and prefer armour, using clothing only where a slot has no armour.
 - See what each costs to make and get a shopping list of materials.
+- See stats (defence, charisma, noise, visibility, weapon attack and defence) for every piece, with totals per loadout. Stats come from [Inara](https://inara.cz/kingdom-come-deliverance-2/) and are for best-quality items.
 - Copy a loadout as text for a chat, or save it as a picture.
 
 ## Found a mistake?
@@ -53,6 +54,7 @@ farming.html        farming efficiency
 loadouts.html       loadout builder
 404.html            page not found
 assets/recipes.js   every crafting recipe (edit recipes here only)
+assets/stats.js     item stats shown on the loadout page
 scripts/            recipe checker (also run automatically by GitHub Actions)
 docs/screenshots/   images used in this README
 .github/            issue forms and the recipe-check workflow
