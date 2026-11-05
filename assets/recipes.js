@@ -1,5 +1,5 @@
 // Single source of truth for every recipe. Used by crafting.html and loadouts.html.
-const RECIPES_UPDATED="4 Nov 2026";
+const RECIPES_UPDATED="5 Nov 2026";
 const RAW={O:"Iron ore",C:"Coal",K:"Copper ore",A:"Silver ore",G:"Gold ore",L:"Logs",H:"Hides",N:"Nettles",R:"Pine resin",W:"Owl feathers",F:"Wolf pelts",V:"White wolf pelts",P:"River pearls",U:"Pure silver nuggets",M:"Meteoric iron",D:"Sulphur",E:"Saltpetre",T:"Antlers",X:"Exotic wood",Z:"Tincal",Q:"Dogfish skin",J:"Jasper",u:"Dragon claw",v:"Weapon stub"};
 // code:[name, yield, ingredients, coin fee]
 const INT={x:["Scrap metal",3,{O:1,C:1},0],i:["Iron",3,{O:2,C:1},1],s:["Steel",2,{O:3,C:2},0],l:["Leather",2,{H:1},0],p:["Padding",2,{N:3,l:1},0],b:["Bowstrings",3,{H:1,R:1},0],h:["Hafts",2,{L:2,R:1},0],c:["Copper",1,{K:2,C:1},0],f:["Frankfurt steel",2,{s:2,C:2,L:1},0],t:["Toledo steel",2,{f:2,A:1,C:2},0],z:["Fastening material",5,{i:1,C:1},0],q:["Pig skin",1,{H:1},0],w:["Cow skin",1,{H:2},0],d:["Deer skin",1,{H:2,R:1},0],y:["Coin sword pommel",2,{i:1},0],g:["Sword guard (ordinary/straight)",1,{i:1,x:1},0],j:["Horned sword guard",2,{s:1,i:1},0],e:["Reinforced sword guard",2,{s:1,i:1},0],m:["Pear sword pommel",2,{i:1,c:1},0],n:["Eight-sided sword pommel",2,{i:1,c:1},0],a:["Antler shards",2,{T:1},0],o:["Decorated sword pommel",2,{c:1,S:2},0],k:["Sheet steel",2,{t:2,C:3},0],S:["Fine silver",2,{A:1,C:1},0],r:["Rock pitch",1,{R:3,C:2},0],B:["Enamel powder",3,{c:1,R:1,C:1},0],I:["Acidum chloridum",1,{N:2,belladonna:1,C:1},0],Y:["Coloured gold",2,{G:1,c:1,S:1},0],linen:["Linen",1,{flax:2},0],malt:["Barley malt",3,{barley:1},0],lcoal:["Leached coal",1,{charcoal:2,N:1},0],salami:["Salami",2,{pork:1,beef:1},0],cheese:["Cheese",1,{milk:1},0]};
@@ -615,7 +615,7 @@ K|10|Cooked boar rump|1|{boar}3|12
 K|10|Cooked boar tenderloin|1|{boar}3{sage}1|2
 P|1|Straw bed|1|L17{hay}3|2
 P|1|Rough table;Plain chair;Log bench|1|L12|1
-P|1|Log stool;Plain shelf|1|L8|1
+P|1|Log stool|1|L8|1
 P|1|Basket of apples;Basket of bread;Cushion|1|L3|1
 P|1|Bed of boughs;Bedroll|1|L8H2p2|1
 P|1|Campfire|1|L8R3|2
@@ -636,6 +636,7 @@ P|1|Heap of pears;Sack of apples|1|L2{plums}3|1
 P|1|Pretzel|1|L2{malt}1|1
 P|1|Round loaf|1|L2{malt}2|1
 P|1|String of onions|1|L2{onions}2|1
+P|1|Plain shelf|1|L8O1|1
 P|2|Small table;Rustic stool;Plain bench|1|L18R2|4
 P|2|Barrel;Crate|1|L18R2O2|4
 P|2|Wall shelf|1|L11R2O2|4

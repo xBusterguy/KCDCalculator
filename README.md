@@ -82,3 +82,12 @@ The whole site uses a Medieval ledger (1400s account-book) style. Use the settin
 - **Phones:** tables turn into cards on narrow screens.
 - **Backup:** the settings menu (top right) can back up and restore all your prices, orders, favourites and loadouts as a file.
 - **Keyboard:** press `/` to jump to search, Enter moves to the next price box, and there is a skip-to-content link.
+
+## Recipes update themselves
+
+A GitHub Action (`.github/workflows/wiki-sync.yml`) reads the recipes page on the wiki every Monday and compares it with `assets/recipes.js`. If anything differs it opens a pull request called **Update recipes from the wiki** that lists every new, removed and changed piece. Check the list, press **Merge**, and the site updates itself.
+
+- To check right now: open the **Actions** tab, choose **Check wiki for recipe changes**, press **Run workflow**.
+- One-time setting: **Settings → Actions → General → Workflow permissions**, tick **Allow GitHub Actions to create and approve pull requests**.
+- If the Action cannot read the wiki, or a change needs a person (for example a brand new material name), it opens an issue instead and explains what to do.
+- You can run the same check on your own computer with `node scripts/wiki-sync.js`. Add `--apply` to rewrite `assets/recipes.js`.
