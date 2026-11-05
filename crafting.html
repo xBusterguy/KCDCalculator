@@ -129,7 +129,7 @@ addEventListener("keydown",function(e){if(e.key!="/"||e.ctrlKey||e.metaKey||e.al
 .layout{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:12px}
 @media (min-width:900px){.layout{grid-template-columns:300px minmax(0,1fr);align-items:start}aside{position:sticky;top:calc(var(--hh,120px) + env(safe-area-inset-top,0px) + 8px);max-height:calc(100vh - var(--hh,120px) - 30px);overflow:auto}}
 .card{padding:10px 12px;margin-bottom:12px}
-table{min-width:520px}th,td{padding:5px 8px}td:first-child{white-space:normal}th{position:sticky;top:0;background:var(--card)}
+table{min-width:520px}th,td{padding:5px 8px}td:first-child{white-space:normal}th{position:sticky;top:calc(var(--hh,120px) + env(safe-area-inset-top,0px));z-index:5;background:var(--card)}
 tr.r{cursor:pointer}tr.r:hover{background:var(--bg)}
 tr.lh td{background:var(--bg);color:var(--ac);font-weight:bold;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
 .bd td{color:var(--mut);font-size:.85rem;padding:8px 14px}.qty{width:64px;padding:3px 5px}
@@ -166,7 +166,7 @@ html[data-skin=ledger] button.star,html[data-skin=ledger] th .sb{border:0;backgr
 <details style="margin-top:10px"><summary>Share prices</summary><p class="s" style="margin:6px 0">Export your prices to paste in a chat, or paste someone else’s list and import it.</p><textarea id="shta" rows="7" style="width:100%" placeholder="Iron ore = 3&#10;Coal = 2" aria-label="Price list"></textarea><div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><button type="button" id="shex">Export my prices</button><button type="button" class="pri" id="shim">Import prices</button></div><p class="s" id="shmsg" style="margin:6px 0 0"></p></details></aside>
 <section><div class="card ban" id="ban" hidden><b>Add your material prices to get real costs.</b> Until you do, costs only include bench fees. <button type="button" class="pri" id="banopen">Enter prices</button></div>
 <div class="card" id="ordc"><details id="ordd"><summary id="ords">Order &amp; shopping list</summary><div id="ordb" style="margin-top:8px"></div></details></div>
-<div class="card wrap"><table class="rt"><thead id="th"></thead><tbody id="rows"></tbody></table>
+<div class="card wrap" id="tblc" style="overflow:visible"><table class="rt"><thead id="th"></thead><tbody id="rows"></tbody></table>
 <p class="s" id="note" style="margin:8px 0 0"></p></div>
 <div class="card"><details><summary>Add a custom recipe</summary>
 <div class="bar" style="margin-top:8px">
