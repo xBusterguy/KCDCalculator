@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en" data-skin="ledger"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark"><meta name="description" content="Compare KCD Roleplay crops by value per harvest, value per hour and time window.">
 <title>Farming Efficiency – KCD Tools</title>
@@ -33,7 +33,7 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 nav.site{display:flex;flex-wrap:wrap;gap:6px;align-items:center;max-width:1280px;margin:0 auto;padding:10px 14px}
 nav.site a{text-decoration:none;color:var(--tx);padding:5px 12px;border-radius:999px;border:1px solid transparent}
 nav.site a:hover{border-color:var(--bd)}nav.site a[aria-current=page]{background:var(--ac);color:var(--on)}
-nav.site .brand{font-weight:bold;color:var(--ac);padding-left:0}nav.site button{margin-left:auto}
+nav.site .brand{font-weight:bold;color:var(--ac);padding-left:0}
 footer.site{max-width:1280px;margin:0 auto;padding:6px 14px 24px;color:var(--mut);font-size:.8rem}
 /* home */
 .hero{padding:10px 0 4px}.hero p{max-width:60ch;color:var(--mut)}
@@ -44,7 +44,6 @@ footer.site{max-width:1280px;margin:0 auto;padding:6px 14px 24px;color:var(--mut
 nav.site a.gh{margin-left:auto;color:var(--mut)}.sig a{color:var(--ac)}
 @media print{nav.site,footer.site{display:none}}
 /* theme picker */
-nav.site select{font-size:.85rem;padding:4px 6px;margin-left:auto}nav.site a.gh+select,nav.site select+button{margin-left:0}nav.site a.gh+select{margin-left:8px}
 /* Medieval ledger theme (select "Medieval ledger" in the nav) */
 :root[data-skin=ledger]{--bg:#d8c59b;--card:#efe1bb;--tx:#2a1c0e;--mut:#66502f;--ac:#8a1c1c;--on:#f4e8c8;--bd:#8d7147;--ok:#2d5a28;--bad:#8a1c1c;--bar:#a67a3a;color-scheme:light}
 @media (prefers-color-scheme:dark){:root[data-skin=ledger]:not([data-theme=light]){--bg:#17110a;--card:#241a0f;--tx:#e8d6a6;--mut:#a68e62;--ac:#d2604a;--on:#17110a;--bd:#5c4526;--ok:#86b66f;--bad:#e0705c;--bar:#8d6a30;color-scheme:dark}}
@@ -77,15 +76,48 @@ html[data-skin=ledger] nav.site a:hover{border-color:var(--bd)}
 html[data-skin=ledger] nav.site .brand{font-size:1.2em;font-weight:bold}
 html[data-skin=ledger] footer.site{border-top:3px double var(--bd);margin-top:10px;padding-top:12px;font-style:italic}
 html[data-skin=ledger] details>summary{font-variant:small-caps;letter-spacing:.05em}
+/* ---- site-wide usability additions ---- */
+.skip{position:absolute;left:8px;top:-60px;background:var(--ac);color:var(--on);padding:8px 14px;border-radius:6px;z-index:50;text-decoration:none}.skip:focus{top:8px}
+main:focus{outline:none}
+nav.site .logo{display:inline-block}
+nav.site details.menu{position:relative}
+nav.site details.menu>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;border:1px solid var(--bd);border-radius:6px;padding:5px 10px;background:var(--card);font-weight:normal}
+nav.site details.menu>summary::-webkit-details-marker{display:none}
+nav.site details.menu>summary svg{width:18px;height:18px;flex:none}
+nav.site details.menu[open]>summary{border-color:var(--ac)}
+nav.site .pop{position:absolute;right:0;top:calc(100% + 6px);z-index:40;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;width:min(260px,calc(100vw - 28px));box-shadow:0 8px 24px rgba(0,0,0,.25)}
+nav.site .pop hr{border:0;border-top:1px solid var(--bd);margin:2px 0;width:100%}
+nav.site .pop .s{margin:0;font-size:.78rem}
+nav.site .pop button,nav.site .pop select{width:100%;text-align:left}
+@media (max-width:560px){nav.site{gap:2px 4px;padding:8px 10px}nav.site a{padding:4px 9px;font-size:.92rem}nav.site details.menu .mlabel{display:none}}
+@media (pointer:coarse){button,select,input:not([type=checkbox]):not([type=radio]){min-height:40px}.chip{min-height:34px}input[type=checkbox]{width:20px;height:20px}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+.toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:9px 14px;border-radius:8px;z-index:60;display:flex;gap:12px;align-items:center;box-shadow:0 6px 20px rgba(0,0,0,.35);max-width:calc(100vw - 24px)}
+.toast button{background:transparent;color:inherit;border:1px solid currentColor;min-height:0;padding:2px 10px}
+html[data-skin=ledger] nav.site .logo{display:inline-grid;place-items:center;width:1.9em;height:1.9em;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c4412f,#7a1212 70%);box-shadow:0 1px 2px rgba(0,0,0,.4),inset 0 0 0 2px rgba(255,255,255,.12);font-size:.75em;vertical-align:middle;margin-right:2px}
+html[data-skin=ledger] footer.site::before{content:"❦  ❦  ❦";display:block;text-align:center;color:var(--ac);letter-spacing:.4em;margin:-4px 0 10px}
+html[data-skin=ledger] nav.site details.menu>summary,html[data-skin=ledger] nav.site .pop{border-radius:2px}
+html[data-skin=ledger] .toast{border-radius:2px}
 html[data-skin=ledger] a{text-decoration-thickness:1px;text-underline-offset:2px}
 </style>
 <script>// Applies the saved theme before first paint and wires the theme button.
 (function(){var k="kcd-theme",s="kcd-skin",t,sk,d=document.documentElement;try{t=localStorage.getItem(k);sk=localStorage.getItem(s)}catch(e){}
-if(t)d.dataset.theme=t;if(sk)d.dataset.skin=sk;
-addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme"),o=document.getElementById("skin");
+if(t)d.dataset.theme=t;d.dataset.skin="ledger";
+var cur=function(){return d.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light")};
+addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme"),o=document.getElementById("skin"),m=document.getElementById("menu"),$=function(i){return document.getElementById(i)};
+var lab=function(){if(b)b.textContent=cur()=="dark"?"Switch to light":"Switch to dark"};lab();
 if(o){o.value=d.dataset.skin||"classic";o.onchange=function(){d.dataset.skin=o.value;try{localStorage.setItem(s,o.value)}catch(e){}}}
-if(!b)return;
-b.onclick=function(){var c=d.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),n=c=="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem(k,n)}catch(e){}}})})();
+if(b)b.onclick=function(){var n=cur()=="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem(k,n)}catch(e){}lab()};
+if(m){document.addEventListener("click",function(e){if(m.open&&!m.contains(e.target))m.open=false});
+m.addEventListener("keydown",function(e){if(e.key=="Escape"){m.open=false;m.querySelector("summary").focus()}})}
+var msg=function(t){var e=$("bkmsg");if(e)e.textContent=t};
+if($("bk"))$("bk").onclick=function(){var o={app:"kcd-tools",v:1,date:new Date().toISOString(),data:{}},n=0;try{for(var i=0;i<localStorage.length;i++){var q=localStorage.key(i);if(q.indexOf("kcd-")==0){o.data[q]=localStorage.getItem(q);n++}}}catch(e){}
+var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:"application/json"}));a.download="kcd-tools-backup-"+o.date.slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);msg("Backup saved ("+n+" items).")};
+if($("rsb"))$("rsb").onclick=function(){$("rs").click()};
+if($("rs"))$("rs").onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var o=JSON.parse(r.result);if(o.app!="kcd-tools"||!o.data)throw 0;var ks=Object.keys(o.data).filter(function(x){return x.indexOf("kcd-")==0&&typeof o.data[x]=="string"});
+if(!ks.length)throw 0;if(!confirm("Replace the data saved on this site with this backup ("+ks.length+" items)?"))return;ks.forEach(function(x){localStorage.setItem(x,o.data[x])});msg("Restored. Reloading…");location.reload()}catch(e){msg("That file is not a KCD Tools backup.")}};r.readAsText(f);this.value=""};
+});
+addEventListener("keydown",function(e){if(e.key!="/"||e.ctrlKey||e.metaKey||e.altKey)return;var a=document.activeElement;if(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName))return;var q=document.querySelector("input[type=search]");if(q){e.preventDefault();q.focus();q.select()}})})();
 </script>
 <style>main{padding-top:6px}
 input[type=number]{width:80px}
@@ -94,8 +126,20 @@ input[type=number]{width:80px}
 table{min-width:760px}th,td{white-space:nowrap}
 tr.best td{background:color-mix(in srgb,var(--ok) 12%,transparent)}
 .meter{height:8px;border-radius:4px;background:var(--bar);min-width:2px}.mt{min-width:130px}
-td input[type=number]{width:64px;padding:3px 5px}.rk{color:var(--mut);width:1.5em}</style></head><body><nav class="site"><a class="brand" href="index.html">⚒️ KCD Tools</a><a href="crafting.html">Crafting</a><a href="farming.html" aria-current=page>Farming</a><a href="loadouts.html">Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><select id="skin" aria-label="Choose a theme" title="Choose a theme"><option value="classic">Classic</option><option value="ledger">Medieval ledger</option></select><button id="theme" type="button" title="Switch light / dark theme" aria-label="Switch light or dark theme">◐</button></nav>
-<main>
+td input[type=number]{width:64px;padding:3px 5px}.rk{color:var(--mut);width:1.5em}
+th[title]{cursor:help;text-decoration:underline dotted var(--mut);text-underline-offset:3px}
+.q{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}.q button{padding:3px 10px}
+.t3 h3{margin:0 0 6px}.t3 .row{display:grid;grid-template-columns:minmax(80px,140px) 1fr auto;gap:8px;align-items:center;margin:4px 0}.t3 .meter{height:12px}.t3 b{color:var(--tx)}
+@media (max-width:700px){
+ table.ft{min-width:0}table.ft thead{display:none}table.ft,table.ft tbody,table.ft tr{display:block}
+ table.ft tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;padding:8px 4px;border-bottom:1px solid var(--bd)}
+ table.ft td{display:flex;flex-direction:column;align-items:flex-start;white-space:normal;border:0;padding:0;text-align:left}
+ table.ft td[data-l]::before{content:attr(data-l);color:var(--mut);font-size:.7rem}
+ table.ft td.rk{display:none}table.ft td.nm{grid-column:1/-1;font-size:1.05rem}table.ft td.mt{grid-column:1/-1;min-width:0;width:100%}
+ table.ft td.mt .meter{width:auto}
+ table.ft tr.best td{background:none}table.ft tr.best{background:color-mix(in srgb,var(--ok) 12%,transparent)}
+}</style></head><body><a class="skip" href="#main">Skip to content</a><nav class="site"><a class="brand" href="index.html"><span class="logo">⚒️</span> KCD Tools</a><a href="crafting.html">Crafting</a><a href="farming.html" aria-current=page>Farming</a><a href="loadouts.html">Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><details class="menu" id="menu"><summary aria-label="Settings: light or dark mode, backup" title="Light/dark mode and backup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="mlabel">Settings</span></summary><div class="pop"><button id="theme" type="button" aria-label="Switch light or dark mode">Switch to dark</button><hr><button id="bk" type="button">Back up my data</button><button id="rsb" type="button">Restore from backup</button><input id="rs" type="file" accept=".json,application/json" hidden><p class="s" id="bkmsg">Saves your prices, orders, favourites, loadouts and settings to a file.</p></div></details></nav>
+<main id="main" tabindex="-1">
 <h1>Farming Efficiency</h1>
 <p class="s">Compare every crop by value and by time. Change your trade level and strip conditions and the ranking updates.</p>
 
@@ -108,11 +152,14 @@ td input[type=number]{width:64px;padding:3px 5px}.rk{color:var(--mut);width:1.5e
 <label class="f">Sort by<select id="sort"><option value="vph">Value per hour</option><option value="vh">Value per harvest</option><option value="wv">Value in window</option><option value="time">Fastest growing</option><option value="name">Name</option></select></label>
 <label class="f" style="flex-direction:row;align-items:center;gap:6px;padding-bottom:6px"><input id="rd" type="checkbox"> Round loads to whole numbers</label>
 <button id="reset">Reset worth</button></div>
+<div class="q"><span class="s" style="margin:0">Quick setup:</span><button type="button" data-q="1">New farmer (level 1, no weeding)</button><button type="button" data-q="2">Level 1, weeded &amp; watered</button><button type="button" data-q="3">Level 10, weeded &amp; watered</button></div>
 <p class="s" style="margin:10px 0 0" id="mult"></p></div>
 
 <div class="card"><div class="stats" id="stats"></div></div>
+<div class="card t3" id="t3"></div>
 
-<div class="card wrap"><table><thead><tr><th></th><th>Crop</th><th class="n">Grows</th><th class="n">Loads / strip</th><th class="n">Worth / load</th><th class="n">Value / harvest</th><th class="n">Value / hour</th><th class="mt">Efficiency</th><th class="n">vs <span id="rn">best</span></th><th class="n" id="wh">Harvests in window</th><th class="n">Window value</th></tr></thead><tbody id="rows"></tbody></table>
+<div class="card wrap"><table class="ft"><thead><tr><th></th><th>Crop</th><th class="n" title="Hours for the crop to be ready">Grows</th><th class="n" title="Loads you collect from one strip, after the weeding and trade bonuses">Loads / strip</th><th class="n" title="Selling price of one load in groschen. You can edit it.">Worth / load</th><th class="n" title="Loads × worth × number of strips">Value / harvest</th><th class="n" title="Value per harvest divided by the hours it takes to grow">Value / hour</th><th class="mt" title="Value per hour compared with the best crop">Efficiency</th><th class="n" title="Value per hour as a percentage of the crop chosen in Compare against">vs <span id="rn">best</span></th><th class="n" id="wh" title="Whole harvests that fit in the time window">Harvests in window</th><th class="n" title="Value per harvest × whole harvests in the window">Window value</th></tr></thead><tbody id="rows"></tbody></table>
+<details style="margin-top:8px"><summary>How are these numbers worked out?</summary><p class="s" style="margin:6px 0 0">Loads per strip = base loads × 1.84 if weeded and watered × (1 + 5% for every trade level above 1). Value per harvest = loads × worth per load × strips. Value per hour = value per harvest ÷ hours to grow. Window value = value per harvest × the number of whole harvests that fit in your time window.</p></details>
 <p class="s" style="margin:8px 0 0">Values are in groschen. Edit “Worth / load” to use your own selling price. Harvests in window counts whole harvests only, so a crop that takes longer than the window shows none.</p></div>
 </main>
 <footer class="site">Unofficial fan tool. Recipes and crops from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Prices and settings are saved in your browser only.<div class="sig">Made by <b>Busterguy</b> · Found a bug or have an issue? Contact me on <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord.</div><div class="sig">Open source: <a href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer">view the repo</a> or <a href="https://github.com/xBusterguy/KCDCalculator/issues/new/choose" target="_blank" rel="noopener noreferrer">report an issue</a> on GitHub.</div></footer>
@@ -142,11 +189,14 @@ function render(){
   $("mult").textContent=`Yield multiplier ×${f1(mult)} on the base loads per strip (${S.ww?"weeded & watered ×1.84, ":""}trade bonus ×${f1(1+0.05*(S.lv-1))}).`;
   $("rn").textContent=S.ref=="best"?"best":refR.n;$("wh").textContent=`Harvests in ${S.win} h`;
   $("stats").innerHTML=[["Best value per hour",best.n,f1(best.vph)+" gr./h"],["Best value per harvest",byVh.n,f1(byVh.vh)+" gr."],[`Best in ${S.win} h`,byWv.n,byWv.wv?f1(byWv.wv)+" gr. ("+byWv.hv+"×)":"none fit"],["Fastest to grow",fast.n,fast.h+" h"]].map(([a,b,c])=>`<div class="stat"><small>${a}</small><b>${b}</b> · ${c}</div>`).join("");
-  $("rows").innerHTML=sorted.map((r,i)=>`<tr class="${r.n==best.n?"best":""}"><td class="rk">${i+1}</td><td><b>${r.n}</b></td><td class="n">${r.h} h</td><td class="n">${f1(r.loads)}</td><td class="n"><input type="number" min="0" step="0.5" data-n="${r.n}" value="${r.worth}"></td><td class="n">${f1(r.vh)}</td><td class="n"><b>${f1(r.vph)}</b></td><td class="mt"><div class="meter" style="width:${Math.max(1,r.vph/best.vph*100)}%"></div></td><td class="n">${Math.round(r.vph/refR.vph*100)}%</td><td class="n">${r.hv||"–"}</td><td class="n">${r.wv?f1(r.wv):"–"}</td></tr>`).join("");
+  $("rows").innerHTML=sorted.map((r,i)=>`<tr class="${r.n==best.n?"best":""}"><td class="rk">${i+1}</td><td class="nm"><b>${r.n}</b></td><td class="n" data-l="Grows">${r.h} h</td><td class="n" data-l="Loads / strip">${f1(r.loads)}</td><td class="n" data-l="Worth / load"><input type="number" min="0" step="0.5" data-n="${r.n}" value="${r.worth}" aria-label="Worth per load of ${r.n}"></td><td class="n" data-l="Value / harvest">${f1(r.vh)}</td><td class="n" data-l="Value / hour"><b>${f1(r.vph)}</b></td><td class="mt"><div class="meter" style="width:${Math.max(1,r.vph/best.vph*100)}%"></div></td><td class="n" data-l="vs ${S.ref=="best"?"best":refR.n}">${Math.round(r.vph/refR.vph*100)}%</td><td class="n" data-l="Harvests in ${S.win} h">${r.hv||"–"}</td><td class="n" data-l="Window value">${r.wv?f1(r.wv):"–"}</td></tr>`).join("");
+  {const M={vph:["value per hour",r=>r.vph,r=>f1(r.vph)+" gr./h"],vh:["value per harvest",r=>r.vh,r=>f1(r.vh)+" gr."],wv:["value in "+S.win+" h",r=>r.wv,r=>r.wv?f1(r.wv)+" gr.":"none fit"],time:["fastest growing",r=>1/r.h,r=>r.h+" h"]},m=M[S.sort]||M.vph,top=[...rows].sort((a,b)=>m[1](b)-m[1](a)).slice(0,3),mx=m[1](top[0])||1;
+   $("t3").innerHTML=`<h3>Top 3 by ${m[0]}</h3>`+top.map((r,i)=>`<div class="row"><span><b>${i+1}. ${r.n}</b></span><div class="meter" style="width:${Math.max(2,m[1](r)/mx*100)}%" role="img" aria-label="${r.n}: ${m[2](r)}"></div><span>${m[2](r)}</span></div>`).join("")}
 }
 const bind=(id,k,f=v=>v)=>$(id).onchange=e=>{S[k]=f(e.target.type=="checkbox"?e.target.checked:e.target.value);save();render()};
 bind("lv","lv",Number);bind("ww","ww");bind("st","st",v=>Math.max(1,Math.floor(+v)||1));bind("win","win",v=>Math.max(1,Math.floor(+v)||24));bind("rd","rd");bind("sort","sort");bind("ref","ref");
 $("rows").onchange=e=>{const i=e.target.closest("input");if(!i)return;const v=parseFloat(i.value);if(isNaN(v)||v<0)delete W[i.dataset.n];else W[i.dataset.n]=v;save();render()};
 $("reset").onclick=()=>{W={};save();render()};
+document.querySelector(".q").onclick=e=>{const b=e.target.closest("button[data-q]");if(!b)return;const q=+b.dataset.q;S.lv=q==3?10:1;S.ww=q!=1;$("lv").value=S.lv;$("ww").checked=S.ww;save();render()};
 render();
 </script></body></html>

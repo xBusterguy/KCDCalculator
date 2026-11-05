@@ -9,6 +9,8 @@ Calculators for **KCD Roleplay** (Kingdom Come: Deliverance II): work out what t
 
 Everything runs in your browser. There is no account and nothing is sent anywhere. Your prices and settings are saved on your own device.
 
+![KCD Tools home page](docs/screenshots/home.png)
+
 ## Crafting cost calculator
 
 ![Crafting cost calculator](docs/screenshots/crafting.png)
@@ -68,6 +70,15 @@ Made by **Busterguy**. Released under the [MIT licence](LICENSE).
 
 Recipe and crop data comes from the [KCD Roleplay wiki](https://wiki.kcdroleplay.com/). This is an unofficial fan project and is not affiliated with the wiki, Warhorse Studios or Deep Silver.
 
-## Themes
+## Look
 
-Use the theme drop-down in the top bar to switch between Classic and Medieval ledger (a 1400s account-book look). It works with light and dark mode and is remembered in your browser.
+The whole site uses a Medieval ledger (1400s account-book) style. Use the settings menu (top right) to switch between light and dark mode.
+
+## Handy extras
+
+- **Sorting and presets (crafting):** click a column heading or use the Sort box; save named price presets (for example one per town).
+- **Loadouts:** find a piece by name, compare loadouts side by side, share a loadout with a link, and undo clears, deletes and fills.
+- **Farming:** quick-setup buttons, a top 3 chart and a "how it is worked out" note.
+- **Phones:** tables turn into cards on narrow screens.
+- **Backup:** the settings menu (top right) can back up and restore all your prices, orders, favourites and loadouts as a file.
+- **Keyboard:** press `/` to jump to search, Enter moves to the next price box, and there is a skip-to-content link.

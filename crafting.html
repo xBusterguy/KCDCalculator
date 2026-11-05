@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en" data-skin="ledger"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark"><meta name="description" content="Crafting cost calculator for KCD Roleplay: materials, bench fees, markup and shopping lists.">
 <title>Crafting Cost Calculator – KCD Tools</title>
@@ -33,7 +33,7 @@ td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 nav.site{display:flex;flex-wrap:wrap;gap:6px;align-items:center;max-width:1280px;margin:0 auto;padding:10px 14px}
 nav.site a{text-decoration:none;color:var(--tx);padding:5px 12px;border-radius:999px;border:1px solid transparent}
 nav.site a:hover{border-color:var(--bd)}nav.site a[aria-current=page]{background:var(--ac);color:var(--on)}
-nav.site .brand{font-weight:bold;color:var(--ac);padding-left:0}nav.site button{margin-left:auto}
+nav.site .brand{font-weight:bold;color:var(--ac);padding-left:0}
 footer.site{max-width:1280px;margin:0 auto;padding:6px 14px 24px;color:var(--mut);font-size:.8rem}
 /* home */
 .hero{padding:10px 0 4px}.hero p{max-width:60ch;color:var(--mut)}
@@ -44,7 +44,6 @@ footer.site{max-width:1280px;margin:0 auto;padding:6px 14px 24px;color:var(--mut
 nav.site a.gh{margin-left:auto;color:var(--mut)}.sig a{color:var(--ac)}
 @media print{nav.site,footer.site{display:none}}
 /* theme picker */
-nav.site select{font-size:.85rem;padding:4px 6px;margin-left:auto}nav.site a.gh+select,nav.site select+button{margin-left:0}nav.site a.gh+select{margin-left:8px}
 /* Medieval ledger theme (select "Medieval ledger" in the nav) */
 :root[data-skin=ledger]{--bg:#d8c59b;--card:#efe1bb;--tx:#2a1c0e;--mut:#66502f;--ac:#8a1c1c;--on:#f4e8c8;--bd:#8d7147;--ok:#2d5a28;--bad:#8a1c1c;--bar:#a67a3a;color-scheme:light}
 @media (prefers-color-scheme:dark){:root[data-skin=ledger]:not([data-theme=light]){--bg:#17110a;--card:#241a0f;--tx:#e8d6a6;--mut:#a68e62;--ac:#d2604a;--on:#17110a;--bd:#5c4526;--ok:#86b66f;--bad:#e0705c;--bar:#8d6a30;color-scheme:dark}}
@@ -77,15 +76,48 @@ html[data-skin=ledger] nav.site a:hover{border-color:var(--bd)}
 html[data-skin=ledger] nav.site .brand{font-size:1.2em;font-weight:bold}
 html[data-skin=ledger] footer.site{border-top:3px double var(--bd);margin-top:10px;padding-top:12px;font-style:italic}
 html[data-skin=ledger] details>summary{font-variant:small-caps;letter-spacing:.05em}
+/* ---- site-wide usability additions ---- */
+.skip{position:absolute;left:8px;top:-60px;background:var(--ac);color:var(--on);padding:8px 14px;border-radius:6px;z-index:50;text-decoration:none}.skip:focus{top:8px}
+main:focus{outline:none}
+nav.site .logo{display:inline-block}
+nav.site details.menu{position:relative}
+nav.site details.menu>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;border:1px solid var(--bd);border-radius:6px;padding:5px 10px;background:var(--card);font-weight:normal}
+nav.site details.menu>summary::-webkit-details-marker{display:none}
+nav.site details.menu>summary svg{width:18px;height:18px;flex:none}
+nav.site details.menu[open]>summary{border-color:var(--ac)}
+nav.site .pop{position:absolute;right:0;top:calc(100% + 6px);z-index:40;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;width:min(260px,calc(100vw - 28px));box-shadow:0 8px 24px rgba(0,0,0,.25)}
+nav.site .pop hr{border:0;border-top:1px solid var(--bd);margin:2px 0;width:100%}
+nav.site .pop .s{margin:0;font-size:.78rem}
+nav.site .pop button,nav.site .pop select{width:100%;text-align:left}
+@media (max-width:560px){nav.site{gap:2px 4px;padding:8px 10px}nav.site a{padding:4px 9px;font-size:.92rem}nav.site details.menu .mlabel{display:none}}
+@media (pointer:coarse){button,select,input:not([type=checkbox]):not([type=radio]){min-height:40px}.chip{min-height:34px}input[type=checkbox]{width:20px;height:20px}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+.toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:9px 14px;border-radius:8px;z-index:60;display:flex;gap:12px;align-items:center;box-shadow:0 6px 20px rgba(0,0,0,.35);max-width:calc(100vw - 24px)}
+.toast button{background:transparent;color:inherit;border:1px solid currentColor;min-height:0;padding:2px 10px}
+html[data-skin=ledger] nav.site .logo{display:inline-grid;place-items:center;width:1.9em;height:1.9em;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c4412f,#7a1212 70%);box-shadow:0 1px 2px rgba(0,0,0,.4),inset 0 0 0 2px rgba(255,255,255,.12);font-size:.75em;vertical-align:middle;margin-right:2px}
+html[data-skin=ledger] footer.site::before{content:"❦  ❦  ❦";display:block;text-align:center;color:var(--ac);letter-spacing:.4em;margin:-4px 0 10px}
+html[data-skin=ledger] nav.site details.menu>summary,html[data-skin=ledger] nav.site .pop{border-radius:2px}
+html[data-skin=ledger] .toast{border-radius:2px}
 html[data-skin=ledger] a{text-decoration-thickness:1px;text-underline-offset:2px}
 </style>
 <script>// Applies the saved theme before first paint and wires the theme button.
 (function(){var k="kcd-theme",s="kcd-skin",t,sk,d=document.documentElement;try{t=localStorage.getItem(k);sk=localStorage.getItem(s)}catch(e){}
-if(t)d.dataset.theme=t;if(sk)d.dataset.skin=sk;
-addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme"),o=document.getElementById("skin");
+if(t)d.dataset.theme=t;d.dataset.skin="ledger";
+var cur=function(){return d.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light")};
+addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme"),o=document.getElementById("skin"),m=document.getElementById("menu"),$=function(i){return document.getElementById(i)};
+var lab=function(){if(b)b.textContent=cur()=="dark"?"Switch to light":"Switch to dark"};lab();
 if(o){o.value=d.dataset.skin||"classic";o.onchange=function(){d.dataset.skin=o.value;try{localStorage.setItem(s,o.value)}catch(e){}}}
-if(!b)return;
-b.onclick=function(){var c=d.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),n=c=="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem(k,n)}catch(e){}}})})();
+if(b)b.onclick=function(){var n=cur()=="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem(k,n)}catch(e){}lab()};
+if(m){document.addEventListener("click",function(e){if(m.open&&!m.contains(e.target))m.open=false});
+m.addEventListener("keydown",function(e){if(e.key=="Escape"){m.open=false;m.querySelector("summary").focus()}})}
+var msg=function(t){var e=$("bkmsg");if(e)e.textContent=t};
+if($("bk"))$("bk").onclick=function(){var o={app:"kcd-tools",v:1,date:new Date().toISOString(),data:{}},n=0;try{for(var i=0;i<localStorage.length;i++){var q=localStorage.key(i);if(q.indexOf("kcd-")==0){o.data[q]=localStorage.getItem(q);n++}}}catch(e){}
+var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:"application/json"}));a.download="kcd-tools-backup-"+o.date.slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);msg("Backup saved ("+n+" items).")};
+if($("rsb"))$("rsb").onclick=function(){$("rs").click()};
+if($("rs"))$("rs").onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var o=JSON.parse(r.result);if(o.app!="kcd-tools"||!o.data)throw 0;var ks=Object.keys(o.data).filter(function(x){return x.indexOf("kcd-")==0&&typeof o.data[x]=="string"});
+if(!ks.length)throw 0;if(!confirm("Replace the data saved on this site with this backup ("+ks.length+" items)?"))return;ks.forEach(function(x){localStorage.setItem(x,o.data[x])});msg("Restored. Reloading…");location.reload()}catch(e){msg("That file is not a KCD Tools backup.")}};r.readAsText(f);this.value=""};
+});
+addEventListener("keydown",function(e){if(e.key!="/"||e.ctrlKey||e.metaKey||e.altKey)return;var a=document.activeElement;if(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName))return;var q=document.querySelector("input[type=search]");if(q){e.preventDefault();q.focus();q.select()}})})();
 </script>
 <style>main{max-width:1280px;padding-top:0}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);padding:10px 0 8px;border-bottom:1px solid var(--bd)}
@@ -101,21 +133,40 @@ table{min-width:520px}th,td{padding:5px 8px}td:first-child{white-space:normal}th
 tr.r{cursor:pointer}tr.r:hover{background:var(--bg)}
 tr.lh td{background:var(--bg);color:var(--ac);font-weight:bold;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
 .bd td{color:var(--mut);font-size:.85rem;padding:8px 14px}.qty{width:64px;padding:3px 5px}
-.star{border:0;background:none;padding:0 6px 0 0;color:var(--mut);font-size:1.05rem;line-height:1;cursor:pointer}.star.on{color:#d9a21b}</style></head><body><nav class="site"><a class="brand" href="index.html">⚒️ KCD Tools</a><a href="crafting.html" aria-current=page>Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><select id="skin" aria-label="Choose a theme" title="Choose a theme"><option value="classic">Classic</option><option value="ledger">Medieval ledger</option></select><button id="theme" type="button" title="Switch light / dark theme" aria-label="Switch light or dark theme">◐</button></nav>
-<main>
+.star{border:0;background:none;padding:0 6px 0 0;color:var(--mut);font-size:1.05rem;line-height:1;cursor:pointer;min-height:0}.star.on{color:#d9a21b}
+th .sb{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;min-height:0;white-space:nowrap}th .sb:hover{color:var(--ac)}
+.ban{border-color:var(--ac)}
+html[data-skin=ledger] button.star,html[data-skin=ledger] th .sb{border:0;background:none;border-radius:0}html[data-skin=ledger] th .sb:hover,html[data-skin=ledger] button.star:hover{border:0}.ban button{margin-left:8px}
+.pr{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--bd)}.pr button{padding:2px 8px;min-height:0}
+@media (max-width:700px){
+ .top h1{font-size:1.05rem;margin:0 0 4px}
+ table.rt{min-width:0}table.rt thead{display:none}table.rt,table.rt tbody,table.rt tr{display:block}
+ table.rt tr.r{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 10px;padding:8px 4px;border-bottom:1px solid var(--bd)}
+ table.rt tr.r td{display:flex;flex-direction:column;align-items:flex-start;gap:0;border:0;padding:0;text-align:left}
+ table.rt tr.r td[data-l]::before{content:attr(data-l);color:var(--mut);font-size:.7rem}
+ table.rt tr.r td:first-child{grid-column:1/-1;font-weight:bold;font-size:1.02rem;margin-bottom:2px}
+ .top{position:static}#totop{display:flex!important}
+ table.rt tr.lh td,table.rt tr.bd td,table.rt tr:not(.r) td{display:block;border:0}
+ .qty{width:84px}
+}
+#totop{display:none;position:fixed;right:14px;bottom:14px;z-index:20;width:44px;height:44px;border-radius:50%;align-items:center;justify-content:center;padding:0;background:var(--ac);color:var(--on);border:0;box-shadow:0 3px 10px rgba(0,0,0,.35);font-size:1.2rem}</style></head><body><a class="skip" href="#main">Skip to content</a><nav class="site"><a class="brand" href="index.html"><span class="logo">⚒️</span> KCD Tools</a><a href="crafting.html" aria-current=page>Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><details class="menu" id="menu"><summary aria-label="Settings: light or dark mode, backup" title="Light/dark mode and backup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="mlabel">Settings</span></summary><div class="pop"><button id="theme" type="button" aria-label="Switch light or dark mode">Switch to dark</button><hr><button id="bk" type="button">Back up my data</button><button id="rsb" type="button">Restore from backup</button><input id="rs" type="file" accept=".json,application/json" hidden><p class="s" id="bkmsg">Saves your prices, orders, favourites, loadouts and settings to a file.</p></div></details></nav>
+<main id="main" tabindex="-1">
 <header class="top" id="top"><h1>Crafting Cost Calculator</h1>
 <div class="bar">
 <label class="f">Markup %<input id="mk" type="number" min="0" step="1" style="width:80px"></label>
 <label class="f" style="flex:1;min-width:150px">Search all crafts<input id="q" type="search" placeholder="e.g. cuirass (2+ letters)"></label>
+<label class="f">Sort by<select id="srt"><option value="lv">Level</option><option value="name">Name A–Z</option><option value="cost">Cost: low to high</option><option value="costd">Cost: high to low</option><option value="profitd">Profit: high to low</option><option value="profit">Profit: low to high</option><option value="fee">Bench fee: high to low</option></select></label>
 <label class="f" style="flex-direction:row;align-items:center;gap:6px;padding-bottom:6px"><input id="hp" type="checkbox"> Fully priced only</label>
 </div>
 <div id="tabs"></div><div class="chips" id="lvs"></div></header>
 <div class="layout">
-<aside class="card"><details id="matd" open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><div id="matbody"></div>
+<aside class="card"><details id="matd" open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="unp"> Only raw materials without a price</label><div id="matbody"></div>
 <p style="margin:10px 0 0"><button id="reset" type="button">Clear prices</button></p></details>
+<details style="margin-top:10px"><summary>Price presets</summary><p class="s" style="margin:6px 0">Save your current prices under a name (a town, say) and switch between them.</p><div class="bar" style="margin:6px 0"><label class="f" style="flex:1">Name<input id="psn" placeholder="e.g. Prague" maxlength="40"></label><button type="button" class="pri" id="pss">Save preset</button></div><div id="psl"></div></details>
 <details style="margin-top:10px"><summary>Share prices</summary><p class="s" style="margin:6px 0">Export your prices to paste in a chat, or paste someone else’s list and import it.</p><textarea id="shta" rows="7" style="width:100%" placeholder="Iron ore = 3&#10;Coal = 2" aria-label="Price list"></textarea><div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><button type="button" id="shex">Export my prices</button><button type="button" class="pri" id="shim">Import prices</button></div><p class="s" id="shmsg" style="margin:6px 0 0"></p></details></aside>
-<section><div class="card" id="ordc"><details id="ordd"><summary id="ords">Order &amp; shopping list</summary><div id="ordb" style="margin-top:8px"></div></details></div>
-<div class="card wrap"><table><thead id="th"></thead><tbody id="rows"></tbody></table>
+<section><div class="card ban" id="ban" hidden><b>Add your material prices to get real costs.</b> Until you do, costs only include bench fees. <button type="button" class="pri" id="banopen">Enter prices</button></div>
+<div class="card" id="ordc"><details id="ordd"><summary id="ords">Order &amp; shopping list</summary><div id="ordb" style="margin-top:8px"></div></details></div>
+<div class="card wrap"><table class="rt"><thead id="th"></thead><tbody id="rows"></tbody></table>
 <p class="s" id="note" style="margin:8px 0 0"></p></div>
 <div class="card"><details><summary>Add a custom recipe</summary>
 <div class="bar" style="margin-top:8px">
@@ -125,7 +176,7 @@ tr.lh td{background:var(--bg);color:var(--ac);font-weight:bold;font-size:.8rem;l
 <label class="f" style="flex:1;min-width:220px">Ingredients (e.g. steel 5, coal 9, 2 logs)<textarea id="ci" rows="2"></textarea></label>
 <button class="pri" id="add">Add</button></div><p class="s" id="msg" style="margin:6px 0 0"></p></details></div></section></div>
 </main>
-<footer class="site">Unofficial fan tool. Recipes and crops from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Recipe data updated <span id="ru"></span>. Prices and settings are saved in your browser only.<div class="sig">Made by <b>Busterguy</b> · Found a bug or have an issue? Contact me on <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord.</div><div class="sig">Open source: <a href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer">view the repo</a> or <a href="https://github.com/xBusterguy/KCDCalculator/issues/new/choose" target="_blank" rel="noopener noreferrer">report an issue</a> on GitHub.</div></footer>
+<button id="totop" type="button" aria-label="Back to filters">↑</button><footer class="site">Unofficial fan tool. Recipes and crops from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Recipe data updated <span id="ru"></span>. Prices and settings are saved in your browser only.<div class="sig">Made by <b>Busterguy</b> · Found a bug or have an issue? Contact me on <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord.</div><div class="sig">Open source: <a href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer">view the repo</a> or <a href="https://github.com/xBusterguy/KCDCalculator/issues/new/choose" target="_blank" rel="noopener noreferrer">report an issue</a> on GitHub.</div></footer>
 <script src="assets/recipes.js"></script>
 <script>
 if(typeof DATA==="undefined"){document.body.insertAdjacentHTML("afterbegin",'<p style="margin:16px;padding:12px;border:1px solid #b03a2e;border-radius:8px">Recipe data (assets/recipes.js) failed to load. Upload the whole website folder, including the assets folder, next to this page.</p>');throw new Error("recipes.js missing")}
@@ -133,10 +184,10 @@ if(typeof DATA==="undefined"){document.body.insertAdjacentHTML("afterbegin",'<p 
 const RX=/\{(\w+)\}(\d+)|([A-Za-z])(\d+)/g;let K=0;
 const items=DATA.split("\n").flatMap(l=>{const [c,lv,ns,y,i,f]=l.split("|"),r={};i.replace(RX,(m,w,a,k,b)=>r[w||k]=+(a||b));return ns.split(";").map(n=>({k:K++,c:CR[c],l:+lv,n,y:+y,f:+f,r}))});
 const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let P={},custom=[],S={tab:"Smithing",lv:0,mk:25,q:"",hp:false,lim:60},open=new Set(),C={};
-try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");custom=JSON.parse(localStorage.getItem("kcd-c")||"[]");const st=JSON.parse(localStorage.getItem("kcd-s")||"{}");if(st.mk!=null)S.mk=st.mk;if(st.tab)S.tab=st.tab}catch(e){}
+let P={},custom=[],S={tab:"Smithing",lv:0,mk:25,q:"",hp:false,lim:60,sort:"lv",unp:false},open=new Set(),C={},PR={};
+try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");custom=JSON.parse(localStorage.getItem("kcd-c")||"[]");const st=JSON.parse(localStorage.getItem("kcd-s")||"{}");if(st.mk!=null)S.mk=st.mk;if(st.tab)S.tab=st.tab;if(st.lv>=0&&st.lv<=10)S.lv=+st.lv||0;S.hp=!!st.hp;S.unp=!!st.unp;if(st.sort)S.sort=st.sort;PR=JSON.parse(localStorage.getItem("kcd-presets")||"{}")}catch(e){}
 custom.forEach(c=>c.k=K++);
-let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-c",JSON.stringify(custom));localStorage.setItem("kcd-s",JSON.stringify({mk:S.mk,tab:S.tab}))}catch(e){}},250)};
+let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-c",JSON.stringify(custom));localStorage.setItem("kcd-s",JSON.stringify({mk:S.mk,tab:S.tab,lv:S.lv,hp:S.hp,unp:S.unp,sort:S.sort}))}catch(e){}},250)};
 const all=()=>items.concat(custom);
 const name=id=>RAW[id]||(INT[id]&&INT[id][0])||id;
 const ov=id=>P[id]!==undefined&&P[id]!=="";
@@ -146,38 +197,46 @@ const unit=id=>id in C?C[id]:(C[id]=ov(id)?(+P[id]||0):INT[id]?derived(id):0);
 function missing(r,s=new Set()){for(const k in r){if(ov(k))continue;if(INT[k])missing(INT[k][2],s);else if(!(+P[k]>0))s.add(name(k))}return s}
 const f1=n=>(Math.round(n*10)/10).toLocaleString("en-GB");
 const base=()=>{const q=S.q.toLowerCase();return all().filter(i=>q?i.n.toLowerCase().includes(q):S.tab=="★"?FAV.has(kk(i)):i.c==S.tab)};
-function vis(){let L=base();if(S.lv)L=L.filter(i=>i.l==S.lv);if(S.hp)L=L.filter(i=>!missing(i.r).size);return S.q?L:L.sort(S.tab=="★"?(a,b)=>a.c.localeCompare(b.c)||a.l-b.l:(a,b)=>a.l-b.l)}
+const cst=i=>(sum(i.r)+i.f)/i.y,prf=i=>{const c=cst(i);return Math.ceil(c*(1+(+S.mk||0)/100))-c};
+const SORTS={lv:null,name:(a,b)=>a.n.localeCompare(b.n),cost:(a,b)=>cst(a)-cst(b),costd:(a,b)=>cst(b)-cst(a),profit:(a,b)=>prf(a)-prf(b),profitd:(a,b)=>prf(b)-prf(a),fee:(a,b)=>b.f/b.y-a.f/a.y};
+const TG={name:["name","name"],lv:["lv","lv"],fee:["fee","fee"],cost:["cost","costd"],profit:["profitd","profit"]},IND={lv:"▲",name:"▲",cost:"▲",costd:"▼",profit:"▲",profitd:"▼",fee:"▼"};
+const noPrices=()=>!Object.keys(P).some(k=>ov(k)&&+P[k]>0);let LN=true;
+function banner(){$("ban").hidden=!noPrices()}
+function vis(){let L=base();if(S.lv)L=L.filter(i=>i.l==S.lv);if(S.hp)L=L.filter(i=>!missing(i.r).size);if(SORTS[S.sort])return L.sort(SORTS[S.sort]);return S.q?L:L.sort(S.tab=="★"?(a,b)=>a.c.localeCompare(b.c)||a.l-b.l:(a,b)=>a.l-b.l)}
 
 function tabs(){const all_=all();$("tabs").innerHTML=`<button class="tab${S.tab=="★"&&!S.q?" on":""}" data-c="★">★ Favourites <small>${FAV.size}</small></button>`+[...new Set(all_.map(i=>i.c))].map(c=>`<button class="tab${c==S.tab&&!S.q?" on":""}" data-c="${esc(c)}">${esc(c)} <small>${all_.filter(i=>i.c==c).length}</small></button>`).join("")}
 $("tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.tab=b.dataset.c;S.q="";S.lim=60;$("q").value="";save();render()};
-$("lvs").innerHTML="Level "+["All",1,2,3,4,5,6,7,8,9,10].map(l=>`<button class="chip${l=="All"?" on":""}" data-l="${l=="All"?0:l}">${l}</button>`).join("");
-$("lvs").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.lv=+b.dataset.l;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",+x.dataset.l==S.lv));rows()};
+$("lvs").innerHTML="Level "+["All",1,2,3,4,5,6,7,8,9,10].map(l=>`<button class="chip${(l=="All"?0:l)==S.lv?" on":""}" data-l="${l=="All"?0:l}">${l}</button>`).join("");
+$("lvs").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.lv=+b.dataset.l;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",+x.dataset.l==S.lv));save();rows()};
 
 function mats(){
   const u=new Set(),walk=r=>{for(const k in r)if(!u.has(k)){u.add(k);if(INT[k])walk(INT[k][2])}};(S.q?base().slice(0,S.lim):base()).forEach(i=>walk(i.r));
   const fld=k=>`<label class="f">${esc(name(k))}<input type="number" min="0" step="0.1" data-id="${k}" value="${ov(k)?esc(P[k]):""}"></label>`;
-  const rk=Object.keys(RAW).filter(k=>u.has(k)),ik=Object.keys(INT).filter(k=>u.has(k));
+  const rk=Object.keys(RAW).filter(k=>u.has(k)&&(!S.unp||!ov(k))),ik=Object.keys(INT).filter(k=>u.has(k));
   $("matnote").textContent=S.q?"Materials for the search results.":S.tab=="★"?"Materials needed for your favourites.":"Materials needed for "+S.tab+".";
-  $("matbody").innerHTML=`<h3>Raw materials</h3><div class="grid">${rk.map(fld).join("")}</div>`+(ik.length?`<h3>Intermediate parts</h3><p class="s">Leave blank to work it out from raw prices, or enter a price if you buy the part.</p><div class="grid">${ik.map(fld).join("")}</div>`:"");
+  $("matbody").innerHTML=`<h3>Raw materials</h3>${rk.length?`<div class="grid">${rk.map(fld).join("")}</div>`:'<p class="s">Every raw material here has a price.</p>'}`+(ik.length?`<h3>Intermediate parts</h3><p class="s">Leave blank to work it out from raw prices, or enter a price if you buy the part.</p><div class="grid">${ik.map(fld).join("")}</div>`:"");
   $("matbody").querySelectorAll("input").forEach(e=>e.oninput=()=>{P[e.dataset.id]=e.value;save();upd()});ph()}
 const ph=()=>$("matbody").querySelectorAll("input").forEach(e=>{if(INT[e.dataset.id])e.placeholder="≈ "+f1(derived(e.dataset.id))});
 let t,RW=[];const set=(el,v)=>{if(el.textContent!==v)el.textContent=v};
 // Update numbers in place instead of rebuilding the whole table
 function patch(){
-  if(open.size||S.hp){rows();return}
+  if(open.size||S.hp||noPrices()!==LN){rows();return}
   const m=+S.mk||0;
   for(const o of RW){const it=o.it,cost=(sum(it.r)+it.f)/it.y,sell=Math.ceil(cost*(1+m/100)),ms=[...missing(it.r)],tip=ms.length?"Unpriced: "+ms.join(", "):"";
     set(o.tc,f1(cost));set(o.sc,String(sell));set(o.pc,"+"+f1(sell-cost));set(o.w,ms.length?" ⚠":"");if(o.w.title!==tip)o.w.title=tip}
+  const sf=SORTS[S.sort];if(sf&&/cost|profit/.test(S.sort)){RW.sort((a,b)=>sf(a.it,b.it));const fr=document.createDocumentFragment();RW.forEach(o=>fr.appendChild(o.tr));$("rows").insertBefore(fr,$("rows").firstChild)}
   shop()}
 const upd=()=>{clearTimeout(t);t=setTimeout(()=>{C={};ph();patch()},150)};
 
 function rows(){
-  const m=+S.mk||0,ALL=vis(),L=S.q?ALL.slice(0,S.lim):ALL,wd=S.q||S.tab=="★",cols=wd?8:7;let h="",last=-1;
-  $("th").innerHTML=`<tr><th>Piece</th>${wd?"<th>Craft</th>":""}<th>Lv</th><th class="n">Bench fee</th><th class="n">Total cost</th><th class="n">Sell at</th><th class="n">Profit</th><th>Qty</th></tr>`;
+  const m=+S.mk||0,ALL=vis(),L=S.q?ALL.slice(0,S.lim):ALL,wd=S.q||S.tab=="★",cols=wd?8:7,grp=!wd&&!SORTS[S.sort],NP=noPrices();LN=NP;let h="",last=-1;
+  const th=(g,lab,cls="")=>`<th${cls?` class="${cls}"`:""}><button type="button" class="sb" data-s="${g}" title="Sort by ${lab}">${lab}${TG[g].includes(S.sort)?" "+IND[S.sort]:""}</button></th>`;
+  $("th").innerHTML=`<tr>${th("name","Piece")}${wd?"<th>Craft</th>":""}${th("lv","Lv")}${th("fee","Bench fee","n")}${th("cost","Total cost","n")}<th class="n">Sell at</th>${th("profit","Profit","n")}<th>Qty</th></tr>`;
+  $("srt").value=S.sort;banner();
   for(const it of L){
-    if(!wd&&it.l!==last){h+=`<tr class="lh"><td colspan="${cols}">${it.l?"Level "+it.l:"Custom"}</td></tr>`;last=it.l}
+    if(grp&&it.l!==last){h+=`<tr class="lh"><td colspan="${cols}">${it.l?"Level "+it.l:"Custom"}</td></tr>`;last=it.l}
     const batch=sum(it.r)+it.f,cost=batch/it.y,sell=Math.ceil(cost*(1+m/100)),ms=[...missing(it.r)];
-    h+=`<tr class="r" data-k="${it.k}"><td><button type="button" class="star${FAV.has(kk(it))?" on":""}" data-f="${esc(kk(it))}" aria-label="Toggle favourite">${FAV.has(kk(it))?"★":"☆"}</button>${esc(it.n)}${it.y>1?" (×"+it.y+")":""}<span class="w mw"${ms.length?` title="Unpriced: ${esc(ms.join(", "))}"`:""}>${ms.length?" ⚠":""}</span></td>${wd?`<td>${esc(it.c)}</td>`:""}<td>${it.l||""}</td><td class="n">${it.f?f1(it.f/it.y):"–"}</td><td class="n tc">${f1(cost)}</td><td class="n sc"><b>${sell}</b></td><td class="n p pc">+${f1(sell-cost)}</td><td><input class="qty" type="number" min="0" step="1" data-o="${esc(kk(it))}" value="${ORD[kk(it)]||""}"></td></tr>`;
+    h+=`<tr class="r" data-k="${it.k}"><td><button type="button" class="star${FAV.has(kk(it))?" on":""}" data-f="${esc(kk(it))}" aria-label="Toggle favourite">${FAV.has(kk(it))?"★":"☆"}</button>${esc(it.n)}${it.y>1?" (×"+it.y+")":""}<span class="w mw"${ms.length&&!NP?` title="Unpriced: ${esc(ms.join(", "))}"`:""}>${ms.length&&!NP?" ⚠":""}</span></td>${wd?`<td data-l="Craft">${esc(it.c)}</td>`:""}<td data-l="Level">${it.l||""}</td><td class="n" data-l="Bench fee">${it.f?f1(it.f/it.y):"–"}</td><td class="n tc" data-l="Total cost">${f1(cost)}</td><td class="n sc" data-l="Sell at"><b>${sell}</b></td><td class="n p pc" data-l="Profit">+${f1(sell-cost)}</td><td data-l="Qty"><input class="qty" type="number" min="0" step="1" data-o="${esc(kk(it))}" value="${ORD[kk(it)]||""}" aria-label="Quantity of ${esc(it.n)}"></td></tr>`;
     if(open.has(it.k)){
       const D=Object.entries(it.r).map(([k,q])=>`${q} × ${esc(name(k))} @ ${f1(unit(k))} = ${f1(q*unit(k))}`);
       if(it.f)D.push(`Bench fee: ${it.f}`);
@@ -185,14 +244,24 @@ function rows(){
   }
   if(ALL.length>L.length)h+=`<tr><td colspan="${cols}"><button type="button" class="more">Show ${Math.min(60,ALL.length-L.length)} more (${L.length} of ${ALL.length} shown)</button></td></tr>`;
   $("rows").innerHTML=h||`<tr><td colspan="${cols}">${S.tab=="★"&&!S.q?"Tap the ☆ next to a piece to add it to your favourites.":"No pieces match."}</td></tr>`;
-  {const by={};L.forEach(i=>by[i.k]=i);RW=[...$("rows").querySelectorAll("tr.r")].map(tr=>({it:by[tr.dataset.k],tc:tr.querySelector(".tc"),sc:tr.querySelector(".sc b"),pc:tr.querySelector(".pc"),w:tr.querySelector(".mw")}))}
-  $("note").textContent=ALL.length+" pieces"+(L.length<ALL.length?" ("+L.length+" shown)":"")+". Click a row for the breakdown. Total cost = materials + bench fee (divided by yield for batches). Sell price is rounded up to a whole groschen; cosmetic variants with the same recipe are merged.";shop();
+  {const by={};L.forEach(i=>by[i.k]=i);RW=[...$("rows").querySelectorAll("tr.r")].map(tr=>({tr,it:by[tr.dataset.k],tc:tr.querySelector(".tc"),sc:tr.querySelector(".sc b"),pc:tr.querySelector(".pc"),w:tr.querySelector(".mw")}))}
+  $("note").textContent=ALL.length+" pieces"+(L.length<ALL.length?" ("+L.length+" shown)":"")+". Click a row for the breakdown, or a column heading to sort. ⚠ means a material in the recipe has no price. Total cost = materials + bench fee (divided by yield for batches). Sell price is rounded up to a whole groschen; cosmetic variants with the same recipe are merged.";shop();
 }
 $("rows").onclick=e=>{if(e.target.closest("input"))return;const sb=e.target.closest("button.star");if(sb){const k=sb.dataset.f;FAV.has(k)?FAV.delete(k):FAV.add(k);saveF();if(S.tab=="★"&&!S.q)render();else{sb.textContent=FAV.has(k)?"★":"☆";sb.classList.toggle("on",FAV.has(k));tabs()}return}if(e.target.closest("button.more")){S.lim+=60;rows();mats();return}const r=e.target.closest("tr.r");if(!r)return;const k=+r.dataset.k;open.has(k)?open.delete(k):open.add(k);rows()};
 const hh=()=>document.documentElement.style.setProperty("--hh",$("top").offsetHeight+"px");
 function render(){tabs();mats();rows();hh()}
 $("mk").value=S.mk;$("mk").oninput=e=>{S.mk=e.target.value;save();patch()};
-$("hp").onchange=e=>{S.hp=e.target.checked;rows()};
+$("hp").checked=S.hp;$("hp").onchange=e=>{S.hp=e.target.checked;save();rows()};
+$("unp").checked=S.unp;$("unp").onchange=e=>{S.unp=e.target.checked;save();mats()};
+$("srt").value=S.sort;$("srt").onchange=e=>{S.sort=e.target.value;save();rows()};
+$("th").onclick=e=>{const b=e.target.closest("button.sb");if(!b)return;const [a,c]=TG[b.dataset.s];S.sort=S.sort==a?c:a;save();rows()};
+$("banopen").onclick=()=>{$("matd").open=true;$("matd").scrollIntoView({block:"start"});const i=$("matbody").querySelector("input");if(i)i.focus()};
+document.addEventListener("keydown",e=>{if(e.key!="Enter")return;const i=e.target;if(!(i.matches&&i.matches("#matbody input, input.qty")))return;e.preventDefault();const L=[...document.querySelectorAll(i.closest("#matbody")?"#matbody input":"input.qty")],n=L[L.indexOf(i)+(e.shiftKey?-1:1)];if(n){n.focus();n.select()}});
+const savePR=()=>{try{localStorage.setItem("kcd-presets",JSON.stringify(PR))}catch(e){}};
+function presets(){const k=Object.keys(PR).sort();$("psl").innerHTML=k.length?k.map(n=>`<div class="pr"><span>${esc(n)} <small class="s">(${Object.keys(PR[n]).length} prices)</small></span><span><button type="button" data-pl="${esc(n)}">Load</button> <button type="button" data-pd="${esc(n)}" aria-label="Delete preset ${esc(n)}">×</button></span></div>`).join(""):'<p class="s">No presets yet.</p>'}
+$("pss").onclick=()=>{const n=$("psn").value.trim();if(!n)return;if(PR[n]&&!confirm("Replace the preset “"+n+"”?"))return;const o={};for(const k in P)if(ov(k))o[k]=P[k];PR[n]=o;savePR();$("psn").value="";presets()};
+$("psl").onclick=e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.pl){const o=PR[b.dataset.pl];if(Object.keys(P).some(k=>ov(k))&&!confirm("Replace your current prices with “"+b.dataset.pl+"”? Save them as a preset first if you want to keep them."))return;P={...o};C={};save();mats();rows()}else if(b.dataset.pd&&confirm("Delete preset “"+b.dataset.pd+"”?")){delete PR[b.dataset.pd];savePR();presets()}};
+presets();
 let qt;$("q").oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{const v=e.target.value.trim(),nq=v.length>=2?v:"";if(nq===S.q)return;S.q=nq;S.lim=60;render()},250)};
 $("reset").onclick=()=>{if(!confirm("Clear every price you have entered?"))return;P={};C={};save();mats();rows()};
 const NAMES=(()=>{const m={};for(const k in RAW)m[RAW[k].toLowerCase()]=k;for(const k in INT)m[INT[k][0].toLowerCase()]=k;return m})();
@@ -231,7 +300,7 @@ $("ordb").onclick=e=>{const b=e.target.closest("button");if(!b)return;
   else if(b.id=="ordclear"){if(confirm("Clear the whole order?")){for(const k in ORD)delete ORD[k];saveO();rows()}}
   else if(b.id=="ordcopy"){const done=()=>b.textContent="Copied!",fb=()=>{const t=document.createElement("textarea");t.value=TXT;document.body.appendChild(t);t.select();try{document.execCommand("copy");done()}catch(x){alert(TXT)}t.remove()};
     try{navigator.clipboard.writeText(TXT).then(done,fb)}catch(x){fb()}}};
-addEventListener("resize",hh);
+addEventListener("resize",hh);$("totop").onclick=()=>scrollTo({top:0,behavior:"smooth"});
 if(matchMedia("(max-width:899px)").matches)$("matd").open=false;
 
 $("add").onclick=()=>{
