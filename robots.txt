@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://xbusterguy.github.io/KCDCalculator/sitemap.xml

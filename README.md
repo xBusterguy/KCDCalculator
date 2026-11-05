@@ -72,6 +72,7 @@ loadouts.html       loadout builder
 404.html            page not found
 assets/recipes.js   every crafting recipe (edit recipes here only)
 assets/social.png   picture shown when a link is shared in Discord or chat
+robots.txt, sitemap.xml   help search engines find the pages
 scripts/            recipe checker and wiki sync
 docs/screenshots/   images used in this README
 .github/            workflows, issue forms and pull request template
