@@ -7,7 +7,7 @@ Calculators for **KCD Roleplay** (Kingdom Come: Deliverance II): work out what t
 
 ### 👉 [Open the site](https://xbusterguy.github.io/KCDCalculator/)
 
-Everything runs in your browser. There is no account and nothing is sent anywhere. Your prices and settings are saved on your own device.
+Everything runs in your browser. There is no account and nothing is sent anywhere. Your prices and settings are saved on your own device. The site uses a Medieval ledger look, with a light and a dark mode in the settings menu (top right).
 
 ![KCD Tools home page](docs/screenshots/home.png)
 
@@ -18,8 +18,9 @@ Everything runs in your browser. There is no account and nothing is sent anywher
 - All nine crafts: Smithing, Armouring, Tailoring, Bowyery, Jewelling, Alchemy, Brewing, Cooking and Carpentry (1,163 pieces).
 - Enter your material prices and see each piece's cost, bench fee, selling price and profit at your markup.
 - Intermediate parts such as steel, leather and padding are worked out from raw materials, or use your own price.
+- Sort by any column, star favourites, and search across every craft.
 - Build an order and get a combined shopping list.
-- Star favourites, search across every craft, and share or import price lists as plain text.
+- Save named price presets (for example one per town), and share or import price lists as plain text.
 
 ## Farming efficiency
 
@@ -27,6 +28,7 @@ Everything runs in your browser. There is no account and nothing is sent anywher
 
 - Compare every crop by value per hour, value per harvest and value in a time window.
 - Set your trade level, whether strips are weeded and watered, how many strips you have, and your own selling prices.
+- Quick-setup buttons, a top 3 chart, and a note on how every number is worked out.
 
 ## Loadout builder
 
@@ -34,12 +36,26 @@ Everything runs in your browser. There is no account and nothing is sent anywher
 
 - Set up several loadouts at different crafting levels: 12 armour sections plus a weapon and a shield.
 - The fill buttons pick the highest-tier pieces and prefer armour, using clothing only where a slot has no armour.
+- Find a piece by name, compare loadouts side by side, and undo clears, deletes and fills.
 - See what each costs to make and get a shopping list of materials.
-- Copy a loadout as text for a chat, or save it as a picture.
+- Copy a loadout as text or as a link, or save it as a picture.
+
+## Everywhere
+
+- Tables turn into cards on phones.
+- Back up and restore all your prices, orders, favourites and loadouts from the settings menu.
+- Press `/` to jump to search, Enter moves to the next price box, and there is a skip-to-content link.
+
+## Recipes update themselves
+
+A GitHub Action (`.github/workflows/wiki-sync.yml`) reads the [recipes page on the wiki](https://wiki.kcdroleplay.com/recipes/) every Monday and compares it with `assets/recipes.js`. If anything differs it opens a pull request called **Update recipes from the wiki** that lists every new, removed and changed piece. Check the list, press **Merge**, and the site updates itself.
+
+- To check right now: open the **Actions** tab, choose **Check wiki for recipe changes**, press **Run workflow**.
+- One-time setting: **Settings → Actions → General → Workflow permissions**, tick **Allow GitHub Actions to create and approve pull requests**.
+- If the Action cannot read the wiki, or a change needs a person (for example a brand new material name), it opens an issue instead and explains what to do.
+- You can run the same check on your own computer with `node scripts/wiki-sync.js`. Add `--apply` to rewrite `assets/recipes.js`.
 
 ## Found a mistake?
-
-Recipes were copied by hand from the [KCD Roleplay wiki](https://wiki.kcdroleplay.com/recipes/), so some may be wrong.
 
 - [Report a wrong recipe or a bug](../../issues/new/choose)
 - Or message **Busterguy** on Discord.
@@ -55,9 +71,10 @@ farming.html        farming efficiency
 loadouts.html       loadout builder
 404.html            page not found
 assets/recipes.js   every crafting recipe (edit recipes here only)
-scripts/            recipe checker (also run automatically by GitHub Actions)
+assets/social.png   picture shown when a link is shared in Discord or chat
+scripts/            recipe checker and wiki sync
 docs/screenshots/   images used in this README
-.github/            issue forms and the recipe-check workflow
+.github/            workflows, issue forms and pull request template
 CONTRIBUTING.md     how to fix a recipe
 LICENSE             MIT licence
 ```
@@ -69,25 +86,3 @@ It is a static site with no build step. To run it locally, download the reposito
 Made by **Busterguy**. Released under the [MIT licence](LICENSE).
 
 Recipe and crop data comes from the [KCD Roleplay wiki](https://wiki.kcdroleplay.com/). This is an unofficial fan project and is not affiliated with the wiki, Warhorse Studios or Deep Silver.
-
-## Look
-
-The whole site uses a Medieval ledger (1400s account-book) style. Use the settings menu (top right) to switch between light and dark mode.
-
-## Handy extras
-
-- **Sorting and presets (crafting):** click a column heading or use the Sort box; save named price presets (for example one per town).
-- **Loadouts:** find a piece by name, compare loadouts side by side, share a loadout with a link, and undo clears, deletes and fills.
-- **Farming:** quick-setup buttons, a top 3 chart and a "how it is worked out" note.
-- **Phones:** tables turn into cards on narrow screens.
-- **Backup:** the settings menu (top right) can back up and restore all your prices, orders, favourites and loadouts as a file.
-- **Keyboard:** press `/` to jump to search, Enter moves to the next price box, and there is a skip-to-content link.
-
-## Recipes update themselves
-
-A GitHub Action (`.github/workflows/wiki-sync.yml`) reads the recipes page on the wiki every Monday and compares it with `assets/recipes.js`. If anything differs it opens a pull request called **Update recipes from the wiki** that lists every new, removed and changed piece. Check the list, press **Merge**, and the site updates itself.
-
-- To check right now: open the **Actions** tab, choose **Check wiki for recipe changes**, press **Run workflow**.
-- One-time setting: **Settings → Actions → General → Workflow permissions**, tick **Allow GitHub Actions to create and approve pull requests**.
-- If the Action cannot read the wiki, or a change needs a person (for example a brand new material name), it opens an issue instead and explains what to do.
-- You can run the same check on your own computer with `node scripts/wiki-sync.js`. Add `--apply` to rewrite `assets/recipes.js`.

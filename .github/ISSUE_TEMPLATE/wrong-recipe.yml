@@ -1,0 +1,33 @@
+name: Wrong or missing recipe
+description: A recipe on the site does not match the game or the wiki
+title: "Recipe: "
+labels: ["recipes"]
+body:
+  - type: dropdown
+    id: craft
+    attributes:
+      label: Craft
+      options: [Smithing, Armouring, Tailoring, Bowyery, Jewelling, Alchemy, Brewing, Cooking, Carpentry]
+    validations:
+      required: true
+  - type: input
+    id: piece
+    attributes:
+      label: Piece name and level
+      placeholder: "e.g. Plain shelf, level 1"
+    validations:
+      required: true
+  - type: textarea
+    id: site
+    attributes:
+      label: What the site shows
+      placeholder: "Materials, yield and bench fee as shown on the site"
+    validations:
+      required: true
+  - type: textarea
+    id: correct
+    attributes:
+      label: What it should be
+      description: Materials, yield and bench fee. A link to the wiki page or a screenshot helps.
+    validations:
+      required: true
