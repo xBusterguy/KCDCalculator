@@ -67,3 +67,7 @@ It is a static site with no build step. To run it locally, download the reposito
 Made by **Busterguy**. Released under the [MIT licence](LICENSE).
 
 Recipe and crop data comes from the [KCD Roleplay wiki](https://wiki.kcdroleplay.com/). This is an unofficial fan project and is not affiliated with the wiki, Warhorse Studios or Deep Silver.
+
+## Themes
+
+Use the theme drop-down in the top bar to switch between Classic and Medieval ledger (a 1400s account-book look). It works with light and dark mode and is remembered in your browser.

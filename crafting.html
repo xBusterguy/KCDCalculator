@@ -41,14 +41,51 @@ footer.site{max-width:1280px;margin:0 auto;padding:6px 14px 24px;color:var(--mut
 .tile{display:block;text-decoration:none;color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:14px;background:var(--card)}
 .tile:hover{border-color:var(--ac)}.tile h2{color:var(--ac);font-size:1.1rem}.tile p{margin:0;color:var(--mut)}
 .sig{margin-top:6px}.sig b{color:var(--tx)}.sig svg{width:1.3em;height:1.3em;vertical-align:-.3em;margin:0 .2em 0 .1em;fill:#5865F2}
-nav.site a.gh{margin-left:auto;color:var(--mut)}nav.site a.gh+button{margin-left:0}.sig a{color:var(--ac)}
+nav.site a.gh{margin-left:auto;color:var(--mut)}.sig a{color:var(--ac)}
 @media print{nav.site,footer.site{display:none}}
+/* theme picker */
+nav.site select{font-size:.85rem;padding:4px 6px;margin-left:auto}nav.site a.gh+select,nav.site select+button{margin-left:0}nav.site a.gh+select{margin-left:8px}
+/* Medieval ledger theme (select "Medieval ledger" in the nav) */
+:root[data-skin=ledger]{--bg:#d8c59b;--card:#efe1bb;--tx:#2a1c0e;--mut:#66502f;--ac:#8a1c1c;--on:#f4e8c8;--bd:#8d7147;--ok:#2d5a28;--bad:#8a1c1c;--bar:#a67a3a;color-scheme:light}
+@media (prefers-color-scheme:dark){:root[data-skin=ledger]:not([data-theme=light]){--bg:#17110a;--card:#241a0f;--tx:#e8d6a6;--mut:#a68e62;--ac:#d2604a;--on:#17110a;--bd:#5c4526;--ok:#86b66f;--bad:#e0705c;--bar:#8d6a30;color-scheme:dark}}
+:root[data-skin=ledger][data-theme=dark]{--bg:#17110a;--card:#241a0f;--tx:#e8d6a6;--mut:#a68e62;--ac:#d2604a;--on:#17110a;--bd:#5c4526;--ok:#86b66f;--bad:#e0705c;--bar:#8d6a30;color-scheme:dark}
+html[data-skin=ledger] body{min-height:100vh;font:16px/1.55 "Palatino Linotype","Book Antiqua",Palatino,"Iowan Old Style","URW Palladio L",Garamond,Georgia,serif;
+ background-image:radial-gradient(ellipse at 50% 30%,rgba(255,244,205,.18),rgba(60,35,10,.22) 100%),repeating-linear-gradient(to bottom,transparent 0,transparent 27px,rgba(110,76,34,.16) 27px,rgba(110,76,34,.16) 28px);background-attachment:fixed,scroll}
+html[data-skin=ledger][data-theme=dark] body{background-image:radial-gradient(ellipse at 50% 30%,rgba(255,200,120,.05),rgba(0,0,0,.35) 100%),repeating-linear-gradient(to bottom,transparent 0,transparent 27px,rgba(200,150,80,.07) 27px,rgba(200,150,80,.07) 28px)}
+@media (prefers-color-scheme:dark){html[data-skin=ledger]:not([data-theme=light]) body{background-image:radial-gradient(ellipse at 50% 30%,rgba(255,200,120,.05),rgba(0,0,0,.35) 100%),repeating-linear-gradient(to bottom,transparent 0,transparent 27px,rgba(200,150,80,.07) 27px,rgba(200,150,80,.07) 28px)}}
+@media (min-width:1240px){html[data-skin=ledger] body{box-shadow:inset 46px 0 0 -44px var(--ac),inset 52px 0 0 -50px var(--ac)}}
+html[data-skin=ledger] ::selection{background:var(--ac);color:var(--on)}
+html[data-skin=ledger] h1,html[data-skin=ledger] h2,html[data-skin=ledger] h3{font-variant:small-caps;letter-spacing:.06em;color:var(--ac)}
+html[data-skin=ledger] h1{font-size:1.9rem;border-bottom:3px double var(--bd);padding-bottom:4px;margin-bottom:10px}
+html[data-skin=ledger] h1::first-letter{font-size:1.35em;font-weight:bold}
+html[data-skin=ledger] h3{border-bottom:1px solid var(--bd);padding-bottom:2px}
+html[data-skin=ledger] p.s{font-style:italic}
+html[data-skin=ledger] .card,html[data-skin=ledger] .tile{border:1px solid var(--bd);border-radius:2px;background-image:linear-gradient(rgba(255,250,225,.22),rgba(120,85,40,.07));box-shadow:inset 0 0 0 3px var(--card),inset 0 0 0 4px var(--bd),2px 3px 0 rgba(60,35,10,.18)}
+html[data-skin=ledger][data-theme=dark] .card,html[data-skin=ledger][data-theme=dark] .tile{background-image:linear-gradient(rgba(255,200,120,.04),rgba(0,0,0,.18));box-shadow:inset 0 0 0 3px var(--card),inset 0 0 0 4px var(--bd),2px 3px 0 rgba(0,0,0,.4)}
+html[data-skin=ledger] .tile:hover{border-color:var(--ac)}
+html[data-skin=ledger] input,html[data-skin=ledger] select,html[data-skin=ledger] textarea,html[data-skin=ledger] button{border-radius:2px;border:1px solid var(--bd);background-color:var(--card);font-family:inherit}
+html[data-skin=ledger] button:hover{border-color:var(--ac);color:var(--ac)}
+html[data-skin=ledger] button.pri{background:var(--ac);color:var(--on);border-color:var(--ac);letter-spacing:.04em}html[data-skin=ledger] button.pri:hover{color:var(--on);filter:brightness(1.12)}
+html[data-skin=ledger] table{border-top:2px solid var(--bd)}
+html[data-skin=ledger] th{font-variant:small-caps;letter-spacing:.07em;font-size:.82rem;color:var(--ac);border-bottom:2px solid var(--bd)}
+html[data-skin=ledger] td{border-bottom:1px dotted var(--bd)}
+html[data-skin=ledger] tr.grp td{background:transparent;border-bottom:1px solid var(--bd);font-variant:small-caps;text-transform:none;letter-spacing:.08em;font-size:.9rem}
+html[data-skin=ledger] tr.tot td{border-top:3px double var(--bd)}
+html[data-skin=ledger] nav.site{border-bottom:3px double var(--bd);margin-bottom:8px}
+html[data-skin=ledger] nav.site a{border-radius:0;font-variant:small-caps;letter-spacing:.06em;font-size:1.02em}
+html[data-skin=ledger] nav.site a:hover{border-color:var(--bd)}
+html[data-skin=ledger] nav.site .brand{font-size:1.2em;font-weight:bold}
+html[data-skin=ledger] footer.site{border-top:3px double var(--bd);margin-top:10px;padding-top:12px;font-style:italic}
+html[data-skin=ledger] details>summary{font-variant:small-caps;letter-spacing:.05em}
+html[data-skin=ledger] a{text-decoration-thickness:1px;text-underline-offset:2px}
 </style>
 <script>// Applies the saved theme before first paint and wires the theme button.
-(function(){var k="kcd-theme",t;try{t=localStorage.getItem(k)}catch(e){}
-if(t)document.documentElement.dataset.theme=t;
-addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme");if(!b)return;
-b.onclick=function(){var d=document.documentElement,c=d.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),n=c=="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem(k,n)}catch(e){}}})})();
+(function(){var k="kcd-theme",s="kcd-skin",t,sk,d=document.documentElement;try{t=localStorage.getItem(k);sk=localStorage.getItem(s)}catch(e){}
+if(t)d.dataset.theme=t;if(sk)d.dataset.skin=sk;
+addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme"),o=document.getElementById("skin");
+if(o){o.value=d.dataset.skin||"classic";o.onchange=function(){d.dataset.skin=o.value;try{localStorage.setItem(s,o.value)}catch(e){}}}
+if(!b)return;
+b.onclick=function(){var c=d.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"),n=c=="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem(k,n)}catch(e){}}})})();
 </script>
 <style>main{max-width:1280px;padding-top:0}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);padding:10px 0 8px;border-bottom:1px solid var(--bd)}
@@ -64,7 +101,7 @@ table{min-width:520px}th,td{padding:5px 8px}td:first-child{white-space:normal}th
 tr.r{cursor:pointer}tr.r:hover{background:var(--bg)}
 tr.lh td{background:var(--bg);color:var(--ac);font-weight:bold;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
 .bd td{color:var(--mut);font-size:.85rem;padding:8px 14px}.qty{width:64px;padding:3px 5px}
-.star{border:0;background:none;padding:0 6px 0 0;color:var(--mut);font-size:1.05rem;line-height:1;cursor:pointer}.star.on{color:#d9a21b}</style></head><body><nav class="site"><a class="brand" href="index.html">⚒️ KCD Tools</a><a href="crafting.html" aria-current=page>Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><button id="theme" type="button" title="Switch light / dark theme" aria-label="Switch light or dark theme">◐</button></nav>
+.star{border:0;background:none;padding:0 6px 0 0;color:var(--mut);font-size:1.05rem;line-height:1;cursor:pointer}.star.on{color:#d9a21b}</style></head><body><nav class="site"><a class="brand" href="index.html">⚒️ KCD Tools</a><a href="crafting.html" aria-current=page>Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><select id="skin" aria-label="Choose a theme" title="Choose a theme"><option value="classic">Classic</option><option value="ledger">Medieval ledger</option></select><button id="theme" type="button" title="Switch light / dark theme" aria-label="Switch light or dark theme">◐</button></nav>
 <main>
 <header class="top" id="top"><h1>Crafting Cost Calculator</h1>
 <div class="bar">
