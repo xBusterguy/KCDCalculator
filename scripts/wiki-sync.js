@@ -69,8 +69,11 @@ function parseWiki(text) {
   let cur = null, level = 0, cols = null;
   for (let i = 0; i < lines.length; i++) {
     const ln = lines[i], low = ln.toLowerCase();
-    const hdr = lines[i + 1] && lines[i + 1].match(/^at an? .+ - (\d+) pieces?$/i);
+    // The craft heading is either two lines ("Smithing" / "at a smith's forge - 129 pieces")
+    // or one line ("Smithing at a smith's forge - 129 pieces"), depending on how the page is built.
+    const hdr = lines[i + 1] && lines[i + 1].match(/^at an? .+ - (\d+) pieces?$/i), one = ln.match(/^(.+?)\s+at an? .+ - (\d+) pieces?$/i);
     if (CODE[low] && hdr) { cur = out[CODE[low]] = { name: ln, declared: +hdr[1], pieces: [], levels: {}, parts: [] }; level = 0; cols = null; i++; continue; }
+    if (one && CODE[one[1].toLowerCase()]) { const c = CODE[one[1].toLowerCase()]; cur = out[c] = { name: one[1], declared: +one[2], pieces: [], levels: {}, parts: [] }; level = 0; cols = null; continue; }
     if (!cur) continue;
     let m;
     if ((m = ln.match(/^Its parts:\s*(.*)$/i))) {
@@ -131,8 +134,15 @@ const desc = p => `${p.name} (level ${p.level}): ${p.yield > 1 ? "makes " + p.yi
 (async () => {
   let text;
   try { text = await readPage(); } catch (e) { return fail("Could not download the wiki page: " + e.message); }
+  try { fs.writeFileSync("wiki-page.txt", text); } catch (e) {}
   const { out, problems, unknown } = parseWiki(text);
-  if (!Object.keys(out).length) return fail("The page was downloaded but no recipes could be found in it. The wiki may now load recipes with JavaScript, or its layout changed.");
+  if (!Object.keys(out).length) {
+    const sample = text.split("\n").map(s => s.trim()).filter(s => /pieces|^Level \d|Makes|Needs|bench|forge/i.test(s)).slice(0, 12);
+    return fail("The page was downloaded but no recipes could be found in it. The wiki may now load recipes with JavaScript, or its layout changed.\n\n"
+      + `Page text length: ${text.length} characters, ${text.split("\n").filter(s => s.trim()).length} non-empty lines.\n\n`
+      + (sample.length ? "Lines that looked related (first 12):\n\n```\n" + sample.join("\n") + "\n```\n" : "No lines mentioning pieces, levels, Makes or Needs were found.\n")
+      + "\nThe full text the script saw is attached to the workflow run as `wiki-page.txt`.");
+  }
 
   const rep = [], newData = {};
   let total = 0, applied = [];
