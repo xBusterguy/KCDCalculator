@@ -46,13 +46,13 @@ for (const k in RAW) NAME[nn(RAW[k])] = k;
 for (const k in RAW2) NAME[nn(RAW2[k])] = k;
 for (const k in INT) NAME[nn(INT[k][0])] = k;
 // wiki sometimes uses the singular or plural of a name, so try both
-const ALIAS = { hare: "hare meat" };   // names the wiki shortens
+const ALIAS = { hare: "hare meat", "ordinary sword guard": "sword guard (ordinary/straight)", "straight sword guard": "sword guard (ordinary/straight)" };   // names the wiki shortens
 const lookup = s => { const n = ALIAS[nn(s)] || nn(s); return NAME[n] || NAME[n + "s"] || NAME[n + "es"] || NAME[n.replace(/es$/, "")] || NAME[n.replace(/s$/, "")]; };
 const RX = /\{(\w+)\}(\d+)|([A-Za-z])(\d+)/g;
 const enc = r => Object.entries(r).map(([k, q]) => (k.length > 1 ? "{" + k + "}" : k) + q).join("");
 const canon = r => Object.keys(r).sort().map(k => k + ":" + r[k]).join(",");
-const nk = s => s.replace(/['‘’]/g, "’").trim();
-const partNames = new Set(Object.values(INT).map(v => nn(v[0])));   // parts the site stores separately (INT), so they are not listed as pieces
+const nk = s => s.replace(/['‘’]/g, "’").replace(/[“”]/g, '"').replace(/\.$/, "").trim();
+const partNames = new Set([...Object.values(INT).map(v => nn(v[0])), ...Object.keys(ALIAS).filter(k => INT[NAME[ALIAS[k]]])]);   // parts the site stores separately (INT), so they are not listed as pieces
 
 const site = {};   // craft code -> [{level,name,yield,r,fee}]
 const dataLines = DATA.split("\n");
@@ -98,6 +98,7 @@ function parseWiki(text) {
     let needs = cells[cols.needs], fee = 0;
     const fm = needs.match(/(?:^|\s)\+\s*(\d+)\s*gr\.?$/i);
     if (fm) { fee = +fm[1]; needs = needs.slice(0, fm.index).trim(); }
+    if (/^\w+:\w+/.test(nm)) continue;   // internal ids such as "jobtool:..." are not pieces
     const r = {};
     let bad = false;
     for (const part of needs.split(/,\s*/).filter(Boolean)) {
