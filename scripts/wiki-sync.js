@@ -108,7 +108,7 @@ function parseWiki(text) {
       const q = part.match(/^(\d+)\s+(.+)$/), id = q && lookup(q[2]);
       if (id) r[id] = (r[id] || 0) + +q[1]; else { bad = true; unknown.add(q ? q[2].trim() : part); }
     }
-    cur.pieces.push({ level: lv, name: nm, yield: y, r, fee, bad, isPart: partNames.has(nn(nm)) });
+    cur.pieces.push({ level: lv, name: nm, yield: y, r, fee, bad, isPart: partNames.has(nn(nm.replace(/\s*\((smithing|armouring|tailoring)\)$/i, ""))) });
   }
   for (const c in out) {
     const k = out[c];
