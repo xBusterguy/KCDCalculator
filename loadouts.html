@@ -171,6 +171,10 @@ DATA.split("\n").forEach(l=>{const [c,lv,ns,y,i,f]=l.split("|"),r={};i.replace(R
 for(const sl in bySlot)bySlot[sl].sort((a,b)=>a.l-b.l||a.n.localeCompare(b.n));
 let P={},S={mk:25},LO=[],C={},LR={};
 try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");LO=JSON.parse(localStorage.getItem("kcd-lo")||"[]")}catch(e){}
+if(!Array.isArray(LO))LO=[];
+LO=LO.filter(lo=>lo&&typeof lo=="object");
+// stored or restored data is untrusted: keep ids and levels plain so they are safe to put in the page
+LO.forEach((lo,i)=>{lo.id=String(lo.id==null?"l"+i:lo.id).replace(/[^\w-]/g,"");lo.lv=Math.min(10,Math.max(1,parseInt(lo.lv,10)||1));lo.name=String(lo.name==null?"":lo.name)});
 LO.forEach(lo=>{const o=lo.sel||{};lo.sel={};for(const k in o){const it=byKey[o[k]];if(it)lo.sel[it.sl]=o[k]}});
 let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-lo",JSON.stringify(LO))}catch(e){}},250)};
 const name=id=>RAW[id]||(INT[id]&&INT[id][0])||id,ov=id=>P[id]!==undefined&&P[id]!=="";
