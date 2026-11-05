@@ -42,6 +42,15 @@ jobs:
           echo "code=$?" >> "$GITHUB_OUTPUT"
           exit 0
 
+      - name: Keep the text the script read, for troubleshooting
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: wiki-page
+          path: wiki-page.txt
+          if-no-files-found: ignore
+          retention-days: 14
+
       - name: Check the updated recipes are valid
         id: valid
         if: steps.sync.outputs.code == '10'
