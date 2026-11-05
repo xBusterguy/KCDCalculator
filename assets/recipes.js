@@ -200,6 +200,8 @@ T|1|Cleric habit (style 5);Cleric habit (style 6);Cuman caftan|1|N9l1|6
 T|1|Thief’s gloves|1|N8l1|14
 T|1|Noble gloves (reinforced)|1|N8l1|18
 T|1|Unicorn chanfron|1|N8l1|72
+T|1|Felt cap (style 2);Wreath (light)|1|N1|1
+T|1|Cleric habit (style 2)|1|N3|1
 T|2|Cuman leather hat;Work scarf;Wanderer’s hat;Vagrant’s hat;Tall Cuman cap;Fur-lined hat;Felt hat;Short tunic (reinforced);Simple headband;High boots;Women’s hood;Drowned man’s gloves;Drowner’s hose;Water goblin’s hose;Wide straw hat;Narrow straw hat;Straw hat with ribbon;Tunic;Innkeeper tunic;Jester shoes;Beggar’s coat;Work dress;Simple hose;Beggar’s hose|1|N2|1
 T|2|Surcoat;Miner’s tunic;Leather apron (style 2)|1|N3|1
 T|2|Padded collar (reinforced)|1|N4|1
@@ -212,7 +214,8 @@ T|2|Executioner’s caparison simple|1|N11l1|3
 T|2|Lavish caftan|1|N12l2|26
 T|2|Riding caftan|1|N13l1|30
 T|2|Quilted caftan - black|1|N12l2|66
-T|3|Short butcher apron;Innkeeper’s shirt;Pickpocket’s tunic;Working boots;Work boots;Firm boots;Loose hose (Musa);Short tunic (style 3);Round cap;Pointy cap;Miner’s cap;Silesian cap;Miner’s hat;Burgher coat (Bergov/Hans/Hanush/Musa/Oderin/Ruthard/Sigismund/Vavak)|1|N3|1
+T|2|Women’s hood (style 2);Work dress (style 2)|1|N2|1
+T|3|Short butcher apron;Innkeeper’s shirt;Pickpocket’s tunic;Working boots;Work boots;Firm boots;Loose hose (Musa);Short tunic (style 3);Round cap;Pointy cap;Miner’s cap;Silesian cap;Miner’s hat|1|N3|1
 T|3|Pickpocket’s hose;Simple hood;Miner’s hood;Vagrant’s hat (style 2);Travel dress;Noblewoman’s cotehardie;Jewish veil;Chaperon;Embroidered shirt|1|N4|1
 T|3|Frilled dress;Festive dress;Women’s straw hat (style 2);Work dress (style 3);Women’s hood (heavy);Common ladies shoes|1|N5|1
 T|3|Simple bonnet;Travel boots|1|N5|2
@@ -230,6 +233,8 @@ T|3|Fitted coat|1|N11l4|6
 T|3|Kastenbrust (light)|1|N14l5|36
 T|3|Quilted caftan|1|N13l6|54
 T|3|Riding gloves (heavy)|1|N13l6|76
+T|3|Burgher coat (Bergov);Burgher coat (Hans);Burgher coat (Hanush);Burgher coat (Jobst Poncho);Burgher coat (Musa);Burgher coat (Oderin);Burgher coat (Ruthard);Burgher coat (Sigismund);Burgher coat (Vavak)|1|N3|1
+T|3|Women’s straw hat (style 3);Frilled dress (style 2);Common ladies shoes (Katherine)|1|N5|1
 T|4|Bohemian cap;Jewish hat|1|N5|2
 T|4|Strange strawhat;Master huntsman’s hose;Miner hose;Colorful festive dress|1|N6|2
 T|4|Ladies shoes;Gartered hose;Burgher’s hat;Charlie’s hat;Chamberlain Ulrich’s hat;Vagrant’s hose;Embroidered bonnet;Master huntsman’s hat|1|N4l1|2
@@ -241,6 +246,8 @@ T|4|Hague breeching|1|l10O1|7
 T|4|Plain tourney caparison|1|N12l7|7
 T|4|Sharukan bridle|1|l11O1|7
 T|4|Long gambeson - black|1|N11l4|5
+T|4|Master huntsman’s hat (style 2)|1|l1N4|2
+T|4|Gambeson worn|1|l1N5|2
 T|5|Wanderer’s robe;Burgher’s hat (style 2);Frilled colourful dress;Katherine’s dress;Rosa’s dress|1|N8l1|2
 T|5|Lord Toth’s chaperon;Legate’s hat|1|N1l1S1|0
 T|5|Wanderer’s hood;Cleric’s hood;Pickpocket’s shoes|1|N9l1|2
@@ -255,14 +262,19 @@ T|5|Noble’s quilted hose (style 2)|1|N1l2S1|4
 T|5|Caparison á la crupper decorated|1|K1N16l5s1|10
 T|5|Zamur’s bridle|1|K1O2l8H1s1|10
 T|5|Bridle of the Holy Roman Empire|1|K1O2l8H1s1|11
+T|5|Wanderer’s hood (style 2)|1|l1N9|2
+T|5|Frilled veil (Magdalena)|1|l2N7|3
+T|5|Teutonic lay brothers’s surcoat|1|l2N8|3
+T|5|Gambeson short|1|l5N13|6
+T|5|Gambeson long;Long gambeson (reinforced)|1|l4N12|6
 T|6|Broad battle coif;Tournament padded coif|1|l2|2
 T|6|Broad battle coif - black|1|l3|2
-T|6|Pickpocket’s hat;Pickpocket’s gloves;Hemmed hood;Simple shoes (style 2);Riding waffenrock (style 1)|1|p2l5|4
+T|6|Pickpocket’s hat;Pickpocket’s gloves;Hemmed hood;Simple shoes (style 2)|1|p2l5|4
 T|6|Knights of the Cross hood;Cap with peacock feathers|1|p2l1S1|4
 T|6|Courtiers boots;Gallant coat|1|p2l2S1|4
 T|6|Simple waffenrock;Teutonic hood;Monk’s hood (style 2)|1|p2l5|5
 T|6|Jester’s disguise;Jimbo’s costume|1|p2l6|4
-T|6|Tournament waffenrock;Pointy cap (style 2);Monk’s hood (style 3);Riding waffenrock (styles 2-7);Burgher’s shoes;Vagrant’s shoes;Thief’s shoes;Vagrant’s coat;Merchant’s coat;Ordinary coat (style 2)|1|p2l6|5
+T|6|Tournament waffenrock;Pointy cap (style 2);Monk’s hood (style 3);Burgher’s shoes;Vagrant’s shoes;Thief’s shoes;Vagrant’s coat;Merchant’s coat;Ordinary coat (style 2)|1|p2l6|5
 T|6|Burgher coat (Oderin Armor)|1|p3l5|5
 T|6|Noble boots|1|p3l1S1|5
 T|6|Executioner’s caparison decorated|1|K1p7l6F1s1|14
@@ -271,23 +283,27 @@ T|6|Halved caparison decorated|1|K1p9l6F1s1|16
 T|6|Soldier’s saddle|1|K1l10H2p2L3O2s1|16
 T|6|Old gambeson;Long pourpoint;Capon’s gambeson;Robber baron’s aketon|1|p5l10|10
 T|6|Tournament bridle|1|K1l16H2O4s1|18
+T|6|Broad battle coif (style 2);Broad battle coif (style 3);Broad battle coif (style 4);Broad battle coif (style 5);Broad battle coif (style 6);Broad battle coif (style 7);Broad battle coif (style 8)|1|l2|2
+T|6|Riding waffenrock|1|p2l5|4
+T|6|Riding waffenrock (style 2);Riding waffenrock (style 3);Riding waffenrock (style 4);Riding waffenrock (style 5);Riding waffenrock (style 6);Riding waffenrock (style 7)|1|p2l6|5
 T|7|Soft shoes;Ladies shoes (style 2);Master huntsman’s gloves|1|p4l7|7
 T|7|Soft boots|1|p4l7|8
 T|7|Courtier’s hat|1|p4l4S1|7
 T|7|Embroidered coat|1|p4l5S1|7
 T|7|Ordinary coat with crest;Ordinary Praguers’ coat with crest;Courtier’s boots;Embroidered hood|1|p4l5S1|8
-T|7|Thief’s tunic;Gartered hose (Capon/Devil/Sigismund)|1|p4l9|8
+T|7|Thief’s tunic|1|p4l9|8
 T|7|Pointed shoes;Master huntsman’s hood;Burgher’s shoes (light)|1|p4l9|9
 T|7|Hemmed waffenrock;Crusaders of the Red Star waffenrock;Burgher pourpoint|1|p5l9|8
 T|7|Pointed shoes (plain);Plague hood;Tied jester’s hose;Quilted coat;Gartered hose (plain);Teutonic lay brother’s waffenrock|1|p5l9|9
 T|7|Master huntsman’s boots|1|p5l9|10
 T|7|Noble quilted trousers;Noble’s quilted hose (plain)|1|p3l4S1|6
-T|7|Short aketon (styles 1-6)|1|p9l12F1|16
 T|7|Caparison decorated|1|K1p10l11F2W1s2|25
 T|7|Tournament caparison decorated;Executioner’s caparison with breeching|1|K1p11l12F2W1s2|27
 T|7|Tournament caparison quilted|1|K1p15l13F2W1s2|30
 T|7|Burgher coat (Zachary)|1|K2p26l21F3W2|140
 T|7|Long gambeson (style 4);Long pourpoint - black|1|p8l12F1|15
+T|7|Gartered hose (Capon);Gartered hose (Devil);Gartered hose (Sigismund)|1|p4l9|8
+T|7|Short aketon;Short aketon (Komar);Short aketon (Kubyenka);Short aketon (Lichtenstein);Short aketon (Samuel);Short aketon (Istvan)|1|p9l12F1|16
 T|8|House of Polner waffenrock|1|p6l5F1S1P1|11
 T|8|Praguers’ hemmed waffenrock|1|p6l9F1P1|12
 T|8|Thief’s hood;Thief’s cap|1|p7l9F1P1|12
@@ -304,6 +320,8 @@ T|8|Waffenrock of the Lords of Garbow|1|p8l8F1S1P1|15
 T|8|Long pourpoint (style 2);Erik’s pourpoint|1|p12l15F1W1P1|22
 T|8|Norman saddle|1|l26p12F1H3O6s3P1|37
 T|8|Moglen saddle|1|A1l24p14F2H4O8s4P1|50
+T|8|Abbot’s hood (Albik)|1|p8l7F1S1P1|14
+T|8|Capon’s hood (style 2)|1|p8l11F1P1|14
 T|9|Praguers’ riding waffenrock;Waffenrock of Henry’s Forge|1|p11l9F2W1P1V1|19
 T|9|Teutonic waffenrock|1|p11l11F2W1P1V1|20
 T|9|Burgher coat (Injured Aulitz);Burgher coat (Jobst)|1|p12l12F2W1P1V1|22
@@ -341,6 +359,7 @@ T|10|Bridon saddle|1|A1G1l55p29F4H7O15s4P2V1|293
 T|10|Bravante saddle|1|A2G1l55p29F4H7O15s4P2V1|477
 T|10|Dragon saddle;Cracowian saddle|1|A2G1l55p29F4H7O15s4P2V1|586
 T|10|Kastenbrust (reinforced)|1|A5G3p43F11l44W7S4P2V1|1872
+T|10|Padded hood - black|1|p7F1l5S1P2V1|12
 B|1|Battle bolt;Tournament arrow;Battle arrow|10|L1|1
 B|1|Scattershot|10|L4D1E1|4
 B|1|Lead ball|10|L4D1E1|16
