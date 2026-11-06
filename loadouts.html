@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark"><meta name="description" content="Build armour and weapon loadouts for KCD Roleplay, see what they cost to craft, and share them as text or a picture.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="KCD Tools"><meta property="og:title" content="Loadout Builder – KCD Tools"><meta property="og:description" content="Build armour and weapon loadouts for KCD Roleplay, see what they cost to craft, and share them as text or a picture."><meta property="og:url" content="https://xbusterguy.github.io/KCDCalculator/loadouts.html"><meta property="og:image" content="https://xbusterguy.github.io/KCDCalculator/assets/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#d8c59b">
+<link rel="preload" href="assets/recipes.js" as="script">
 <title>Loadout Builder – KCD Tools</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
 <style>
@@ -288,4 +289,4 @@ function exp(lo,a,b){
 $("nl").innerHTML=lvOpts;$("nl").value=7;
 if(IMP){save()}
 render();if(IMP){const n=LO.find(x=>x.id)&&LO[LO.length-1].name;toast("Added the shared loadout “"+n+"”.",()=>{restore(IMP)})}
-</script><script src="assets/tour.js" defer></script></body></html>
+</script><script src="assets/tour.js" defer></script><script>if("serviceWorker"in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script></body></html>

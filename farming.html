@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark"><meta name="description" content="Compare KCD Roleplay crops by value per harvest, value per hour and time window.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="KCD Tools"><meta property="og:title" content="Farming Efficiency – KCD Tools"><meta property="og:description" content="Compare KCD Roleplay crops by value per harvest, value per hour and time window."><meta property="og:url" content="https://xbusterguy.github.io/KCDCalculator/farming.html"><meta property="og:image" content="https://xbusterguy.github.io/KCDCalculator/assets/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#d8c59b">
+<link rel="prefetch" href="assets/recipes.js">
 <title>Farming Efficiency – KCD Tools</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
 <style>
@@ -201,4 +202,4 @@ $("rows").onchange=e=>{const i=e.target.closest("input");if(!i)return;const v=pa
 $("reset").onclick=()=>{W={};save();render()};
 document.querySelector(".q").onclick=e=>{const b=e.target.closest("button[data-q]");if(!b)return;const q=+b.dataset.q;S.lv=q==3?10:1;S.ww=q!=1;$("lv").value=S.lv;$("ww").checked=S.ww;save();render()};
 render();
-</script><script src="assets/tour.js" defer></script></body></html>
+</script><script src="assets/tour.js" defer></script><script>if("serviceWorker"in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script></body></html>
