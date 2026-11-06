@@ -5,7 +5,8 @@ const fs = require("fs"), path = require("path"), vm = require("vm");
 
 const file = path.join(__dirname, "..", "assets", "recipes.js");
 const src = fs.readFileSync(file, "utf8");
-const { RAW, INT, CR, DATA } = vm.runInNewContext(src + ";({RAW,INT,CR,DATA})");
+const catSrc = fs.readFileSync(path.join(__dirname, "..", "assets", "categories.js"), "utf8");
+const { RAW, INT, CR, DATA, CATS, catOf } = vm.runInNewContext(src + catSrc + ";({RAW,INT,CR,DATA,CATS,catOf})");
 
 const errors = [], warnings = [];
 const err = m => errors.push(m);
@@ -40,7 +41,7 @@ const visit = (id, trail) => {
 Object.keys(INT).forEach(id => visit(id, []));
 
 // 2. Recipe lines
-const counts = {}, seen = new Set();
+const counts = {}, seen = new Set(), noCats = new Set(), catCount = {}, fallback = {};
 let pieces = 0;
 DATA.split("\n").forEach((line, i) => {
   const at = `Recipe line ${i + 1} (${line.slice(0, 50)}...)`;
@@ -67,9 +68,14 @@ DATA.split("\n").forEach((line, i) => {
     if (seen.has(key)) err(`${at}: duplicate piece "${n}" at level ${lv} in ${CR[c] || c}`);
     seen.add(key);
     counts[CR[c] || c] = (counts[CR[c] || c] || 0) + 1;
+    if (CR[c]) { const k = CR[c]; if (!CATS[k]) noCats.add(k); else { const cat = catOf(k, n), last = CATS[k][CATS[k].length - 1][0]; (catCount[k] = catCount[k] || {})[cat] = (catCount[k][cat] || 0) + 1; if (cat === last) (fallback[k] = fallback[k] || []).push(n); } }
     pieces++;
   });
 });
+
+// 2b. Categories used by the crafting page (assets/categories.js)
+for (const k of noCats) err(`assets/categories.js has no categories for the craft "${k}"`);
+for (const k in fallback) if (fallback[k].length > 60) warnings.push(`${fallback[k].length} ${k} pieces fall in the catch-all category "${CATS[k][CATS[k].length - 1][0]}" (add a rule in assets/categories.js), e.g. ${fallback[k].slice(0, 4).join(", ")}`);
 
 // 3. Materials nobody uses (warning only)
 for (const id of [...Object.keys(RAW), ...Object.keys(INT)]) if (!used.has(id)) warnings.push(`Material "${id}" is defined but no recipe uses it`);

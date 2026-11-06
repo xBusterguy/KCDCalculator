@@ -71,6 +71,7 @@ farming.html        farming efficiency
 loadouts.html       loadout builder
 404.html            page not found
 assets/recipes.js   every crafting recipe (edit recipes here only)
+assets/categories.js   how the crafting page groups pieces into types (Swords, Helmets, Furniture...)
 assets/social.png   picture shown when a link is shared in Discord or chat
 robots.txt, sitemap.xml   help search engines find the pages
 scripts/            recipe checker and wiki sync
