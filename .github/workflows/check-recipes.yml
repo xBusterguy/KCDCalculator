@@ -5,9 +5,9 @@ name: Check recipes
 on:
   push:
     branches: [main]
-    paths: ["assets/recipes.js", "scripts/check-recipes.js"]
+    paths: ["assets/recipes.js", "assets/categories.js", "scripts/check-recipes.js"]
   pull_request:
-    paths: ["assets/recipes.js", "scripts/check-recipes.js"]
+    paths: ["assets/recipes.js", "assets/categories.js", "scripts/check-recipes.js"]
   workflow_dispatch:
 
 permissions:

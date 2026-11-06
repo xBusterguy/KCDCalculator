@@ -127,7 +127,7 @@ addEventListener("keydown",function(e){if(e.key!="/"||e.ctrlKey||e.metaKey||e.al
 .chips,#tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:thin}
 #tabs{margin-bottom:6px}.chips{align-items:center;font-size:.8rem}
 .tab,.chip{white-space:nowrap;border-radius:999px;padding:5px 12px;flex:none}.chip{padding:2px 9px}
-.tab.on,.chip.on{background:var(--ac);color:var(--on);border-color:var(--ac)}.tab small{opacity:.7}
+.tab.on,.chip.on{background:var(--ac);color:var(--on);border-color:var(--ac)}html[data-skin=ledger] .tab.on:hover,html[data-skin=ledger] .chip.on:hover{color:var(--on)}.tab small{opacity:.7}
 .layout{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:12px}
 @media (min-width:900px){.layout{grid-template-columns:300px minmax(0,1fr);align-items:start}aside{position:sticky;top:calc(var(--hh,120px) + env(safe-area-inset-top,0px) + 8px);max-height:calc(100vh - var(--hh,120px) - 30px);overflow:auto}}
 .card{padding:10px 12px;margin-bottom:12px}
@@ -159,7 +159,7 @@ html[data-skin=ledger] .top h1{font-size:1.45rem;margin:0 0 6px;padding-bottom:2
 #tabs.sl.sr,.chips.sl.sr{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 26px,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(to right,transparent 0,#000 26px,#000 calc(100% - 30px),transparent)}
 td.pc{font-weight:bold;font-size:1.02em}
 table.np td.tc,table.np td.sc,table.np td.pc{color:var(--mut);font-weight:normal}
-#mq{width:100%;margin:2px 0 6px}label.f[hidden]{display:none}
+#mq{width:100%;margin:2px 0 6px}label.f[hidden],.chips[hidden]{display:none}
 @media (max-width:700px){html[data-skin=ledger] .top h1{font-size:1.15rem}.top .bar label.f:last-child{padding-bottom:0!important}}
 #totop{display:none;position:fixed;right:14px;bottom:14px;z-index:20;width:44px;height:44px;border-radius:50%;align-items:center;justify-content:center;padding:0;background:var(--ac);color:var(--on);border:0;box-shadow:0 3px 10px rgba(0,0,0,.35);font-size:1.2rem}</style></head><body><a class="skip" href="#main">Skip to content</a><nav class="site"><a class="brand" href="index.html"><span class="logo">⚒️</span> KCD Tools</a><a href="crafting.html" aria-current=page>Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><details class="menu" id="menu"><summary aria-label="Settings: light or dark mode, backup" title="Light/dark mode and backup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="mlabel">Settings</span></summary><div class="pop"><button id="theme" type="button" aria-label="Switch light or dark mode">Switch to dark</button><hr><button id="bk" type="button">Back up my data</button><button id="rsb" type="button">Restore from backup</button><input id="rs" aria-label="Choose a backup file" type="file" accept=".json,application/json" hidden><p class="s" id="bkmsg">Saves your prices, orders, favourites, loadouts and settings to a file.</p></div></details></nav>
 <main id="main" tabindex="-1">
@@ -170,7 +170,7 @@ table.np td.tc,table.np td.sc,table.np td.pc{color:var(--mut);font-weight:normal
 <label class="f">Sort by<select id="srt"><option value="lv">Level</option><option value="name">Name A–Z</option><option value="cost">Cost: low to high</option><option value="costd">Cost: high to low</option><option value="profitd">Profit: high to low</option><option value="profit">Profit: low to high</option><option value="fee">Bench fee: high to low</option></select></label>
 <label class="f" style="flex-direction:row;align-items:center;gap:6px;padding-bottom:6px"><input id="hp" type="checkbox"> Fully priced only</label>
 </div>
-<div id="tabs"></div><div class="chips" id="lvs"></div></header>
+<div id="tabs"></div><div class="chips" id="lvs"></div><div class="chips" id="cats" role="group" aria-label="Type of piece"></div></header>
 <div class="layout">
 <aside class="card"><details id="matd" open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="unp"> Only raw materials without a price</label><input id="mq" type="text" placeholder="Filter materials…" aria-label="Filter materials" autocomplete="off"><div id="matbody"></div>
 <p style="margin:10px 0 0"><button id="reset" type="button">Clear prices</button></p></details>
@@ -190,13 +190,14 @@ table.np td.tc,table.np td.sc,table.np td.pc{color:var(--mut);font-weight:normal
 </main>
 <button id="totop" type="button" aria-label="Back to filters">↑</button><footer class="site">Unofficial fan tool. Recipes and crops from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Recipe data updated <span id="ru"></span>. Prices and settings are saved in your browser only.<div class="sig">Made by <b>Busterguy</b> · Found a bug or have an issue? Contact me on <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord.</div><div class="sig">Open source: <a href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer">view the repo</a> or <a href="https://github.com/xBusterguy/KCDCalculator/issues/new/choose" target="_blank" rel="noopener noreferrer">report an issue</a> on GitHub.</div></footer>
 <script src="assets/recipes.js"></script>
+<script src="assets/categories.js"></script>
 <script>
 if(typeof DATA==="undefined"){document.body.insertAdjacentHTML("afterbegin",'<p style="margin:16px;padding:12px;border:1px solid #b03a2e;border-radius:8px">Recipe data (assets/recipes.js) failed to load. Upload the whole website folder, including the assets folder, next to this page.</p>');throw new Error("recipes.js missing")}
 {const e=document.getElementById("ru");if(e)e.textContent=RECIPES_UPDATED}
 const RX=/\{(\w+)\}(\d+)|([A-Za-z])(\d+)/g;let K=0;
 const items=DATA.split("\n").flatMap(l=>{const [c,lv,ns,y,i,f]=l.split("|"),r={};i.replace(RX,(m,w,a,k,b)=>r[w||k]=+(a||b));return ns.split(";").map(n=>({k:K++,c:CR[c],l:+lv,n,y:+y,f:+f,r}))});
 const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let P={},custom=[],S={tab:"Smithing",lv:0,mk:25,q:"",hp:false,lim:60,sort:"lv",unp:false},open=new Set(),C={},PR={};
+let P={},custom=[],S={tab:"Smithing",cat:"",lv:0,mk:25,q:"",hp:false,lim:60,sort:"lv",unp:false},open=new Set(),C={},PR={};
 try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");custom=JSON.parse(localStorage.getItem("kcd-c")||"[]");const st=JSON.parse(localStorage.getItem("kcd-s")||"{}");if(st.mk!=null)S.mk=st.mk;if(st.tab)S.tab=st.tab;if(st.lv>=0&&st.lv<=10)S.lv=+st.lv||0;S.hp=!!st.hp;S.unp=!!st.unp;if(st.sort)S.sort=st.sort;PR=JSON.parse(localStorage.getItem("kcd-presets")||"{}")}catch(e){}
 custom.forEach(c=>c.k=K++);
 let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-c",JSON.stringify(custom));localStorage.setItem("kcd-s",JSON.stringify({mk:S.mk,tab:S.tab,lv:S.lv,hp:S.hp,unp:S.unp,sort:S.sort}))}catch(e){}},250)};
@@ -208,7 +209,7 @@ const derived=id=>{const [,y,r,f]=INT[id];return(sum(r)+f)/y};
 const unit=id=>id in C?C[id]:(C[id]=ov(id)?(+P[id]||0):INT[id]?derived(id):0);
 function missing(r,s=new Set()){for(const k in r){if(ov(k))continue;if(INT[k])missing(INT[k][2],s);else if(!(+P[k]>0))s.add(name(k))}return s}
 const f1=n=>(Math.round(n*10)/10).toLocaleString("en-GB");
-const base=()=>{const q=S.q.toLowerCase();return all().filter(i=>q?i.n.toLowerCase().includes(q):S.tab=="★"?FAV.has(kk(i)):i.c==S.tab)};
+const base=()=>{const q=S.q.toLowerCase();return all().filter(i=>q?i.n.toLowerCase().includes(q):S.tab=="★"?FAV.has(kk(i)):i.c==S.tab&&(!S.cat||catOf(i.c,i.n)==S.cat))};
 const cst=i=>(sum(i.r)+i.f)/i.y,prf=i=>{const c=cst(i);return Math.ceil(c*(1+(+S.mk||0)/100))-c};
 const SORTS={lv:null,name:(a,b)=>a.n.localeCompare(b.n),cost:(a,b)=>cst(a)-cst(b),costd:(a,b)=>cst(b)-cst(a),profit:(a,b)=>prf(a)-prf(b),profitd:(a,b)=>prf(b)-prf(a),fee:(a,b)=>b.f/b.y-a.f/a.y};
 const TG={name:["name","name"],lv:["lv","lv"],fee:["fee","fee"],cost:["cost","costd"],profit:["profitd","profit"]},IND={lv:"▲",name:"▲",cost:"▲",costd:"▼",profit:"▲",profitd:"▼",fee:"▼"};
@@ -217,7 +218,7 @@ function banner(){$("ban").hidden=!noPrices()}
 function vis(){let L=base();if(S.lv)L=L.filter(i=>i.l==S.lv);if(S.hp)L=L.filter(i=>!missing(i.r).size);if(SORTS[S.sort])return L.sort(SORTS[S.sort]);return S.q?L:L.sort(S.tab=="★"?(a,b)=>a.c.localeCompare(b.c)||a.l-b.l:(a,b)=>a.l-b.l)}
 
 function tabs(){const all_=all();$("tabs").innerHTML=`<button class="tab${S.tab=="★"&&!S.q?" on":""}" data-c="★">★ Favourites <small>${FAV.size}</small></button>`+[...new Set(all_.map(i=>i.c))].map(c=>`<button class="tab${c==S.tab&&!S.q?" on":""}" data-c="${esc(c)}">${esc(c)} <small>${all_.filter(i=>i.c==c).length}</small></button>`).join("")}
-$("tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.tab=b.dataset.c;S.q="";S.lim=60;$("q").value="";save();render()};
+$("tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.tab=b.dataset.c;S.cat="";S.q="";S.lim=60;$("q").value="";save();render()};
 $("lvs").innerHTML="Level "+["All",1,2,3,4,5,6,7,8,9,10].map(l=>`<button class="chip${(l=="All"?0:l)==S.lv?" on":""}" data-l="${l=="All"?0:l}">${l}</button>`).join("");
 $("lvs").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.lv=+b.dataset.l;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",+x.dataset.l==S.lv));save();rows()};
 
@@ -263,9 +264,15 @@ function rows(){
 }
 $("rows").onclick=e=>{if(e.target.closest("input"))return;const sb=e.target.closest("button.star");if(sb){const k=sb.dataset.f;FAV.has(k)?FAV.delete(k):FAV.add(k);saveF();if(S.tab=="★"&&!S.q)render();else{sb.textContent=FAV.has(k)?"★":"☆";sb.classList.toggle("on",FAV.has(k));tabs()}return}if(e.target.closest("button.more")){S.lim+=60;rows();mats();return}const r=e.target.closest("tr.r");if(!r)return;const k=+r.dataset.k;open.has(k)?open.delete(k):open.add(k);rows()};
 const hh=()=>document.documentElement.style.setProperty("--hh",$("top").offsetHeight+"px");
+// Type chips (Swords, Helmets, Furniture...) for the craft that is open
+function cats(){const el=$("cats"),L=S.q||S.tab=="★"?[]:catList(S.tab);
+  if(!L.length){el.hidden=true;el.innerHTML="";return}
+  const n={};all().forEach(i=>{if(i.c==S.tab){const c=catOf(i.c,i.n);n[c]=(n[c]||0)+1}});
+  el.hidden=false;el.innerHTML="Type "+[["","All"],...L.filter(c=>n[c]).map(c=>[c,c])].map(([c,l])=>`<button type="button" class="chip${c==S.cat?" on":""}" data-t="${esc(c)}" aria-pressed="${c==S.cat}">${esc(l)}${c?` <small>${n[c]}</small>`:""}</button>`).join("")}
+$("cats").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.cat=b.dataset.t;S.lim=60;cats();mats();rows();hh();hints.forEach(f=>f())};
 const hint=el=>{const f=()=>{el.classList.toggle("sl",el.scrollLeft>4);el.classList.toggle("sr",el.scrollLeft+el.clientWidth<el.scrollWidth-4)};el.addEventListener("scroll",f,{passive:true});return f};
 let hints=[];
-function render(){tabs();mats();rows();hh();if(!hints.length)hints=[hint($("tabs")),hint($("lvs"))];hints.forEach(f=>f())}
+function render(){tabs();cats();mats();rows();hh();if(!hints.length)hints=[hint($("tabs")),hint($("lvs")),hint($("cats"))];hints.forEach(f=>f())}
 addEventListener("resize",()=>hints.forEach(f=>f()));
 $("mk").value=S.mk;$("mk").oninput=e=>{S.mk=e.target.value;save();patch()};
 $("hp").checked=S.hp;$("hp").onchange=e=>{S.hp=e.target.checked;save();rows()};
@@ -330,7 +337,7 @@ $("add").onclick=()=>{
   const nm=$("cn").value.trim();
   if(!nm||!Object.keys(r).length||bad.length){$("msg").textContent=bad.length?"Not recognised: "+bad.join("; ")+". Use the material names shown in the price panel.":"Give the piece a name and at least one ingredient.";return}
   const c=$("cc").value.trim()||"Custom";custom.push({k:K++,c,l:0,n:nm,y:Math.max(1,+$("cy").value||1),f:+$("cf").value||0,r});
-  S.tab=c;S.q="";$("q").value="";save();$("msg").textContent=`Added “${nm}” under ${c}.`;render()};
+  S.tab=c;S.cat="";S.q="";$("q").value="";save();$("msg").textContent=`Added “${nm}” under ${c}.`;render()};
 if(!all().some(i=>i.c==S.tab)&&S.tab!="★")S.tab="Smithing";
 render();
 </script></body></html>
