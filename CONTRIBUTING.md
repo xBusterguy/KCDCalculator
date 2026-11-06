@@ -199,3 +199,7 @@ The pages are plain HTML, CSS and JavaScript with no build step. Open `index.htm
 ## Automatic wiki check
 
 `scripts/wiki-sync.js` compares `assets/recipes.js` with the wiki and (with `--apply`) edits only the lines that changed. The daily workflow `.github/workflows/wiki-sync.yml` runs it and opens a pull request. You can still edit `assets/recipes.js` by hand at any time; the check will simply report anything that no longer matches the wiki.
+
+## The "What's new" list
+
+The button in the top bar reads `changelog.json`. Add a new object at the top of `entries` (newest first) with a `date` (`YYYY-MM-DD`), a short `title` and a `changes` list in plain language. Do it in the same pull request as the change. The small dot on the button appears for visitors whenever the top entry is new to them.
