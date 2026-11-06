@@ -198,4 +198,4 @@ The pages are plain HTML, CSS and JavaScript with no build step. Open `index.htm
 
 ## Automatic wiki check
 
-`scripts/wiki-sync.js` compares `assets/recipes.js` with the wiki and (with `--apply`) edits only the lines that changed. The weekly workflow `.github/workflows/wiki-sync.yml` runs it and opens a pull request. You can still edit `assets/recipes.js` by hand at any time; the check will simply report anything that no longer matches the wiki.
+`scripts/wiki-sync.js` compares `assets/recipes.js` with the wiki and (with `--apply`) edits only the lines that changed. The daily workflow `.github/workflows/wiki-sync.yml` runs it and opens a pull request. You can still edit `assets/recipes.js` by hand at any time; the check will simply report anything that no longer matches the wiki.
