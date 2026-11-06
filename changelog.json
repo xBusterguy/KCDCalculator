@@ -4,6 +4,7 @@
       "date": "2026-11-06",
       "title": "What's new button, tour and faster loading",
       "changes": [
+        "Pages now show a loading message while they build (with a hint if your connection is slow), and a thin bar when you move to another page.",
         "New What's new button in the top bar (this list).",
         "A guided tour of every page, offered on your first visit and available any time from the Tour button.",
         "Pages open faster on repeat visits and now work offline after your first visit.",
