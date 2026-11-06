@@ -48,7 +48,7 @@ Everything runs in your browser. There is no account and nothing is sent anywher
 
 ## Recipes update themselves
 
-A GitHub Action (`.github/workflows/wiki-sync.yml`) reads the [recipes page on the wiki](https://wiki.kcdroleplay.com/recipes/) every Monday and compares it with `assets/recipes.js`. If anything differs it opens a pull request called **Update recipes from the wiki** that lists every new, removed and changed piece. Check the list, press **Merge**, and the site updates itself.
+A GitHub Action (`.github/workflows/wiki-sync.yml`) reads the [recipes page on the wiki](https://wiki.kcdroleplay.com/recipes/) every day and compares it with `assets/recipes.js`. If anything differs it opens a pull request called **Update recipes from the wiki** that lists every new, removed and changed piece. Check the list, press **Merge**, and the site updates itself.
 
 - To check right now: open the **Actions** tab, choose **Check wiki for recipe changes**, press **Run workflow**.
 - One-time setting: **Settings → Actions → General → Workflow permissions**, tick **Allow GitHub Actions to create and approve pull requests**.
