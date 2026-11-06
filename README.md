@@ -15,10 +15,10 @@ Everything runs in your browser. There is no account and nothing is sent anywher
 
 ![Crafting cost calculator](docs/screenshots/crafting.png)
 
-- All nine crafts: Smithing, Armouring, Tailoring, Bowyery, Jewelling, Alchemy, Brewing, Cooking and Carpentry (1,163 pieces).
+- All nine crafts: Smithing, Armouring, Tailoring, Bowyery, Jewelling, Alchemy, Brewing, Cooking and Carpentry (1,211 pieces).
 - Enter your material prices and see each piece's cost, bench fee, selling price and profit at your markup.
 - Intermediate parts such as steel, leather and padding are worked out from raw materials, or use your own price.
-- Sort by any column, star favourites, and search across every craft.
+- Filter by level and by type within each craft (for example Swords, Helmets, Furniture or Lighting), sort by any column, star favourites, and search across every craft.
 - Build an order and get a combined shopping list.
 - Save named price presets (for example one per town), and share or import price lists as plain text.
 
@@ -42,12 +42,22 @@ Everything runs in your browser. There is no account and nothing is sent anywher
 
 ## Everywhere
 
+![The guided tour highlighting a feature](docs/screenshots/tour.png)
+
+
 - Tables turn into cards on phones.
 - Back up and restore all your prices, orders, favourites and loadouts from the settings menu.
 - Press `/` to jump to search, Enter moves to the next price box, and there is a skip-to-content link.
 - After the first visit the site is kept in your browser, so it opens instantly and works without a connection. A new version appears on the visit after it is published (`sw.js`).
 - The **What's new** button (next to GitHub) lists recent changes from `changelog.json`; a small dot shows when there is something you have not seen.
 - A guided tour of every page is offered on a first visit and can be replayed any time with the **Tour** button next to Settings.
+- Pages show a loading message while they build and a thin progress bar when you move to another page.
+
+![What's new panel](docs/screenshots/whatsnew.png)
+
+On a phone the tables become cards and the top bar fits on one row:
+
+<img src="docs/screenshots/phone.png" alt="Crafting calculator on a phone" width="300">
 
 ## Recipes update themselves
 
