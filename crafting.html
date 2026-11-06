@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark"><meta name="description" content="Crafting cost calculator for KCD Roleplay: materials, bench fees, markup and shopping lists.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="KCD Tools"><meta property="og:title" content="Crafting Cost Calculator – KCD Tools"><meta property="og:description" content="Crafting cost calculator for KCD Roleplay: materials, bench fees, markup and shopping lists."><meta property="og:url" content="https://xbusterguy.github.io/KCDCalculator/crafting.html"><meta property="og:image" content="https://xbusterguy.github.io/KCDCalculator/assets/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#d8c59b">
+<link rel="preload" href="assets/recipes.js" as="script">
 <title>Crafting Cost Calculator – KCD Tools</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
 <style>
@@ -340,4 +341,4 @@ $("add").onclick=()=>{
   S.tab=c;S.cat="";S.q="";$("q").value="";save();$("msg").textContent=`Added “${nm}” under ${c}.`;render()};
 if(!all().some(i=>i.c==S.tab)&&S.tab!="★")S.tab="Smithing";
 render();
-</script><script src="assets/tour.js" defer></script></body></html>
+</script><script src="assets/tour.js" defer></script><script>if("serviceWorker"in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script></body></html>

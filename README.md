@@ -45,6 +45,7 @@ Everything runs in your browser. There is no account and nothing is sent anywher
 - Tables turn into cards on phones.
 - Back up and restore all your prices, orders, favourites and loadouts from the settings menu.
 - Press `/` to jump to search, Enter moves to the next price box, and there is a skip-to-content link.
+- After the first visit the site is kept in your browser, so it opens instantly and works without a connection. A new version appears on the visit after it is published (`sw.js`).
 - A guided tour of every page is offered on a first visit and can be replayed any time with the **Tour** button next to Settings.
 
 ## Recipes update themselves
@@ -74,6 +75,7 @@ loadouts.html       loadout builder
 assets/recipes.js   every crafting recipe (edit recipes here only)
 assets/categories.js   how the crafting page groups pieces into types (Swords, Helmets, Furniture...)
 assets/tour.js         the guided tour (one list of steps, edit the text there)
+sw.js               saves the site in the browser for fast repeat visits and offline use
 assets/social.png   picture shown when a link is shared in Discord or chat
 robots.txt, sitemap.xml   help search engines find the pages
 scripts/            recipe checker and wiki sync

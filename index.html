@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark"><meta name="description" content="Calculators for KCD Roleplay: crafting costs, farming efficiency and armour loadouts.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="KCD Tools"><meta property="og:title" content="KCD Tools – Crafting, Farming and Loadouts"><meta property="og:description" content="Calculators for KCD Roleplay: crafting costs, farming efficiency and armour loadouts."><meta property="og:url" content="https://xbusterguy.github.io/KCDCalculator/"><meta property="og:image" content="https://xbusterguy.github.io/KCDCalculator/assets/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#d8c59b">
+<link rel="prefetch" href="assets/recipes.js">
 <title>KCD Tools – Crafting, Farming and Loadouts</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
 <style>
@@ -134,4 +135,4 @@ var P=g("kcd-p")||{},n=Object.keys(P).filter(function(k){return P[k]!==""&&+P[k]
 if(n)a.push(n+" price"+(n>1?"s":"")+" entered");if(f)a.push(f+" favourite"+(f>1?"s":""));if(o)a.push(o+" piece"+(o>1?"s":"")+" in your order");set("sc",a.join(" · "));
 var F=g("kcd-farm");if(F&&F.lv)set("sf","Last view: level "+F.lv+(F.ww?", weeded & watered":"")+", "+(F.st||1)+" strip"+((F.st||1)>1?"s":""));
 var L=g("kcd-lo");if(L&&L.length)set("sl",L.length+" loadout"+(L.length>1?"s":"")+" saved");})();
-</script><script src="assets/tour.js" defer></script></body></html>
+</script><script src="assets/tour.js" defer></script><script>if("serviceWorker"in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script></body></html>
