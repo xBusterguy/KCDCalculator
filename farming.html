@@ -202,4 +202,4 @@ $("rows").onchange=e=>{const i=e.target.closest("input");if(!i)return;const v=pa
 $("reset").onclick=()=>{W={};save();render()};
 document.querySelector(".q").onclick=e=>{const b=e.target.closest("button[data-q]");if(!b)return;const q=+b.dataset.q;S.lv=q==3?10:1;S.ww=q!=1;$("lv").value=S.lv;$("ww").checked=S.ww;save();render()};
 render();
-</script><script src="assets/tour.js" defer></script><script>if("serviceWorker"in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script></body></html>
+</script><script src="assets/tour.js" defer></script><script src="assets/changelog.js" defer></script><script>if("serviceWorker"in navigator&&(location.protocol==="https:"||location.hostname==="localhost"))addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script></body></html>

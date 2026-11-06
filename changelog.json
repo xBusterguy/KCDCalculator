@@ -1,0 +1,26 @@
+{
+  "entries": [
+    {
+      "date": "2026-11-06",
+      "title": "What's new button, tour and faster loading",
+      "changes": [
+        "New What's new button in the top bar (this list).",
+        "A guided tour of every page, offered on your first visit and available any time from the Tour button.",
+        "Pages open faster on repeat visits and now work offline after your first visit.",
+        "Crafting: filter by type within each craft (Swords, Helmets, Furniture and more).",
+        "Crafting: before you enter prices, Sell at and Profit show a dash so they do not look like real results. There is also a filter box for materials.",
+        "Phones: the top bar fits on one row.",
+        "Recipes are now checked against the wiki every day."
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "title": "Recipe updates",
+      "changes": [
+        "Tailoring recipes brought in line with the wiki.",
+        "New Smithing recipes: Adorned axe (from the relic) and Henry's sword reforged. Broken axe and Henry's longsword can now be priced as materials.",
+        "Safer handling of saved loadouts and restored backups."
+      ]
+    }
+  ]
+}
