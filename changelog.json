@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "date": "2026-11-09",
+      "title": "Suggested market prices",
+      "changes": [
+        "Crafting and Loadouts now fill in suggested material prices from the KCDRoleplay auction houses (7-day average sale price, snapshot dated on the page), so costs work straight away.",
+        "Anything you type still wins over a suggestion, and a new Use suggested market prices tick box turns them off."
+      ]
+    },
+    {
       "date": "2026-11-06",
       "title": "What's new button, tour and faster loading",
       "changes": [

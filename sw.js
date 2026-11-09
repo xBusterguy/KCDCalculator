@@ -1,9 +1,9 @@
 // Keeps the site's own files in the browser so later visits open instantly and still work offline.
 // Strategy: answer from the saved copy straight away, and fetch a fresh copy in the background for next time.
 // A new version of the site is therefore picked up on the visit after it is published.
-const CACHE = "kcd-tools-v2";
+const CACHE = "kcd-tools-v3";
 const FILES = ["./", "index.html", "crafting.html", "farming.html", "loadouts.html", "404.html",
-  "assets/recipes.js", "assets/categories.js", "assets/tour.js", "assets/changelog.js", "changelog.json"];
+  "assets/recipes.js", "assets/market.js", "assets/categories.js", "assets/tour.js", "assets/changelog.js", "changelog.json"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES.map(f => new Request(f, { cache: "reload" })))).then(() => self.skipWaiting()));

@@ -4,6 +4,7 @@
 <meta name="color-scheme" content="light dark"><meta name="description" content="Build armour and weapon loadouts for KCD Roleplay, see what they cost to craft, and share them as text or a picture.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="KCD Tools"><meta property="og:title" content="Loadout Builder – KCD Tools"><meta property="og:description" content="Build armour and weapon loadouts for KCD Roleplay, see what they cost to craft, and share them as text or a picture."><meta property="og:url" content="https://xbusterguy.github.io/KCDCalculator/loadouts.html"><meta property="og:image" content="https://xbusterguy.github.io/KCDCalculator/assets/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#d8c59b">
 <link rel="preload" href="assets/recipes.js" as="script">
+<link rel="preload" href="assets/market.js" as="script">
 <title>Loadout Builder – KCD Tools</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
 <style>
@@ -159,11 +160,12 @@ addEventListener("pageshow",function(){var b=d.getElementById("ldbar");if(b)b.re
 <div class="card"><label class="f">Find a piece<input id="fq" type="search" placeholder="e.g. cuirass, kettle hat, longsword (press / to jump here)" autocomplete="off"></label><div id="fr" aria-live="polite"></div></div>
 <div class="los" id="los"></div>
 <details class="card" id="cmpd" style="margin-top:14px"><summary>Compare loadouts side by side</summary><div class="wrap" id="cmp" style="margin-top:8px"></div></details>
-<div class="card" style="margin-top:14px"><details open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px">Materials used by your loadouts. Leave an intermediate part blank to work it out from the raw prices.</p><div id="mat"></div>
+<div class="card" style="margin-top:14px"><details open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px">Materials used by your loadouts. Leave an intermediate part blank to work it out from the raw prices.</p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin:6px 0 2px"><input type="checkbox" id="sg"> Use suggested market prices</label><p class="s" id="sgn" style="margin:0 0 6px"></p><div id="mat"></div>
 <p style="margin:10px 0 0"><button id="reset" type="button">Clear prices</button></p></details></div>
 </main>
 <footer class="site">Unofficial fan tool. Recipes from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Recipe data updated <span id="ru"></span>. Prices and settings are saved in your browser only.<div class="sig">Made by <b>Busterguy</b> · Found a bug or have an issue? Contact me on <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord.</div><div class="sig">Open source: <a href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer">view the repo</a> or <a href="https://github.com/xBusterguy/KCDCalculator/issues/new/choose" target="_blank" rel="noopener noreferrer">report an issue</a> on GitHub.</div></footer>
 <script src="assets/recipes.js"></script>
+<script src="assets/market.js"></script>
 <script>
 if(typeof DATA==="undefined"){document.body.insertAdjacentHTML("afterbegin",'<p style="margin:16px;padding:12px;border:1px solid #b03a2e;border-radius:8px">Recipe data (assets/recipes.js) failed to load. Upload the whole website folder, including the assets folder, next to this page.</p>');throw new Error("recipes.js missing")}
 {const e=document.getElementById("ru");if(e)e.textContent=RECIPES_UPDATED}
@@ -183,20 +185,23 @@ const byKey={},bySlot=Object.fromEntries(SLOTS.map(s=>[s[0],[]]));
 DATA.split("\n").forEach(l=>{const [c,lv,ns,y,i,f]=l.split("|"),r={};i.replace(RX,(m,w,a,k,b)=>r[w||k]=+(a||b));
   for(const n of ns.split(";")){const nm=n.toLowerCase();for(const sl in RULES)for(const [cc,re,ex] of RULES[sl])if(cc==c&&re.test(nm)&&!(ex&&ex.test(nm))&&!(c=="B"&&+y>1)){const it={key:CR[c]+"|"+n+"|"+lv,c:CR[c],l:+lv,n,y:+y,f:+f,r,sl};byKey[it.key]=it;bySlot[sl].push(it)}}});
 for(const sl in bySlot)bySlot[sl].sort((a,b)=>a.l-b.l||a.n.localeCompare(b.n));
-let P={},S={mk:25},LO=[],C={},LR={};
-try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");LO=JSON.parse(localStorage.getItem("kcd-lo")||"[]")}catch(e){}
+let P={},S={mk:25,sg:true},LO=[],C={},LR={};
+try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");LO=JSON.parse(localStorage.getItem("kcd-lo")||"[]");const st=JSON.parse(localStorage.getItem("kcd-s")||"{}");if(st.sg!=null)S.sg=!!st.sg}catch(e){}
 if(!Array.isArray(LO))LO=[];
 LO=LO.filter(lo=>lo&&typeof lo=="object");
 // stored or restored data is untrusted: keep ids and levels plain so they are safe to put in the page
 LO.forEach((lo,i)=>{lo.id=String(lo.id==null?"l"+i:lo.id).replace(/[^\w-]/g,"");lo.lv=Math.min(10,Math.max(1,parseInt(lo.lv,10)||1));lo.name=String(lo.name==null?"":lo.name)});
 LO.forEach(lo=>{const o=lo.sel||{};lo.sel={};for(const k in o){const it=byKey[o[k]];if(it)lo.sel[it.sl]=o[k]}});
+const sgn=()=>{$("sgn").textContent=S.sg?"Greyed-in prices are auction house averages from "+MARKET.date+". Type your own to override one.":"Suggested prices are off: only prices you enter are used."};
+$("sg").checked=S.sg;sgn();$("sg").onchange=e=>{S.sg=e.target.checked;try{const st=JSON.parse(localStorage.getItem("kcd-s")||"{}");st.sg=S.sg;localStorage.setItem("kcd-s",JSON.stringify(st))}catch(x){}C={};sgn();mats();patch()};
 let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-lo",JSON.stringify(LO))}catch(e){}},250)};
 const name=id=>RAW[id]||(INT[id]&&INT[id][0])||id,ov=id=>P[id]!==undefined&&P[id]!=="";
 const sum=r=>{let a=0;for(const k in r)a+=r[k]*unit(k);return a};
 const derived=id=>{const [,y,r,f]=INT[id];return(sum(r)+f)/y};
-const unit=id=>id in C?C[id]:(C[id]=ov(id)?(+P[id]||0):INT[id]?derived(id):0);
+const sgp=id=>S.sg&&MARKET.p[id]||0;
+const unit=id=>id in C?C[id]:(C[id]=ov(id)?(+P[id]||0):INT[id]?derived(id):sgp(id));
 const pc=it=>(sum(it.r)+it.f)/it.y;
-function missing(r,s=new Set()){for(const k in r){if(ov(k))continue;if(INT[k])missing(INT[k][2],s);else if(!(+P[k]>0))s.add(name(k))}return s}
+function missing(r,s=new Set()){for(const k in r){if(ov(k))continue;if(INT[k])missing(INT[k][2],s);else if(!(+P[k]>0)&&!sgp(k))s.add(name(k))}return s}
 const SEQ=(()=>{const q=[],seen=new Set(),v=id=>{if(seen.has(id)||!INT[id])return;seen.add(id);for(const k in INT[id][2])v(k);q.push(id)};Object.keys(INT).forEach(v);return q.reverse()})();
 function plan(sel){const dem={},cr={};let fee=0;const add=(id,q)=>dem[id]=(dem[id]||0)+q;
   for(const it of sel){fee+=it.f;for(const k in it.r)add(k,it.r[k])}
@@ -227,7 +232,7 @@ function mats(){const u=new Set(),walk=r=>{for(const k in r)if(!u.has(k)){u.add(
   const fld=k=>`<label class="f">${esc(name(k))}<input type="number" min="0" step="0.1" data-id="${k}" value="${ov(k)?esc(P[k]):""}"></label>`,rk=Object.keys(RAW).filter(k=>u.has(k)),ik=Object.keys(INT).filter(k=>u.has(k));
   $("mat").innerHTML=u.size?`<h3>Raw materials</h3><div class="grid">${rk.map(fld).join("")}</div>${ik.length?`<h3>Intermediate parts</h3><div class="grid">${ik.map(fld).join("")}</div>`:""}`:'<p class="s">Pick some pieces to see the materials you need.</p>';
   $("mat").querySelectorAll("input").forEach(e=>e.oninput=()=>{P[e.dataset.id]=e.value;save();upd()});ph()}
-const ph=()=>$("mat").querySelectorAll("input").forEach(e=>{if(INT[e.dataset.id])e.placeholder="≈ "+f1(derived(e.dataset.id))});
+const ph=()=>$("mat").querySelectorAll("input").forEach(e=>{const k=e.dataset.id;if(INT[k])e.placeholder="≈ "+f1(derived(k));else if(sgp(k))e.placeholder="≈ "+f1(sgp(k))});
 const set=(el,v)=>{if(el.textContent!==v)el.textContent=v};
 function patch(){
   for(const lo of LO){const L=LR[lo.id];if(!L)continue;const c=calc(lo);
