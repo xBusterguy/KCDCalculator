@@ -159,10 +159,15 @@ addEventListener("keydown",function(e){if(e.key!="/"||e.ctrlKey||e.metaKey||e.al
 .hr2{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}.hr2 .sq{margin-left:auto;min-width:200px;flex:0 1 260px}.hr3{margin:8px 0 0}
 @media (min-width:900px){
  main{max-width:none;padding-left:0;padding-right:0}
- .tbar{padding:14px 24px;border-bottom:3px double var(--bd)}.tbar h1{font-size:1.6rem}
+ .tbar{padding:10px 24px;border-bottom:3px double var(--bd)}.tbar h1{font-size:1.6rem}html[data-skin=ledger] .tbar h1{border:0;padding:0;margin:0}
+ .hr2{align-items:flex-end}.hr2 .f:not(.sq){margin:0}
  .layout{grid-template-columns:230px minmax(0,1fr);gap:0;margin-top:0;align-items:start}
  html .rail,html[data-skin=ledger] .rail{position:sticky;top:0;height:100vh;box-sizing:border-box;overflow:auto;margin:0;border:0;border-right:1px solid var(--bd);border-radius:0;box-shadow:none;background-image:none;background-color:color-mix(in srgb,var(--bd) 38%,var(--card));padding:16px 12px}
- .mc{min-width:0;max-width:1180px;padding:0 24px 24px}
+ nav.site{max-width:none;padding-left:24px;padding-right:24px}
+ .mc{min-width:0;padding:0 24px 24px}
+ /* the three price panels sit side by side while closed, and take the full width as soon as one is open */
+ #pricecard{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 18px}#pricecard>details{margin-top:0!important}
+ #pricecard:has(>details[open]){display:block}#pricecard:has(>details[open])>details+details{margin-top:10px!important}
  .top{padding:14px 0 10px}
 }
 @media (max-width:899px){.hr1 h2{display:none}.hr2 .sq{margin-left:0;flex:1 1 100%}}
@@ -223,8 +228,8 @@ addEventListener("pageshow",function(){var b=d.getElementById("ldbar");if(b)b.re
 
 <div class="mc"><header class="top" id="top"><button type="button" class="fsum" id="fsum" aria-haspopup="dialog" aria-expanded="false" aria-controls="fsheet"></button>
 <div class="hr1" id="hr1"><h2 id="cname"></h2><div class="chips" id="cats" role="group" aria-label="Type of piece"></div></div>
-<div class="hr2" id="hr2"><div class="chips" id="lvs"></div><label class="f sq">Search all crafts<input id="q" type="search" placeholder="e.g. cuirass (2+ letters)"></label></div>
-<div class="bar hr3"><label class="f">Markup %<input id="mk" type="number" min="0" step="1" style="width:80px"></label><label class="f">Sort by<select id="srt"><option value="lv">Level</option><option value="name">Name A–Z</option><option value="cost">Cost: low to high</option><option value="costd">Cost: high to low</option><option value="profitd">Profit: high to low</option><option value="profit">Profit: low to high</option><option value="fee">Bench fee: high to low</option></select></label><label class="f" style="flex-direction:row;align-items:center;gap:6px;padding-bottom:6px"><input id="hp" type="checkbox"> Fully priced only</label></div></header>
+<div class="hr2" id="hr2"><div class="chips" id="lvs"></div><label class="f">Markup %<input id="mk" type="number" min="0" step="1" style="width:80px"></label><label class="f">Sort by<select id="srt"><option value="lv">Level</option><option value="name">Name A–Z</option><option value="cost">Cost: low to high</option><option value="costd">Cost: high to low</option><option value="profitd">Profit: high to low</option><option value="profit">Profit: low to high</option><option value="fee">Bench fee: high to low</option></select></label><label class="f" style="flex-direction:row;align-items:center;gap:6px;padding-bottom:6px"><input id="hp" type="checkbox"> Fully priced only</label><label class="f sq">Search all crafts<input id="q" type="search" placeholder="e.g. cuirass (2+ letters)"></label></div>
+</header>
 <section><aside class="card" id="pricecard"><details id="matd"><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="unp"> Only raw materials without a price</label><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="sg"> Use suggested market prices</label><p class="s" id="sgn" style="margin:0 0 6px"></p><input id="mq" type="text" placeholder="Filter materials…" aria-label="Filter materials" autocomplete="off"><div id="matbody"></div>
 <p style="margin:10px 0 0"><button id="reset" type="button">Clear prices</button></p></details>
 <details style="margin-top:10px"><summary>Price presets</summary><p class="s" style="margin:6px 0">Save your current prices under a name (a town, say) and switch between them.</p><div class="bar" style="margin:6px 0"><label class="f" style="flex:1">Name<input id="psn" placeholder="e.g. Prague" maxlength="40"></label><button type="button" class="pri" id="pss">Save preset</button></div><div id="psl"></div></details>

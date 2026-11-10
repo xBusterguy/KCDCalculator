@@ -2,6 +2,15 @@
   "entries": [
     {
       "date": "2026-11-10",
+      "title": "Crafting page fills the screen",
+      "changes": [
+        "Crafting: the page now uses the whole width of wide screens, with no empty strip on the right.",
+        "Markup, Sort and Fully priced only now sit beside the Level strip and search, so the filter area is shorter and the list starts higher.",
+        "The three price panels sit side by side until you open one."
+      ]
+    },
+    {
+      "date": "2026-11-10",
       "title": "New crafting navigation",
       "changes": [
         "Crafting: on a wide screen the crafts are now a full-height list down the left edge with their piece counts. The craft name, Type chips, Level strip and search sit at the top of the main area; Material prices, presets and sharing sit above the list and start closed.",
