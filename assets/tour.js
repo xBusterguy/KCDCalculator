@@ -15,6 +15,7 @@
     { p: "index.html", s: ".tiles", t: "Three tools", x: "Crafting works out what things cost to make and what to sell them for. Farming ranks crops by how much they earn. Loadouts builds full sets of armour and a weapon and prices them. Each shows a short summary of your current numbers once you have used it." },
     { p: "index.html", s: "#menu > summary", t: "Settings and backup", x: "Switch between light and dark here, and make a backup file of everything you have entered. You can restore it later or on another device. Everything is kept in this browser only, nothing is sent anywhere." },
 
+    { p: "crafting.html", s: "#fsum", t: "Crafting: choose what to show", x: "Tap this bar to pick a craft, a type and a level, then tap Show pieces." },
     { p: "crafting.html", s: "#tabs", t: "Crafting: pick a craft", x: "Smithing, Armouring, Tailoring and the rest. The number is how many pieces each has. The star tab collects your favourites." },
     { p: "crafting.html", s: "#lvs", t: "Filter by level", x: "Show just one crafting level, or All." },
     { p: "crafting.html", s: "#cats", t: "Filter by type", x: "Each craft splits into types that suit it, such as Swords and Helmets, or Furniture and Lighting.", tryit: "Try it: tap one of the types.", ev: "click" },
