@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "date": "2026-11-10",
+      "title": "Order and shopping list fix",
+      "changes": [
+        "Crafting: the Order & shopping list no longer cuts off or hides rows when you order several pieces, and it now fits on a phone screen."
+      ]
+    },
+    {
       "date": "2026-11-09",
       "title": "Suggested market prices",
       "changes": [
