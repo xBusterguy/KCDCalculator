@@ -131,13 +131,14 @@ addEventListener("keydown",function(e){if(e.key!="/"||e.ctrlKey||e.metaKey||e.al
 .tab,.chip{white-space:nowrap;border-radius:999px;padding:5px 12px;flex:none}.chip{padding:2px 9px}
 .tab.on,.chip.on{background:var(--ac);color:var(--on);border-color:var(--ac)}html[data-skin=ledger] .tab.on:hover,html[data-skin=ledger] .chip.on:hover{color:var(--on)}.tab small{opacity:.7}
 /* Navigation: on a wide screen the crafts are a list in the left column; on a phone one summary button opens a filter sheet */
-.cr{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--bd)}.crh{font-size:.75rem;font-variant:small-caps;letter-spacing:.08em;color:var(--mut);padding:0 4px 4px}
+.rail{padding:10px 8px;background:color-mix(in srgb,var(--bd) 38%,var(--card))}.crh{font-size:.75rem;font-variant:small-caps;letter-spacing:.08em;color:var(--mut);padding:0 8px 6px}
+#matbody .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
 #crafts #tabs{flex-direction:column;overflow:visible;gap:2px;margin:0}
-#crafts .tab{display:flex;justify-content:space-between;align-items:center;border-radius:2px;padding:0 12px;min-height:38px;text-align:left;width:100%;box-sizing:border-box}
+#crafts .tab{display:flex;justify-content:space-between;align-items:center;border:1px solid transparent;background:transparent;border-radius:2px;padding:0 12px;min-height:44px;font-size:1rem;text-align:left;width:100%;box-sizing:border-box}#crafts .tab:hover{border-color:var(--bd);background:var(--card)}#crafts .tab.on,#crafts .tab.on:hover{background:var(--ac);border-color:var(--ac);color:var(--on)}#crafts .tab small{font-size:.8rem}
 #lvs{gap:0}#lvs .chip{border-radius:0;margin-left:-1px;padding:4px 11px}#lvs .chip:first-child{border-radius:2px 0 0 2px;margin-left:6px}#lvs .chip:last-child{border-radius:0 2px 2px 0}
 .fsum,#fsheet,#fbd{display:none}
 @media (max-width:899px){
-.cr{display:none}
+.rail{display:none}
 .fsum{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:44px;margin:0 0 8px;padding:0 12px;border:1px solid var(--ac);border-radius:2px;text-align:left}
 .fsum::after{content:"Filters ▾";color:var(--ac);font-size:.85rem;flex:none}
 #fbd:not([hidden]){display:block;position:fixed;inset:0;background:rgba(42,34,24,.55);z-index:69}
@@ -152,7 +153,7 @@ addEventListener("keydown",function(e){if(e.key!="/"||e.ctrlKey||e.metaKey||e.al
 #fok{min-height:48px;font-size:1rem}
 }
 .layout{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:12px}
-@media (min-width:900px){.layout{grid-template-columns:300px minmax(0,1fr);align-items:start}aside{position:sticky;top:calc(var(--hh,120px) + env(safe-area-inset-top,0px) + 8px);max-height:calc(100vh - var(--hh,120px) - 30px);overflow:auto}}
+@media (min-width:900px){.layout{grid-template-columns:230px minmax(0,1fr);align-items:start}.rail{position:sticky;top:calc(var(--hh,120px) + env(safe-area-inset-top,0px) + 8px);max-height:calc(100vh - var(--hh,120px) - 30px);overflow:auto}}
 .card{padding:10px 12px;margin-bottom:12px}
 table{min-width:520px}th,td{padding:5px 8px}td:first-child{white-space:normal}#tbl th{position:sticky;top:calc(var(--hh,120px) + env(safe-area-inset-top,0px));z-index:5;background:var(--card)}
 /* order and shopping list: plain tables, no sticky header, fit a phone screen */
@@ -210,13 +211,15 @@ addEventListener("pageshow",function(){var b=d.getElementById("ldbar");if(b)b.re
 <label class="f">Sort by<select id="srt"><option value="lv">Level</option><option value="name">Name A–Z</option><option value="cost">Cost: low to high</option><option value="costd">Cost: high to low</option><option value="profitd">Profit: high to low</option><option value="profit">Profit: low to high</option><option value="fee">Bench fee: high to low</option></select></label>
 <label class="f" style="flex-direction:row;align-items:center;gap:6px;padding-bottom:6px"><input id="hp" type="checkbox"> Fully priced only</label>
 </div>
-<div class="chips" id="lvs"></div><div class="chips" id="cats" role="group" aria-label="Type of piece"></div></header>
+<div class="chips" id="cats" role="group" aria-label="Type of piece"></div><div class="chips" id="lvs"></div></header>
 <div class="layout">
-<aside class="card"><div class="cr" id="crafts"><div class="crh">Crafts</div><div id="tabs"></div></div><details id="matd" open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="unp"> Only raw materials without a price</label><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="sg"> Use suggested market prices</label><p class="s" id="sgn" style="margin:0 0 6px"></p><input id="mq" type="text" placeholder="Filter materials…" aria-label="Filter materials" autocomplete="off"><div id="matbody"></div>
+<nav class="card rail" id="crafts" aria-label="Crafts"><div class="crh">Crafts</div><div id="tabs"></div></nav>
+
+<section><aside class="card" id="pricecard"><details id="matd"><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="unp"> Only raw materials without a price</label><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="sg"> Use suggested market prices</label><p class="s" id="sgn" style="margin:0 0 6px"></p><input id="mq" type="text" placeholder="Filter materials…" aria-label="Filter materials" autocomplete="off"><div id="matbody"></div>
 <p style="margin:10px 0 0"><button id="reset" type="button">Clear prices</button></p></details>
 <details style="margin-top:10px"><summary>Price presets</summary><p class="s" style="margin:6px 0">Save your current prices under a name (a town, say) and switch between them.</p><div class="bar" style="margin:6px 0"><label class="f" style="flex:1">Name<input id="psn" placeholder="e.g. Prague" maxlength="40"></label><button type="button" class="pri" id="pss">Save preset</button></div><div id="psl"></div></details>
 <details style="margin-top:10px"><summary>Share prices</summary><p class="s" style="margin:6px 0">Export your prices to paste in a chat, or paste someone else’s list and import it.</p><textarea id="shta" rows="7" style="width:100%" placeholder="Iron ore = 3&#10;Coal = 2" aria-label="Price list"></textarea><div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><button type="button" id="shex">Export my prices</button><button type="button" class="pri" id="shim">Import prices</button></div><p class="s" id="shmsg" style="margin:6px 0 0"></p></details></aside>
-<section><div class="card ban" id="ban" hidden><b>Add your material prices to get real costs.</b> Until you do, costs only include bench fees. <button type="button" class="pri" id="banopen">Enter prices</button></div>
+<div class="card ban" id="ban" hidden><b>Add your material prices to get real costs.</b> Until you do, costs only include bench fees. <button type="button" class="pri" id="banopen">Enter prices</button></div>
 <div class="card" id="ordc"><details id="ordd"><summary id="ords">Order &amp; shopping list</summary><div id="ordb" style="margin-top:8px"></div></details></div>
 <div class="card wrap" id="tblc" style="overflow:visible"><table class="rt" id="tbl"><thead id="th"></thead><tbody id="rows"></tbody></table>
 <p class="s" id="note" style="margin:8px 0 0"></p></div>
@@ -316,7 +319,7 @@ const hh=()=>{fsum();document.documentElement.style.setProperty("--hh",$("top").
 // phone: the craft list, type chips and level chips live in a bottom sheet; wide screen: back in their places
 const mq=matchMedia("(max-width:899px)");let fopen=false;
 function sheet(o){fopen=o;$("fsheet").hidden=$("fbd").hidden=!o;$("fsum").setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":"";if(o)$("fok").focus({preventScroll:true});else if(mq.matches)$("fsum").focus({preventScroll:true})}
-function place(){if(fopen)sheet(false);if(mq.matches){$("fsc").appendChild($("tabs"));$("fsr").appendChild($("cats"));$("fsr").appendChild($("lvs"))}else{$("crafts").appendChild($("tabs"));$("top").appendChild($("lvs"));$("top").appendChild($("cats"))}hh()}
+function place(){if(fopen)sheet(false);if(mq.matches){$("fsc").appendChild($("tabs"));$("fsr").appendChild($("cats"));$("fsr").appendChild($("lvs"))}else{$("crafts").appendChild($("tabs"));$("top").appendChild($("cats"));$("top").appendChild($("lvs"))}hh()}
 $("fsum").onclick=()=>sheet(true);$("fok").onclick=$("fbd").onclick=()=>sheet(false);
 $("fclr").onclick=()=>{S.cat="";S.lv=0;S.lim=60;$("lvs").querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",+x.dataset.l==0));save();cats();mats();rows();hh()};
 addEventListener("keydown",e=>{if(e.key=="Escape"&&fopen)sheet(false)});

@@ -4,7 +4,7 @@
       "date": "2026-11-10",
       "title": "New crafting navigation",
       "changes": [
-        "Crafting: on a wide screen the crafts are now a list down the left with their piece counts, and the level numbers sit together in one strip.",
+        "Crafting: on a wide screen the crafts are now a list down the left with their piece counts, and the Type chips and the level numbers sit above the list. Material prices, presets and sharing moved above the list and start closed.",
         "Crafting on a phone: one Filters bar shows your craft, type and level, and opens a sheet to change them all in one place. The list gets more room.",
         "Fixed: choosing a level no longer un-highlights the type you had picked."
       ]
