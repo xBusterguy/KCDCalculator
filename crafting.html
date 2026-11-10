@@ -131,13 +131,14 @@ addEventListener("keydown",function(e){if(e.key!="/"||e.ctrlKey||e.metaKey||e.al
 .tab,.chip{white-space:nowrap;border-radius:999px;padding:5px 12px;flex:none}.chip{padding:2px 9px}
 .tab.on,.chip.on{background:var(--ac);color:var(--on);border-color:var(--ac)}html[data-skin=ledger] .tab.on:hover,html[data-skin=ledger] .chip.on:hover{color:var(--on)}.tab small{opacity:.7}
 /* Navigation: on a wide screen the crafts are a list in the left column; on a phone one summary button opens a filter sheet */
-.cr{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--bd)}.crh{font-size:.75rem;font-variant:small-caps;letter-spacing:.08em;color:var(--mut);padding:0 4px 4px}
+.rail{padding:10px 8px;background:color-mix(in srgb,var(--bd) 38%,var(--card))}.crh{font-size:.75rem;font-variant:small-caps;letter-spacing:.08em;color:var(--mut);padding:0 8px 6px}
+#matbody .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
 #crafts #tabs{flex-direction:column;overflow:visible;gap:2px;margin:0}
-#crafts .tab{display:flex;justify-content:space-between;align-items:center;border-radius:2px;padding:0 12px;min-height:38px;text-align:left;width:100%;box-sizing:border-box}
+#crafts .tab{display:flex;justify-content:space-between;align-items:center;border:1px solid transparent;background:transparent;border-radius:2px;padding:0 12px;min-height:44px;font-size:1rem;text-align:left;width:100%;box-sizing:border-box}#crafts .tab:hover{border-color:var(--bd);background:var(--card)}#crafts .tab.on,#crafts .tab.on:hover{background:var(--ac);border-color:var(--ac);color:var(--on)}#crafts .tab small{font-size:.8rem}
 #lvs{gap:0}#lvs .chip{border-radius:0;margin-left:-1px;padding:4px 11px}#lvs .chip:first-child{border-radius:2px 0 0 2px;margin-left:6px}#lvs .chip:last-child{border-radius:0 2px 2px 0}
 .fsum,#fsheet,#fbd{display:none}
 @media (max-width:899px){
-.cr{display:none}
+.rail{display:none}
 .fsum{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-height:44px;margin:0 0 8px;padding:0 12px;border:1px solid var(--ac);border-radius:2px;text-align:left}
 .fsum::after{content:"Filters ▾";color:var(--ac);font-size:.85rem;flex:none}
 #fbd:not([hidden]){display:block;position:fixed;inset:0;background:rgba(42,34,24,.55);z-index:69}
@@ -152,7 +153,21 @@ addEventListener("keydown",function(e){if(e.key!="/"||e.ctrlKey||e.metaKey||e.al
 #fok{min-height:48px;font-size:1rem}
 }
 .layout{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:12px}
-@media (min-width:900px){.layout{grid-template-columns:300px minmax(0,1fr);align-items:start}aside{position:sticky;top:calc(var(--hh,120px) + env(safe-area-inset-top,0px) + 8px);max-height:calc(100vh - var(--hh,120px) - 30px);overflow:auto}}
+/* Layout like the design: title bar, then a full-height craft rail on the left and the working area to its right */
+.tbar h1{font-size:1.25rem;margin:0}.tbar{padding:10px 0 6px}
+.hr1{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}.hr1 h2{margin:0;font-size:1.3rem;color:var(--ac)}
+.hr2{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}.hr2 .sq{margin-left:auto;min-width:200px;flex:0 1 260px}.hr3{margin:8px 0 0}
+@media (min-width:900px){
+ main{max-width:none;padding-left:0;padding-right:0}
+ .tbar{padding:14px 24px;border-bottom:3px double var(--bd)}.tbar h1{font-size:1.6rem}
+ .layout{grid-template-columns:230px minmax(0,1fr);gap:0;margin-top:0;align-items:start}
+ html .rail,html[data-skin=ledger] .rail{position:sticky;top:0;height:100vh;box-sizing:border-box;overflow:auto;margin:0;border:0;border-right:1px solid var(--bd);border-radius:0;box-shadow:none;background-image:none;background-color:color-mix(in srgb,var(--bd) 38%,var(--card));padding:16px 12px}
+ .mc{min-width:0;max-width:1180px;padding:0 24px 24px}
+ .top{padding:14px 0 10px}
+}
+@media (max-width:899px){.hr1 h2{display:none}.hr2 .sq{margin-left:0;flex:1 1 100%}}
+
+
 .card{padding:10px 12px;margin-bottom:12px}
 table{min-width:520px}th,td{padding:5px 8px}td:first-child{white-space:normal}#tbl th{position:sticky;top:calc(var(--hh,120px) + env(safe-area-inset-top,0px));z-index:5;background:var(--card)}
 /* order and shopping list: plain tables, no sticky header, fit a phone screen */
@@ -202,21 +217,19 @@ d.addEventListener("click",function(ev){var a=ev.target.closest&&ev.target.close
 addEventListener("pageshow",function(){var b=d.getElementById("ldbar");if(b)b.remove()})})();</script>
 </head><body><a class="skip" href="#main">Skip to content</a><nav class="site"><a class="brand" href="index.html" aria-label="KCD Tools home"><span class="logo">⚒️</span> KCD Tools</a><a href="crafting.html" aria-current=page>Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><details class="menu" id="menu"><summary aria-label="Settings: light or dark mode, backup" title="Light/dark mode and backup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="mlabel">Settings</span></summary><div class="pop"><button id="theme" type="button" aria-label="Switch light or dark mode">Switch to dark</button><hr><button id="bk" type="button">Back up my data</button><button id="rsb" type="button">Restore from backup</button><input id="rs" aria-label="Choose a backup file" type="file" accept=".json,application/json" hidden><p class="s" id="bkmsg">Saves your prices, orders, favourites, loadouts and settings to a file.</p></div></details></nav>
 <main id="main" tabindex="-1"><div class="ld" id="ld" role="status"><i aria-hidden="true"></i><span>Loading recipes…</span></div>
-<header class="top" id="top"><h1>Crafting Cost Calculator</h1>
-<button type="button" class="fsum" id="fsum" aria-haspopup="dialog" aria-expanded="false" aria-controls="fsheet"></button>
-<div class="bar">
-<label class="f">Markup %<input id="mk" type="number" min="0" step="1" style="width:80px"></label>
-<label class="f" style="flex:1;min-width:150px">Search all crafts<input id="q" type="search" placeholder="e.g. cuirass (2+ letters)"></label>
-<label class="f">Sort by<select id="srt"><option value="lv">Level</option><option value="name">Name A–Z</option><option value="cost">Cost: low to high</option><option value="costd">Cost: high to low</option><option value="profitd">Profit: high to low</option><option value="profit">Profit: low to high</option><option value="fee">Bench fee: high to low</option></select></label>
-<label class="f" style="flex-direction:row;align-items:center;gap:6px;padding-bottom:6px"><input id="hp" type="checkbox"> Fully priced only</label>
-</div>
-<div class="chips" id="lvs"></div><div class="chips" id="cats" role="group" aria-label="Type of piece"></div></header>
+<div class="tbar"><h1>Crafting Cost Calculator</h1></div>
 <div class="layout">
-<aside class="card"><div class="cr" id="crafts"><div class="crh">Crafts</div><div id="tabs"></div></div><details id="matd" open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="unp"> Only raw materials without a price</label><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="sg"> Use suggested market prices</label><p class="s" id="sgn" style="margin:0 0 6px"></p><input id="mq" type="text" placeholder="Filter materials…" aria-label="Filter materials" autocomplete="off"><div id="matbody"></div>
+<nav class="card rail" id="crafts" aria-label="Crafts"><div class="crh">Crafts</div><div id="tabs"></div></nav>
+
+<div class="mc"><header class="top" id="top"><button type="button" class="fsum" id="fsum" aria-haspopup="dialog" aria-expanded="false" aria-controls="fsheet"></button>
+<div class="hr1" id="hr1"><h2 id="cname"></h2><div class="chips" id="cats" role="group" aria-label="Type of piece"></div></div>
+<div class="hr2" id="hr2"><div class="chips" id="lvs"></div><label class="f sq">Search all crafts<input id="q" type="search" placeholder="e.g. cuirass (2+ letters)"></label></div>
+<div class="bar hr3"><label class="f">Markup %<input id="mk" type="number" min="0" step="1" style="width:80px"></label><label class="f">Sort by<select id="srt"><option value="lv">Level</option><option value="name">Name A–Z</option><option value="cost">Cost: low to high</option><option value="costd">Cost: high to low</option><option value="profitd">Profit: high to low</option><option value="profit">Profit: low to high</option><option value="fee">Bench fee: high to low</option></select></label><label class="f" style="flex-direction:row;align-items:center;gap:6px;padding-bottom:6px"><input id="hp" type="checkbox"> Fully priced only</label></div></header>
+<section><aside class="card" id="pricecard"><details id="matd"><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="unp"> Only raw materials without a price</label><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="sg"> Use suggested market prices</label><p class="s" id="sgn" style="margin:0 0 6px"></p><input id="mq" type="text" placeholder="Filter materials…" aria-label="Filter materials" autocomplete="off"><div id="matbody"></div>
 <p style="margin:10px 0 0"><button id="reset" type="button">Clear prices</button></p></details>
 <details style="margin-top:10px"><summary>Price presets</summary><p class="s" style="margin:6px 0">Save your current prices under a name (a town, say) and switch between them.</p><div class="bar" style="margin:6px 0"><label class="f" style="flex:1">Name<input id="psn" placeholder="e.g. Prague" maxlength="40"></label><button type="button" class="pri" id="pss">Save preset</button></div><div id="psl"></div></details>
 <details style="margin-top:10px"><summary>Share prices</summary><p class="s" style="margin:6px 0">Export your prices to paste in a chat, or paste someone else’s list and import it.</p><textarea id="shta" rows="7" style="width:100%" placeholder="Iron ore = 3&#10;Coal = 2" aria-label="Price list"></textarea><div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><button type="button" id="shex">Export my prices</button><button type="button" class="pri" id="shim">Import prices</button></div><p class="s" id="shmsg" style="margin:6px 0 0"></p></details></aside>
-<section><div class="card ban" id="ban" hidden><b>Add your material prices to get real costs.</b> Until you do, costs only include bench fees. <button type="button" class="pri" id="banopen">Enter prices</button></div>
+<div class="card ban" id="ban" hidden><b>Add your material prices to get real costs.</b> Until you do, costs only include bench fees. <button type="button" class="pri" id="banopen">Enter prices</button></div>
 <div class="card" id="ordc"><details id="ordd"><summary id="ords">Order &amp; shopping list</summary><div id="ordb" style="margin-top:8px"></div></details></div>
 <div class="card wrap" id="tblc" style="overflow:visible"><table class="rt" id="tbl"><thead id="th"></thead><tbody id="rows"></tbody></table>
 <p class="s" id="note" style="margin:8px 0 0"></p></div>
@@ -226,7 +239,7 @@ addEventListener("pageshow",function(){var b=d.getElementById("ldbar");if(b)b.re
 <label class="f">Yield<input id="cy" type="number" value="1" min="1" style="width:70px"></label>
 <label class="f">Bench fee (gr.)<input id="cf" type="number" value="0" min="0" style="width:90px"></label>
 <label class="f" style="flex:1;min-width:220px">Ingredients (e.g. steel 5, coal 9, 2 logs)<textarea id="ci" rows="2"></textarea></label>
-<button class="pri" id="add">Add</button></div><p class="s" id="msg" style="margin:6px 0 0"></p></details></div></section></div>
+<button class="pri" id="add">Add</button></div><p class="s" id="msg" style="margin:6px 0 0"></p></details></div></section></div></div>
 </main>
 <button id="totop" type="button" aria-label="Back to filters">↑</button><footer class="site">Unofficial fan tool. Recipes and crops from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Recipe data updated <span id="ru"></span>. Prices and settings are saved in your browser only.<div class="sig">Made by <b>Busterguy</b> · Found a bug or have an issue? Contact me on <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord.</div><div class="sig">Open source: <a href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer">view the repo</a> or <a href="https://github.com/xBusterguy/KCDCalculator/issues/new/choose" target="_blank" rel="noopener noreferrer">report an issue</a> on GitHub.</div></footer>
 <div id="fbd" hidden></div>
@@ -311,12 +324,12 @@ function rows(){
   $("note").textContent=ALL.length+" pieces"+(L.length<ALL.length?" ("+L.length+" shown)":"")+". Click a row for the breakdown, or a column heading to sort. ⚠ means a material in the recipe has no price. Total cost = materials + bench fee (divided by yield for batches). Sell price is rounded up to a whole groschen; cosmetic variants with the same recipe are merged.";shop();
 }
 $("rows").onclick=e=>{if(e.target.closest("input"))return;const sb=e.target.closest("button.star");if(sb){const k=sb.dataset.f;FAV.has(k)?FAV.delete(k):FAV.add(k);saveF();if(S.tab=="★"&&!S.q)render();else{sb.textContent=FAV.has(k)?"★":"☆";sb.classList.toggle("on",FAV.has(k));tabs()}return}if(e.target.closest("button.more")){S.lim+=60;rows();mats();return}const r=e.target.closest("tr.r");if(!r)return;const k=+r.dataset.k;open.has(k)?open.delete(k):open.add(k);rows()};
-const fsum=()=>{$("fsum").textContent=S.q?"Search: “"+S.q+"”":S.tab=="★"?"Favourites":S.tab+" · "+(S.cat||"All types")+" · "+(S.lv?"Level "+S.lv:"All levels")};
+const fsum=()=>{$("cname").textContent=S.q?"Search results":S.tab=="★"?"Favourites":S.tab;$("fsum").textContent=S.q?"Search: “"+S.q+"”":S.tab=="★"?"Favourites":S.tab+" · "+(S.cat||"All types")+" · "+(S.lv?"Level "+S.lv:"All levels")};
 const hh=()=>{fsum();document.documentElement.style.setProperty("--hh",$("top").offsetHeight+"px")};
 // phone: the craft list, type chips and level chips live in a bottom sheet; wide screen: back in their places
 const mq=matchMedia("(max-width:899px)");let fopen=false;
 function sheet(o){fopen=o;$("fsheet").hidden=$("fbd").hidden=!o;$("fsum").setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":"";if(o)$("fok").focus({preventScroll:true});else if(mq.matches)$("fsum").focus({preventScroll:true})}
-function place(){if(fopen)sheet(false);if(mq.matches){$("fsc").appendChild($("tabs"));$("fsr").appendChild($("cats"));$("fsr").appendChild($("lvs"))}else{$("crafts").appendChild($("tabs"));$("top").appendChild($("lvs"));$("top").appendChild($("cats"))}hh()}
+function place(){if(fopen)sheet(false);if(mq.matches){$("fsc").appendChild($("tabs"));$("fsr").appendChild($("cats"));$("fsr").appendChild($("lvs"))}else{$("crafts").appendChild($("tabs"));$("hr1").appendChild($("cats"));$("hr2").insertBefore($("lvs"),$("hr2").firstChild)}hh()}
 $("fsum").onclick=()=>sheet(true);$("fok").onclick=$("fbd").onclick=()=>sheet(false);
 $("fclr").onclick=()=>{S.cat="";S.lv=0;S.lim=60;$("lvs").querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",+x.dataset.l==0));save();cats();mats();rows();hh()};
 addEventListener("keydown",e=>{if(e.key=="Escape"&&fopen)sheet(false)});
