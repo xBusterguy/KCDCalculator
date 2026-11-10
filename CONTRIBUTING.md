@@ -203,3 +203,7 @@ The pages are plain HTML, CSS and JavaScript with no build step. Open `index.htm
 ## The "What's new" list
 
 The button in the top bar reads `changelog.json`. Add a new object at the top of `entries` (newest first) with a `date` (`YYYY-MM-DD`), a short `title` and a `changes` list in plain language. Do it in the same pull request as the change. The small dot on the button appears for visitors whenever the top entry is new to them.
+
+## Updating the suggested market prices
+
+`assets/market.js` holds a dated snapshot of material prices (groschen) taken from the Auction houses page of the KCDRoleplay account site (the 7-day average sale price). That page needs a game login, so the file is updated by hand: change the numbers under `p` (the keys are the material ids used in `assets/recipes.js`) and set `date`. Prices a visitor types on the site always override these, and a tick box turns the suggestions off.

@@ -84,6 +84,7 @@ farming.html        farming efficiency
 loadouts.html       loadout builder
 404.html            page not found
 assets/recipes.js   every crafting recipe (edit recipes here only)
+assets/market.js   suggested material prices from the auction houses (dated snapshot)
 assets/categories.js   how the crafting page groups pieces into types (Swords, Helmets, Furniture...)
 assets/tour.js         the guided tour (one list of steps, edit the text there)
 changelog.json     the list shown by the What's new button (add new entries at the top)

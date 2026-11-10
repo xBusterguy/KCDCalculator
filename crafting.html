@@ -4,6 +4,7 @@
 <meta name="color-scheme" content="light dark"><meta name="description" content="Crafting cost calculator for KCD Roleplay: materials, bench fees, markup and shopping lists.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="KCD Tools"><meta property="og:title" content="Crafting Cost Calculator – KCD Tools"><meta property="og:description" content="Crafting cost calculator for KCD Roleplay: materials, bench fees, markup and shopping lists."><meta property="og:url" content="https://xbusterguy.github.io/KCDCalculator/crafting.html"><meta property="og:image" content="https://xbusterguy.github.io/KCDCalculator/assets/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#d8c59b">
 <link rel="preload" href="assets/recipes.js" as="script">
+<link rel="preload" href="assets/market.js" as="script">
 <title>Crafting Cost Calculator – KCD Tools</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
 <style>
@@ -186,7 +187,7 @@ addEventListener("pageshow",function(){var b=d.getElementById("ldbar");if(b)b.re
 </div>
 <div id="tabs"></div><div class="chips" id="lvs"></div><div class="chips" id="cats" role="group" aria-label="Type of piece"></div></header>
 <div class="layout">
-<aside class="card"><details id="matd" open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="unp"> Only raw materials without a price</label><input id="mq" type="text" placeholder="Filter materials…" aria-label="Filter materials" autocomplete="off"><div id="matbody"></div>
+<aside class="card"><details id="matd" open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="unp"> Only raw materials without a price</label><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="sg"> Use suggested market prices</label><p class="s" id="sgn" style="margin:0 0 6px"></p><input id="mq" type="text" placeholder="Filter materials…" aria-label="Filter materials" autocomplete="off"><div id="matbody"></div>
 <p style="margin:10px 0 0"><button id="reset" type="button">Clear prices</button></p></details>
 <details style="margin-top:10px"><summary>Price presets</summary><p class="s" style="margin:6px 0">Save your current prices under a name (a town, say) and switch between them.</p><div class="bar" style="margin:6px 0"><label class="f" style="flex:1">Name<input id="psn" placeholder="e.g. Prague" maxlength="40"></label><button type="button" class="pri" id="pss">Save preset</button></div><div id="psl"></div></details>
 <details style="margin-top:10px"><summary>Share prices</summary><p class="s" style="margin:6px 0">Export your prices to paste in a chat, or paste someone else’s list and import it.</p><textarea id="shta" rows="7" style="width:100%" placeholder="Iron ore = 3&#10;Coal = 2" aria-label="Price list"></textarea><div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><button type="button" id="shex">Export my prices</button><button type="button" class="pri" id="shim">Import prices</button></div><p class="s" id="shmsg" style="margin:6px 0 0"></p></details></aside>
@@ -204,6 +205,7 @@ addEventListener("pageshow",function(){var b=d.getElementById("ldbar");if(b)b.re
 </main>
 <button id="totop" type="button" aria-label="Back to filters">↑</button><footer class="site">Unofficial fan tool. Recipes and crops from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Recipe data updated <span id="ru"></span>. Prices and settings are saved in your browser only.<div class="sig">Made by <b>Busterguy</b> · Found a bug or have an issue? Contact me on <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord.</div><div class="sig">Open source: <a href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer">view the repo</a> or <a href="https://github.com/xBusterguy/KCDCalculator/issues/new/choose" target="_blank" rel="noopener noreferrer">report an issue</a> on GitHub.</div></footer>
 <script src="assets/recipes.js"></script>
+<script src="assets/market.js"></script>
 <script src="assets/categories.js"></script>
 <script>
 if(typeof DATA==="undefined"){document.body.insertAdjacentHTML("afterbegin",'<p style="margin:16px;padding:12px;border:1px solid #b03a2e;border-radius:8px">Recipe data (assets/recipes.js) failed to load. Upload the whole website folder, including the assets folder, next to this page.</p>');throw new Error("recipes.js missing")}
@@ -211,23 +213,24 @@ if(typeof DATA==="undefined"){document.body.insertAdjacentHTML("afterbegin",'<p 
 const RX=/\{(\w+)\}(\d+)|([A-Za-z])(\d+)/g;let K=0;
 const items=DATA.split("\n").flatMap(l=>{const [c,lv,ns,y,i,f]=l.split("|"),r={};i.replace(RX,(m,w,a,k,b)=>r[w||k]=+(a||b));return ns.split(";").map(n=>({k:K++,c:CR[c],l:+lv,n,y:+y,f:+f,r}))});
 const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let P={},custom=[],S={tab:"Smithing",cat:"",lv:0,mk:25,q:"",hp:false,lim:60,sort:"lv",unp:false},open=new Set(),C={},PR={};
-try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");custom=JSON.parse(localStorage.getItem("kcd-c")||"[]");const st=JSON.parse(localStorage.getItem("kcd-s")||"{}");if(st.mk!=null)S.mk=st.mk;if(st.tab)S.tab=st.tab;if(st.lv>=0&&st.lv<=10)S.lv=+st.lv||0;S.hp=!!st.hp;S.unp=!!st.unp;if(st.sort)S.sort=st.sort;PR=JSON.parse(localStorage.getItem("kcd-presets")||"{}")}catch(e){}
+let P={},custom=[],S={tab:"Smithing",cat:"",lv:0,mk:25,sg:true,q:"",hp:false,lim:60,sort:"lv",unp:false},open=new Set(),C={},PR={};
+try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");custom=JSON.parse(localStorage.getItem("kcd-c")||"[]");const st=JSON.parse(localStorage.getItem("kcd-s")||"{}");if(st.mk!=null)S.mk=st.mk;if(st.tab)S.tab=st.tab;if(st.lv>=0&&st.lv<=10)S.lv=+st.lv||0;S.hp=!!st.hp;S.unp=!!st.unp;if(st.sg!=null)S.sg=!!st.sg;if(st.sort)S.sort=st.sort;PR=JSON.parse(localStorage.getItem("kcd-presets")||"{}")}catch(e){}
 custom.forEach(c=>c.k=K++);
-let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-c",JSON.stringify(custom));localStorage.setItem("kcd-s",JSON.stringify({mk:S.mk,tab:S.tab,lv:S.lv,hp:S.hp,unp:S.unp,sort:S.sort}))}catch(e){}},250)};
+let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-c",JSON.stringify(custom));localStorage.setItem("kcd-s",JSON.stringify({mk:S.mk,tab:S.tab,lv:S.lv,hp:S.hp,unp:S.unp,sg:S.sg,sort:S.sort}))}catch(e){}},250)};
 const all=()=>items.concat(custom);
 const name=id=>RAW[id]||(INT[id]&&INT[id][0])||id;
 const ov=id=>P[id]!==undefined&&P[id]!=="";
 const sum=r=>{let a=0;for(const k in r)a+=r[k]*unit(k);return a};
 const derived=id=>{const [,y,r,f]=INT[id];return(sum(r)+f)/y};
-const unit=id=>id in C?C[id]:(C[id]=ov(id)?(+P[id]||0):INT[id]?derived(id):0);
-function missing(r,s=new Set()){for(const k in r){if(ov(k))continue;if(INT[k])missing(INT[k][2],s);else if(!(+P[k]>0))s.add(name(k))}return s}
+const sgp=id=>S.sg&&MARKET.p[id]||0;
+const unit=id=>id in C?C[id]:(C[id]=ov(id)?(+P[id]||0):INT[id]?derived(id):sgp(id));
+function missing(r,s=new Set()){for(const k in r){if(ov(k))continue;if(INT[k])missing(INT[k][2],s);else if(!(+P[k]>0)&&!sgp(k))s.add(name(k))}return s}
 const f1=n=>(Math.round(n*10)/10).toLocaleString("en-GB");
 const base=()=>{const q=S.q.toLowerCase();return all().filter(i=>q?i.n.toLowerCase().includes(q):S.tab=="★"?FAV.has(kk(i)):i.c==S.tab&&(!S.cat||catOf(i.c,i.n)==S.cat))};
 const cst=i=>(sum(i.r)+i.f)/i.y,prf=i=>{const c=cst(i);return Math.ceil(c*(1+(+S.mk||0)/100))-c};
 const SORTS={lv:null,name:(a,b)=>a.n.localeCompare(b.n),cost:(a,b)=>cst(a)-cst(b),costd:(a,b)=>cst(b)-cst(a),profit:(a,b)=>prf(a)-prf(b),profitd:(a,b)=>prf(b)-prf(a),fee:(a,b)=>b.f/b.y-a.f/a.y};
 const TG={name:["name","name"],lv:["lv","lv"],fee:["fee","fee"],cost:["cost","costd"],profit:["profitd","profit"]},IND={lv:"▲",name:"▲",cost:"▲",costd:"▼",profit:"▲",profitd:"▼",fee:"▼"};
-const noPrices=()=>!Object.keys(P).some(k=>ov(k)&&+P[k]>0);let LN=true;
+const noPrices=()=>!Object.keys(P).some(k=>ov(k)&&+P[k]>0)&&!(S.sg&&Object.keys(MARKET.p).length);let LN=true;
 function banner(){$("ban").hidden=!noPrices()}
 function vis(){let L=base();if(S.lv)L=L.filter(i=>i.l==S.lv);if(S.hp)L=L.filter(i=>!missing(i.r).size);if(SORTS[S.sort])return L.sort(SORTS[S.sort]);return S.q?L:L.sort(S.tab=="★"?(a,b)=>a.c.localeCompare(b.c)||a.l-b.l:(a,b)=>a.l-b.l)}
 
@@ -239,12 +242,12 @@ $("lvs").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.lv=+b.dat
 function mats(){
   const u=new Set(),walk=r=>{for(const k in r)if(!u.has(k)){u.add(k);if(INT[k])walk(INT[k][2])}};(S.q?base().slice(0,S.lim):base()).forEach(i=>walk(i.r));
   const fld=k=>`<label class="f">${esc(name(k))}<input type="number" min="0" step="0.1" data-id="${k}" value="${ov(k)?esc(P[k]):""}"></label>`;
-  const rk=Object.keys(RAW).filter(k=>u.has(k)&&(!S.unp||!ov(k))).sort((a,b)=>(ov(a)?1:0)-(ov(b)?1:0)),ik=Object.keys(INT).filter(k=>u.has(k));
+  const rk=Object.keys(RAW).filter(k=>u.has(k)&&(!S.unp||!(ov(k)||sgp(k)))).sort((a,b)=>(ov(a)?1:0)-(ov(b)?1:0)),ik=Object.keys(INT).filter(k=>u.has(k));
   $("matnote").textContent=S.q?"Materials for the search results.":S.tab=="★"?"Materials needed for your favourites.":"Materials needed for "+S.tab+".";
   $("matbody").innerHTML=`<h3>Raw materials</h3>${rk.length?`<div class="grid">${rk.map(fld).join("")}</div>`:'<p class="s">Every raw material here has a price.</p>'}`+(ik.length?`<h3>Intermediate parts</h3><p class="s">Leave blank to work it out from raw prices, or enter a price if you buy the part.</p><div class="grid">${ik.map(fld).join("")}</div>`:"");
   $("matbody").querySelectorAll("input").forEach(e=>e.oninput=()=>{P[e.dataset.id]=e.value;save();upd()});mfilter();ph()}
 const mfilter=()=>{const q=$("mq").value.trim().toLowerCase();$("matbody").querySelectorAll("label.f").forEach(l=>{l.hidden=!!q&&!l.textContent.toLowerCase().includes(q)})};$("mq").oninput=mfilter;
-const ph=()=>$("matbody").querySelectorAll("input").forEach(e=>{if(INT[e.dataset.id])e.placeholder="≈ "+f1(derived(e.dataset.id))});
+const ph=()=>$("matbody").querySelectorAll("input").forEach(e=>{const k=e.dataset.id;if(INT[k])e.placeholder="≈ "+f1(derived(k));else if(sgp(k))e.placeholder="≈ "+f1(sgp(k))});
 let t,RW=[];const set=(el,v)=>{if(el.textContent!==v)el.textContent=v};
 // Update numbers in place instead of rebuilding the whole table
 function patch(){
@@ -290,7 +293,7 @@ function render(){tabs();cats();mats();rows();hh();if(!hints.length)hints=[hint(
 addEventListener("resize",()=>hints.forEach(f=>f()));
 $("mk").value=S.mk;$("mk").oninput=e=>{S.mk=e.target.value;save();patch()};
 $("hp").checked=S.hp;$("hp").onchange=e=>{S.hp=e.target.checked;save();rows()};
-$("unp").checked=S.unp;$("unp").onchange=e=>{S.unp=e.target.checked;save();mats()};
+$("sg").checked=S.sg;const sgn=()=>{$("sgn").textContent=S.sg?"Greyed-in prices are auction house averages from "+MARKET.date+". Type your own to override one.":"Suggested prices are off: only prices you enter are used."};sgn();$("sg").onchange=e=>{S.sg=e.target.checked;C={};save();sgn();mats();rows()};$("unp").checked=S.unp;$("unp").onchange=e=>{S.unp=e.target.checked;save();mats()};
 $("srt").value=S.sort;$("srt").onchange=e=>{S.sort=e.target.value;save();rows()};
 $("th").onclick=e=>{const b=e.target.closest("button.sb");if(!b)return;const [a,c]=TG[b.dataset.s];S.sort=S.sort==a?c:a;save();rows()};
 $("banopen").onclick=()=>{$("matd").open=true;$("matd").scrollIntoView({block:"start"});const i=$("matbody").querySelector("input");if(i)i.focus()};
