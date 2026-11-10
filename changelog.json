@@ -2,6 +2,13 @@
   "entries": [
     {
       "date": "2026-11-10",
+      "title": "Updates now reach everyone automatically",
+      "changes": [
+        "When a new version of the site is published, open pages now notice and refresh themselves, so nobody is stuck on an old copy. Your saved prices, loadouts, favourites, orders and settings are kept."
+      ]
+    },
+    {
+      "date": "2026-11-10",
       "title": "Order and shopping list fix",
       "changes": [
         "Crafting: the Order & shopping list no longer cuts off or hides rows when you order several pieces, and it now fits on a phone screen."
