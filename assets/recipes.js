@@ -1,5 +1,5 @@
 // Single source of truth for every recipe. Used by crafting.html and loadouts.html.
-const RECIPES_UPDATED="5 Nov 2026";
+const RECIPES_UPDATED="13 Nov 2026";
 const RAW={O:"Iron ore",C:"Coal",K:"Copper ore",A:"Silver ore",G:"Gold ore",L:"Logs",H:"Hides",N:"Nettles",R:"Pine resin",W:"Owl feathers",F:"Wolf pelts",V:"White wolf pelts",P:"River pearls",U:"Pure silver nuggets",M:"Meteoric iron",D:"Sulphur",E:"Saltpetre",T:"Antlers",X:"Exotic wood",Z:"Tincal",Q:"Dogfish skin",J:"Jasper",u:"Dragon claw",v:"Weapon stub"};
 // code:[name, yield, ingredients, coin fee]
 const INT={x:["Scrap metal",3,{O:1,C:1},0],i:["Iron",3,{O:2,C:1},1],s:["Steel",2,{O:3,C:2},0],l:["Leather",2,{H:1},0],p:["Padding",2,{N:3,l:1},0],b:["Bowstrings",3,{H:1,R:1},0],h:["Hafts",2,{L:2,R:1},0],c:["Copper",1,{K:2,C:1},0],f:["Frankfurt steel",2,{s:2,C:2,L:1},0],t:["Toledo steel",2,{f:2,A:1,C:2},0],z:["Fastening material",5,{i:1,C:1},0],q:["Pig skin",1,{H:1},0],w:["Cow skin",1,{H:2},0],d:["Deer skin",1,{H:2,R:1},0],y:["Coin sword pommel",2,{i:1},0],g:["Sword guard (ordinary/straight)",1,{i:1,x:1},0],j:["Horned sword guard",2,{s:1,i:1},0],e:["Reinforced sword guard",2,{s:1,i:1},0],m:["Pear sword pommel",2,{i:1,c:1},0],n:["Eight-sided sword pommel",2,{i:1,c:1},0],a:["Antler shards",2,{T:1},0],o:["Decorated sword pommel",2,{c:1,S:2},0],k:["Sheet steel",2,{t:2,C:3},0],S:["Fine silver",2,{A:1,C:1},0],r:["Rock pitch",1,{R:3,C:2},0],B:["Enamel powder",3,{c:1,R:1,C:1},0],I:["Acidum chloridum",1,{N:2,belladonna:1,C:1},0],Y:["Coloured gold",2,{G:1,c:1,S:1},0],linen:["Linen",1,{flax:2},0],malt:["Barley malt",3,{barley:1},0],lcoal:["Leached coal",1,{charcoal:2,N:1},0],salami:["Salami",2,{pork:1,beef:1},0],cheese:["Cheese",1,{milk:1},0],hlongsword:["Henry’s longsword",1,{K:1,s:8,C:12,L:4,H:1,l:1},50]};
@@ -292,7 +292,7 @@ T|7|Soft shoes;Ladies shoes (style 2);Master huntsman’s gloves|1|p4l7|7
 T|7|Soft boots|1|p4l7|8
 T|7|Courtier’s hat|1|p4l4S1|7
 T|7|Embroidered coat|1|p4l5S1|7
-T|7|Ordinary coat with crest;Ordinary Praguers’ coat with crest;Courtier’s boots;Embroidered hood|1|p4l5S1|8
+T|7|Courtier’s boots;Embroidered hood|1|p4l5S1|8
 T|7|Thief’s tunic|1|p4l9|8
 T|7|Pointed shoes;Master huntsman’s hood;Burgher’s shoes (light)|1|p4l9|9
 T|7|Hemmed waffenrock;Crusaders of the Red Star waffenrock;Burgher pourpoint|1|p5l9|8
@@ -306,6 +306,7 @@ T|7|Burgher coat (Zachary)|1|K2p26l21F3W2|140
 T|7|Long gambeson (style 4);Long pourpoint - black|1|p8l12F1|15
 T|7|Gartered hose (Capon);Gartered hose (Devil);Gartered hose (Sigismund)|1|p4l9|8
 T|7|Short aketon;Short aketon (Komar);Short aketon (Kubyenka);Short aketon (Lichtenstein);Short aketon (Samuel);Short aketon (Istvan)|1|p9l12F1|16
+T|7|Ordinary coat with crest;Ordinary Praguers’ coat with crest|1|p4l9|8
 T|8|House of Polner waffenrock|1|p6l5F1S1P1|11
 T|8|Praguers’ hemmed waffenrock|1|p6l9F1P1|12
 T|8|Thief’s hood;Thief’s cap|1|p7l9F1P1|12
