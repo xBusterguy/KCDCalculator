@@ -9,13 +9,6 @@
 
   var css = document.createElement("style");
   css.textContent =
-    "nav.site .clbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--bd);border-radius:6px;padding:5px 10px;background:var(--card);color:var(--tx);cursor:pointer;font:inherit;position:relative}" +
-    "html[data-skin=ledger] nav.site .clbtn{border-radius:2px;font-variant:small-caps;letter-spacing:.05em}" +
-    "nav.site .clbtn:hover{border-color:var(--ac);color:var(--ac)}nav.site .clbtn svg{width:18px;height:18px;flex:none}" +
-    ".cldot{position:absolute;top:-4px;right:-4px;width:10px;height:10px;border-radius:50%;background:var(--ac);border:2px solid var(--bg)}" +
-    "nav.site .clpop{display:none}" +
-    "@media (max-width:900px){nav.site .clbtn .tl,nav.site .tourbtn .tl{display:none}nav.site .clbtn,nav.site .tourbtn{padding:5px 8px}}" +
-    "@media (max-width:560px){nav.site .clbtn{display:none}nav.site .pop .clpop{display:block}}" +
     ".clpanel{position:fixed;z-index:900;top:64px;right:14px;width:min(420px,calc(100vw - 28px));max-height:min(70vh,560px);overflow:auto;box-sizing:border-box;background:var(--card);color:var(--tx);border:1px solid var(--ac);border-radius:8px;padding:14px 16px;box-shadow:0 8px 28px rgba(0,0,0,.4);font-size:.95rem;line-height:1.45}" +
     "html[data-skin=ledger] .clpanel{border-radius:2px;box-shadow:inset 0 0 0 3px var(--card),inset 0 0 0 4px var(--bd),0 8px 28px rgba(0,0,0,.4)}" +
     ".clpanel .hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}" +
@@ -55,11 +48,12 @@
   }
 
   function addButtons() {
-    var nav = document.querySelector("nav.site"); if (!nav || nav.querySelector(".clbtn")) return;
-    var b = el("button", { type: "button", class: "clbtn", "aria-haspopup": "dialog", "aria-expanded": "false", title: "What's new" });
-    b.innerHTML = ICON + '<span class="tl">What’s new</span>';
+    var nav = document.querySelector("nav.site"); if (!nav || btns.length) return;
+    var b = nav.querySelector(".clbtn");   // the button is normally already in the page
+    if (!b) { b = el("button", { type: "button", class: "clbtn", "aria-haspopup": "dialog", "aria-expanded": "false", title: "What's new" });
+      b.innerHTML = ICON + '<span class="tl">What’s new</span>';
+      var gh = nav.querySelector("a.gh"); if (gh) gh.after(b); else nav.insertBefore(b, nav.querySelector("details.menu")); }
     b.onclick = function () { open(b); };
-    var gh = nav.querySelector("a.gh"); if (gh) gh.after(b); else nav.insertBefore(b, nav.querySelector("details.menu"));
     btns.push(b);
     var pop = nav.querySelector(".pop");
     if (pop) { var p = el("button", { type: "button", class: "clpop", "aria-haspopup": "dialog" }, "What’s new"); p.onclick = function () { open(document.querySelector("nav.site details.menu > summary") || p); }; var hr = pop.querySelector("hr"); pop.insertBefore(p, hr ? hr.nextSibling : pop.firstChild); btns.push(p); }

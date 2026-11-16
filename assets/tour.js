@@ -49,12 +49,6 @@
 
   var css = document.createElement("style");
   css.textContent =
-    "nav.site .tourbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--bd);border-radius:6px;padding:5px 10px;background:var(--card);color:var(--tx);cursor:pointer;font:inherit}" +
-    "html[data-skin=ledger] nav.site .tourbtn{border-radius:2px;font-variant:small-caps;letter-spacing:.05em}" +
-    "nav.site .tourbtn:hover{border-color:var(--ac);color:var(--ac)}nav.site .tourbtn svg{width:18px;height:18px;flex:none}" +
-    "@media (max-width:560px){nav.site .tourbtn .tl{display:none}nav.site .tourbtn{margin-left:auto;padding:5px 7px}nav.site details.menu{margin-left:0!important}}" +
-    "@media (max-width:389px){nav.site a:not(.brand){padding:4px 4px!important;font-size:.82rem!important}}" +
-    "@media (max-width:340px){nav.site a:not(.brand){padding:4px 3px!important;font-size:.78rem!important}nav.site .tourbtn{padding:5px 5px}}" +
     ".tour-hl{position:fixed;z-index:1000;pointer-events:none;border-radius:6px;box-shadow:0 0 0 9999px rgba(20,12,4,.62),0 0 0 3px var(--ac)}" +
     ".tour-bk{position:fixed;z-index:1000;background:transparent}" +
     ".tour-card{position:fixed;z-index:1002;width:min(360px,calc(100vw - 24px));box-sizing:border-box;background:var(--card);color:var(--tx);border:1px solid var(--ac);border-radius:8px;padding:14px 16px;box-shadow:0 8px 28px rgba(0,0,0,.45);font-size:.95rem;line-height:1.45}" +
@@ -78,7 +72,8 @@
   // ---------- navigation button ----------
   function addButton() {
     var nav = document.querySelector("nav.site"), menu = nav && nav.querySelector("details.menu");
-    if (!nav || nav.querySelector(".tourbtn")) return;
+    if (!nav) return;
+    var had = nav.querySelector(".tourbtn"); if (had) { had.onclick = function () { start(0); }; return; }   // the button is normally already in the page
     var b = el("button", { type: "button", class: "tourbtn", title: "Take a guided tour of the site", "aria-label": "Take the guided tour" },
       '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2.9-1.2 1.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/></svg><span class="tl">Tour</span>');
     b.onclick = function () { start(0); };
