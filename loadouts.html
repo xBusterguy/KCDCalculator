@@ -7,124 +7,11 @@
 <link rel="preload" href="assets/market.js" as="script">
 <title>Loadout Builder – KCD Tools</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+
 <style>
-/* Shared styles for every page */
-:root{--bg:#f6f1e7;--card:#fffdf8;--tx:#2a2218;--mut:#7a6c58;--ac:#8a5a1c;--on:#fffdf8;--bd:#dccfb8;--ok:#2f7a3a;--bad:#b03a2e;--bar:#c9a05a;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#120f0b;--card:#1e1913;--tx:#eadfca;--mut:#a39278;--ac:#d9a44f;--on:#120f0b;--bd:#3a3125;--ok:#6fc47c;--bad:#e8786b;--bar:#8a6a2f;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#120f0b;--card:#1e1913;--tx:#eadfca;--mut:#a39278;--ac:#d9a44f;--on:#120f0b;--bd:#3a3125;--ok:#6fc47c;--bad:#e8786b;--bar:#8a6a2f;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 Georgia,"Times New Roman",serif}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:20}
-main{max-width:1100px;margin:0 auto;padding:0 14px 16px}
-h1{font-size:1.4rem;margin:0 0 6px;color:var(--ac)}h2{font-size:1rem;margin:0 0 6px}
-h3{font-size:.85rem;margin:10px 0 6px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
-p.s{color:var(--mut);margin:0 0 10px;font-size:.88rem}
-a{color:var(--ac)}
-.bar{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-bottom:8px}
-label.f{display:flex;flex-direction:column;font-size:.75rem;color:var(--mut);gap:2px}
-input,select,textarea,button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:5px 8px;max-width:100%;box-sizing:border-box}
-input[type=checkbox]{width:auto}button{cursor:pointer}button.pri{background:var(--ac);color:var(--on);border:0}
-:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:6px}
-details>summary{cursor:pointer;font-weight:bold}
-.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%}
-th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--bd)}th{font-size:.75rem;color:var(--mut)}
-td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.w{color:var(--bad)}.p{color:var(--ok)}
-/* site navigation + footer */
-nav.site{display:flex;flex-wrap:wrap;gap:6px;align-items:center;max-width:1280px;margin:0 auto;padding:10px 14px}
-nav.site a{text-decoration:none;color:var(--tx);padding:5px 12px;border-radius:999px;border:1px solid transparent}
-nav.site a:hover{border-color:var(--bd)}nav.site a[aria-current=page]{background:var(--ac);color:var(--on)}
-nav.site .brand{font-weight:bold;color:var(--ac);padding-left:0}
-footer.site{max-width:1280px;margin:0 auto;padding:6px 14px 24px;color:var(--mut);font-size:.8rem}
-/* home */
-.hero{padding:10px 0 4px}.hero p{max-width:60ch;color:var(--mut)}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.tile{display:block;text-decoration:none;color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:14px;background:var(--card)}
-.tile:hover{border-color:var(--ac)}.tile h2{color:var(--ac);font-size:1.1rem}.tile p{margin:0;color:var(--mut)}
-.sig{margin-top:6px}.sig b{color:var(--tx)}.sig svg{width:1.3em;height:1.3em;vertical-align:-.3em;margin:0 .2em 0 .1em;fill:#5865F2}
-nav.site a.gh{margin-left:auto;color:var(--mut)}.sig a{color:var(--ac)}
-@media print{nav.site,footer.site{display:none}}
-/* theme picker */
-/* Medieval ledger theme (select "Medieval ledger" in the nav) */
-:root[data-skin=ledger]{--bg:#d8c59b;--card:#efe1bb;--tx:#2a1c0e;--mut:#5a4528;--ac:#8a1c1c;--on:#f4e8c8;--bd:#8d7147;--ok:#2d5a28;--bad:#8a1c1c;--bar:#a67a3a;color-scheme:light}
-@media (prefers-color-scheme:dark){:root[data-skin=ledger]:not([data-theme=light]){--bg:#17110a;--card:#241a0f;--tx:#e8d6a6;--mut:#a68e62;--ac:#e0705a;--on:#17110a;--bd:#5c4526;--ok:#86b66f;--bad:#e0705c;--bar:#8d6a30;color-scheme:dark}}
-:root[data-skin=ledger][data-theme=dark]{--bg:#17110a;--card:#241a0f;--tx:#e8d6a6;--mut:#a68e62;--ac:#e0705a;--on:#17110a;--bd:#5c4526;--ok:#86b66f;--bad:#e0705c;--bar:#8d6a30;color-scheme:dark}
-html[data-skin=ledger] body{min-height:100vh;font:16px/1.55 "Palatino Linotype","Book Antiqua",Palatino,"Iowan Old Style","URW Palladio L",Garamond,Georgia,serif;
- background-image:radial-gradient(ellipse at 50% 30%,rgba(255,244,205,.18),rgba(60,35,10,.22) 100%),repeating-linear-gradient(to bottom,transparent 0,transparent 27px,rgba(110,76,34,.16) 27px,rgba(110,76,34,.16) 28px);background-attachment:fixed,scroll}
-html[data-skin=ledger][data-theme=dark] body{background-image:radial-gradient(ellipse at 50% 30%,rgba(255,200,120,.05),rgba(0,0,0,.35) 100%),repeating-linear-gradient(to bottom,transparent 0,transparent 27px,rgba(200,150,80,.07) 27px,rgba(200,150,80,.07) 28px)}
-@media (prefers-color-scheme:dark){html[data-skin=ledger]:not([data-theme=light]) body{background-image:radial-gradient(ellipse at 50% 30%,rgba(255,200,120,.05),rgba(0,0,0,.35) 100%),repeating-linear-gradient(to bottom,transparent 0,transparent 27px,rgba(200,150,80,.07) 27px,rgba(200,150,80,.07) 28px)}}
-@media (min-width:1240px){html[data-skin=ledger] body{box-shadow:inset 46px 0 0 -44px var(--ac),inset 52px 0 0 -50px var(--ac)}}
-html[data-skin=ledger]{accent-color:var(--ac)}
-html[data-skin=ledger] ::selection{background:var(--ac);color:var(--on)}
-html[data-skin=ledger] h1,html[data-skin=ledger] h2,html[data-skin=ledger] h3{font-variant:small-caps;letter-spacing:.06em;color:var(--ac)}
-html[data-skin=ledger] h1{font-size:1.9rem;border-bottom:3px double var(--bd);padding-bottom:4px;margin-bottom:10px}
-html[data-skin=ledger] h1::first-letter{font-size:1.35em;font-weight:bold}
-html[data-skin=ledger] h3{border-bottom:1px solid var(--bd);padding-bottom:2px}
-html[data-skin=ledger] p.s{font-style:italic}
-html[data-skin=ledger] .card,html[data-skin=ledger] .tile{border:1px solid var(--bd);border-radius:2px;background-image:linear-gradient(rgba(255,250,225,.22),rgba(120,85,40,.07));box-shadow:inset 0 0 0 3px var(--card),inset 0 0 0 4px var(--bd),2px 3px 0 rgba(60,35,10,.18)}
-html[data-skin=ledger][data-theme=dark] .card,html[data-skin=ledger][data-theme=dark] .tile{background-image:linear-gradient(rgba(255,200,120,.04),rgba(0,0,0,.18));box-shadow:inset 0 0 0 3px var(--card),inset 0 0 0 4px var(--bd),2px 3px 0 rgba(0,0,0,.4)}
-html[data-skin=ledger] .tile:hover{border-color:var(--ac)}
-html[data-skin=ledger] input,html[data-skin=ledger] select,html[data-skin=ledger] textarea,html[data-skin=ledger] button{border-radius:2px;border:1px solid var(--bd);background-color:var(--card);font-family:inherit}
-html[data-skin=ledger] button:hover{border-color:var(--ac);color:var(--ac)}
-html[data-skin=ledger] button.pri{background:var(--ac);color:var(--on);border-color:var(--ac);letter-spacing:.04em}html[data-skin=ledger] button.pri:hover{color:var(--on);filter:brightness(1.12)}
-html[data-skin=ledger] table{border-top:2px solid var(--bd)}
-html[data-skin=ledger] th{font-variant:small-caps;letter-spacing:.07em;font-size:.82rem;color:var(--ac);border-bottom:2px solid var(--bd)}
-html[data-skin=ledger] td{border-bottom:1px dotted var(--bd)}
-html[data-skin=ledger] tr.grp td{background:transparent;border-bottom:1px solid var(--bd);font-variant:small-caps;text-transform:none;letter-spacing:.08em;font-size:.9rem}
-html[data-skin=ledger] tr.tot td{border-top:3px double var(--bd)}
-html[data-skin=ledger] nav.site{border-bottom:3px double var(--bd);margin-bottom:8px}
-html[data-skin=ledger] nav.site a{border-radius:0;font-variant:small-caps;letter-spacing:.06em;font-size:1.02em}
-html[data-skin=ledger] nav.site a:hover{border-color:var(--bd)}
-html[data-skin=ledger] nav.site .brand{font-size:1.2em;font-weight:bold}
-html[data-skin=ledger] footer.site{border-top:3px double var(--bd);margin-top:10px;padding-top:12px;font-style:italic}
-html[data-skin=ledger] details>summary{font-variant:small-caps;letter-spacing:.05em}
-/* ---- site-wide usability additions ---- */
-.skip{position:absolute;left:8px;top:-60px;background:var(--ac);color:var(--on);padding:8px 14px;border-radius:6px;z-index:50;text-decoration:none}.skip:focus{top:8px}
-main:focus{outline:none}
-nav.site .logo{display:inline-block}
-nav.site details.menu{position:relative}
-nav.site details.menu>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;border:1px solid var(--bd);border-radius:6px;padding:5px 10px;background:var(--card);font-weight:normal}
-nav.site details.menu>summary::-webkit-details-marker{display:none}
-nav.site details.menu>summary svg{width:18px;height:18px;flex:none}
-nav.site details.menu[open]>summary{border-color:var(--ac)}
-nav.site .pop{position:absolute;right:0;top:calc(100% + 6px);z-index:40;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;width:min(260px,calc(100vw - 28px));box-shadow:0 8px 24px rgba(0,0,0,.25)}
-nav.site .pop hr{border:0;border-top:1px solid var(--bd);margin:2px 0;width:100%}
-nav.site .pop .s{margin:0;font-size:.78rem}
-nav.site .pop button,nav.site .pop select{width:100%;text-align:left}
-@media (max-width:560px){nav.site{gap:2px 4px;padding:8px 10px;flex-wrap:nowrap}nav.site a{padding:4px 7px;font-size:.9rem;white-space:nowrap}nav.site a.gh{display:none}html[data-skin=ledger] nav.site .brand{padding-right:2px;font-size:0}html[data-skin=ledger] nav.site .brand .logo{font-size:16px}nav.site details.menu{margin-left:auto}nav.site details.menu .mlabel{display:none}}@media (max-width:340px){nav.site a{padding:4px 4px;font-size:.8rem}nav.site{padding:8px 6px;gap:0 2px}nav.site details.menu>summary{padding:5px 7px}}
-@media (pointer:coarse){button,select,input:not([type=checkbox]):not([type=radio]){min-height:40px}.chip{min-height:34px}input[type=checkbox]{width:20px;height:20px}}
-@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
-.toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:9px 14px;border-radius:8px;z-index:60;display:flex;gap:12px;align-items:center;box-shadow:0 6px 20px rgba(0,0,0,.35);max-width:calc(100vw - 24px)}
-.toast button{background:transparent;color:inherit;border:1px solid currentColor;min-height:0;padding:2px 10px}
-html[data-skin=ledger] nav.site .logo{display:inline-grid;place-items:center;width:1.9em;height:1.9em;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c4412f,#7a1212 70%);box-shadow:0 1px 2px rgba(0,0,0,.4),inset 0 0 0 2px rgba(255,255,255,.12);font-size:.75em;vertical-align:middle;margin-right:2px}
-html[data-skin=ledger] footer.site::before{content:"❦  ❦  ❦";display:block;text-align:center;color:var(--ac);letter-spacing:.4em;margin:-4px 0 10px}
-html[data-skin=ledger] nav.site details.menu>summary,html[data-skin=ledger] nav.site .pop{border-radius:2px}
-html[data-skin=ledger] .toast{border-radius:2px}
-html[data-skin=ledger] a{text-decoration-thickness:1px;text-underline-offset:2px}
-</style>
-<script>// Applies the saved theme before first paint and wires the theme button.
-(function(){var k="kcd-theme",s="kcd-skin",t,sk,d=document.documentElement;try{t=localStorage.getItem(k);sk=localStorage.getItem(s)}catch(e){}
-if(t)d.dataset.theme=t;d.dataset.skin="ledger";
-var cur=function(){return d.dataset.theme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light")};
-addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme"),o=document.getElementById("skin"),m=document.getElementById("menu"),$=function(i){return document.getElementById(i)};
-var lab=function(){if(b)b.textContent=cur()=="dark"?"Switch to light":"Switch to dark"};lab();
-if(o){o.value=d.dataset.skin||"classic";o.onchange=function(){d.dataset.skin=o.value;try{localStorage.setItem(s,o.value)}catch(e){}}}
-if(b)b.onclick=function(){var n=cur()=="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem(k,n)}catch(e){}lab()};
-if(m){document.addEventListener("click",function(e){if(m.open&&!m.contains(e.target))m.open=false});
-m.addEventListener("keydown",function(e){if(e.key=="Escape"){m.open=false;m.querySelector("summary").focus()}})}
-var msg=function(t){var e=$("bkmsg");if(e)e.textContent=t};
-if($("bk"))$("bk").onclick=function(){var o={app:"kcd-tools",v:1,date:new Date().toISOString(),data:{}},n=0;try{for(var i=0;i<localStorage.length;i++){var q=localStorage.key(i);if(q.indexOf("kcd-")==0){o.data[q]=localStorage.getItem(q);n++}}}catch(e){}
-var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:"application/json"}));a.download="kcd-tools-backup-"+o.date.slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);msg("Backup saved ("+n+" items).")};
-if($("rsb"))$("rsb").onclick=function(){$("rs").click()};
-if($("rs"))$("rs").onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var o=JSON.parse(r.result);if(o.app!="kcd-tools"||!o.data)throw 0;var ks=Object.keys(o.data).filter(function(x){return x.indexOf("kcd-")==0&&typeof o.data[x]=="string"});
-if(!ks.length)throw 0;if(!confirm("Replace the data saved on this site with this backup ("+ks.length+" items)?"))return;ks.forEach(function(x){localStorage.setItem(x,o.data[x])});msg("Restored. Reloading…");location.reload()}catch(e){msg("That file is not a KCD Tools backup.")}};r.readAsText(f);this.value=""};
-});
-addEventListener("keydown",function(e){if(e.key!="/"||e.ctrlKey||e.metaKey||e.altKey)return;var a=document.activeElement;if(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName))return;var q=document.querySelector("input[type=search]");if(q){e.preventDefault();q.focus();q.select()}})})();
-</script>
-<style>
-main{max-width:1280px;padding-top:6px}
+.how{margin:0 0 12px}.how>summary{font-weight:normal;color:var(--mut)}.los .card{scroll-margin-top:12px}
 .los{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr));gap:14px;align-items:start}
 .los .card{margin:0}
 .nm{font-weight:bold;font-size:1.05rem;color:var(--ac);min-width:0;flex:1}
@@ -135,33 +22,28 @@ tr.tot td{font-weight:bold;border-top:2px solid var(--bd);color:var(--tx)}
 .btns{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.btns button{font-size:.8rem;padding:3px 8px}
 .top{display:flex;gap:8px;align-items:center}
 .fr{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 10px;align-items:center;padding:6px 0;border-bottom:1px dotted var(--bd)}.fr small{color:var(--mut)}
-.fr select{max-width:200px}.cmpt{min-width:420px}.cmpt td,.cmpt th{white-space:normal;vertical-align:top}.cmpt td small{display:block;color:var(--mut)}.cmpt tr.tot td,.cmpt tr.tot th{font-weight:bold}</style><style>
-#ld ~ *{opacity:.35;pointer-events:none}
-.ld{display:flex;align-items:center;gap:10px;padding:16px 4px;color:var(--mut);font-style:italic}
-.ld i{flex:none;width:18px;height:18px;border:3px solid var(--bd);border-top-color:var(--ac);border-radius:50%;animation:ldsp .8s linear infinite}
-@keyframes ldsp{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){.ld i{animation:none;border-color:var(--ac)}}
-#ldbar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--ac);z-index:2000;transition:width 8s cubic-bezier(.1,.8,.2,1)}
-</style>
-<script>/* loading feedback: a status line while the page builds, a slow-connection hint, and a thin bar when moving to another page */
-(function(){var d=document,t=setTimeout(function(){var e=d.getElementById("ld"),s=e&&e.querySelector("span");if(s)s.textContent+=" This is taking longer than usual, so your connection may be slow."},6000);
-d.addEventListener("DOMContentLoaded",function(){clearTimeout(t);var e=d.getElementById("ld");if(e)e.remove()});
-d.addEventListener("click",function(ev){var a=ev.target.closest&&ev.target.closest("a[href]");if(!a||a.target||ev.defaultPrevented||ev.ctrlKey||ev.metaKey||ev.shiftKey||ev.button)return;var u=new URL(a.href,location.href);if(u.origin!==location.origin||u.pathname===location.pathname||d.getElementById("ldbar"))return;var b=d.createElement("div");b.id="ldbar";d.body.appendChild(b);requestAnimationFrame(function(){requestAnimationFrame(function(){b.style.width="85%"})})});
-addEventListener("pageshow",function(){var b=d.getElementById("ldbar");if(b)b.remove()})})();</script>
+.fr select{max-width:200px}.cmpt{min-width:420px}.cmpt td,.cmpt th{white-space:normal;vertical-align:top}.cmpt td small{display:block;color:var(--mut)}.cmpt tr.tot td,.cmpt tr.tot th{font-weight:bold}</style>
+
 </head><body><a class="skip" href="#main">Skip to content</a>
 <nav class="site"><a class="brand" href="index.html" aria-label="KCD Tools home"><span class="logo">⚒️</span> KCD Tools</a><a href="crafting.html">Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html" aria-current=page>Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><details class="menu" id="menu"><summary aria-label="Settings: light or dark mode, backup" title="Light/dark mode and backup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="mlabel">Settings</span></summary><div class="pop"><button id="theme" type="button" aria-label="Switch light or dark mode">Switch to dark</button><hr><button id="bk" type="button">Back up my data</button><button id="rsb" type="button">Restore from backup</button><input id="rs" aria-label="Choose a backup file" type="file" accept=".json,application/json" hidden><p class="s" id="bkmsg">Saves your prices, orders, favourites, loadouts and settings to a file.</p></div></details></nav>
 <main id="main" tabindex="-1"><div class="ld" id="ld" role="status"><i aria-hidden="true"></i><span>Loading recipes…</span></div>
-<h1>Loadout Builder</h1>
-<p class="s">Pick a full set of armour and a weapon for each loadout, set a crafting level, and see what it costs to craft. Copy it as text or save it as a picture to share. The fill buttons prefer armour pieces and use clothing only where a slot has no armour. Material prices are shared with the crafting calculator. Use “Copy link” to share a loadout; the link carries the pieces but not your prices.</p>
-<div class="card"><div class="bar" style="margin:0">
-<label class="f">New loadout level<select id="nl"></select></label>
-<button id="add" class="pri" type="button">Add loadout</button>
-</div></div>
+<div class="tbar"><h1>Loadout Builder</h1></div>
+<div class="layout">
+<nav class="card rail" id="lorail" aria-label="Loadouts">
+<div class="crh">Loadouts</div>
+<div class="rlist" id="lol"></div>
+<div class="crh">New loadout</div>
+<div class="rform"><label class="f">Crafting level<select id="nl"></select></label>
+<button id="add" class="pri" type="button">Add loadout</button></div>
+</nav>
+<div class="mc">
+<details class="how"><summary>How it works</summary><p class="s" style="margin:6px 0 0">Pick a full set of armour and a weapon for each loadout, set a crafting level, and see what it costs to craft. Copy it as text or save it as a picture to share. The fill buttons prefer armour pieces and use clothing only where a slot has no armour. Material prices are shared with the crafting calculator. Use “Copy link” to share a loadout; the link carries the pieces but not your prices.</p></details>
 <div class="card"><label class="f">Find a piece<input id="fq" type="search" placeholder="e.g. cuirass, kettle hat, longsword (press / to jump here)" autocomplete="off"></label><div id="fr" aria-live="polite"></div></div>
 <div class="los" id="los"></div>
 <details class="card" id="cmpd" style="margin-top:14px"><summary>Compare loadouts side by side</summary><div class="wrap" id="cmp" style="margin-top:8px"></div></details>
 <div class="card" style="margin-top:14px"><details open><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px">Materials used by your loadouts. Leave an intermediate part blank to work it out from the raw prices.</p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin:6px 0 2px"><input type="checkbox" id="sg"> Use suggested market prices</label><p class="s" id="sgn" style="margin:0 0 6px"></p><div id="mat"></div>
 <p style="margin:10px 0 0"><button id="reset" type="button">Clear prices</button></p></details></div>
+</div></div>
 </main>
 <footer class="site">Unofficial fan tool. Recipes from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Recipe data updated <span id="ru"></span>. Prices and settings are saved in your browser only.<div class="sig">Made by <b>Busterguy</b> · Found a bug or have an issue? Contact me on <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord.</div><div class="sig">Open source: <a href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer">view the repo</a> or <a href="https://github.com/xBusterguy/KCDCalculator/issues/new/choose" target="_blank" rel="noopener noreferrer">report an issue</a> on GitHub.</div></footer>
 <script src="assets/recipes.js"></script>
@@ -187,7 +69,7 @@ DATA.split("\n").forEach(l=>{const [c,lv,ns,y,i,f]=l.split("|"),r={};i.replace(R
 for(const sl in bySlot)bySlot[sl].sort((a,b)=>a.l-b.l||a.n.localeCompare(b.n));
 let P={},S={mk:25,sg:true},LO=[],C={},LR={};
 try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");LO=JSON.parse(localStorage.getItem("kcd-lo")||"[]");const st=JSON.parse(localStorage.getItem("kcd-s")||"{}");if(st.sg!=null)S.sg=!!st.sg}catch(e){}
-if(!Array.isArray(LO))LO=[];
+if(!Array.isArray(LO))LO=[];if(!P||typeof P!="object"||Array.isArray(P))P={};
 LO=LO.filter(lo=>lo&&typeof lo=="object");
 // stored or restored data is untrusted: keep ids and levels plain so they are safe to put in the page
 LO.forEach((lo,i)=>{lo.id=String(lo.id==null?"l"+i:lo.id).replace(/[^\w-]/g,"");lo.lv=Math.min(10,Math.max(1,parseInt(lo.lv,10)||1));lo.name=String(lo.name==null?"":lo.name)});
@@ -219,7 +101,7 @@ const OPT={},opts=(sl,lv)=>OPT[sl+lv]||(OPT[sl+lv]=(()=>{let h='<option value=""
 const lvOpts=[...Array(10)].map((_,i)=>`<option value="${i+1}">Level ${i+1}</option>`).join("");
 
 function render(){
-  $("los").innerHTML=LO.map(lo=>`<div class="card" data-id="${lo.id}"><div class="top"><input class="nm" value="${esc(lo.name)}" aria-label="Loadout name"><select class="lv" aria-label="Crafting level">${lvOpts.replace(`value="${lo.lv}"`,`value="${lo.lv}" selected`)}</select></div>
+  $("los").innerHTML=LO.map(lo=>`<div class="card" id="lo-${lo.id}" data-id="${lo.id}" tabindex="-1"><div class="top"><input class="nm" value="${esc(lo.name)}" aria-label="Loadout name"><select class="lv" aria-label="Crafting level">${lvOpts.replace(`value="${lo.lv}"`,`value="${lo.lv}" selected`)}</select></div>
 <div class="btns"><button type="button" data-a="rich">Fill: top tier (priciest)</button><button type="button" data-a="cheap">Fill: top tier (cheapest)</button><button type="button" data-a="clear">Clear</button><button type="button" data-a="dup">Duplicate</button><button type="button" data-a="del">Delete</button></div>
 <div class="btns"><span class="s" style="margin:0">Export:</span><button type="button" data-a="txt">Copy text</button><button type="button" data-a="txtm">Copy with materials</button><button type="button" data-a="link">Copy link</button><button type="button" data-a="png">Save picture</button><button type="button" data-a="cpng">Copy picture</button></div><textarea class="exp" rows="7" hidden readonly style="width:100%;margin:4px 0" aria-label="Exported text"></textarea>
 <table><thead><tr><th>Slot</th><th>Piece</th><th class="n">Cost</th></tr></thead><tbody>${SLOTS.map(([sl,lb],i)=>{const [g,nm]=lb.split(" – "),gh=i==0||SLOTS[i-1][1].split(" – ")[0]!=g?`<tr class="grp"><td colspan="3">${g}</td></tr>`:"";return gh+`<tr data-sl="${sl}"><td>${nm}</td><td><select class="sel" aria-label="Piece for ${esc(lb)}">${opts(sl,lo.lv).replace(`value="${esc(lo.sel[sl]||"~")}"`,`value="${esc(lo.sel[sl])}" selected`)}</select></td><td class="n cc"></td></tr>`}).join("")}
@@ -240,7 +122,9 @@ function patch(){
     set(L.tc,f1(c.cost));set(L.mw,c.ms.size?"⚠":"");L.mw.title=c.ms.size?"Unpriced: "+[...c.ms].join(", "):"";
     set(L.to,c.n?`Material outlay with whole crafts: ${f1(c.pl.mat)} + bench fees ${f1(c.pl.fee)} = ${f1(c.pl.mat+c.pl.fee)} gr.`:"Choose pieces to see the cost.");
     L.sh.innerHTML=c.n?`<div class="wrap"><table><thead><tr><th>Material</th><th class="n">Qty</th><th class="n">Price</th><th class="n">Cost</th></tr></thead><tbody>${c.pl.buy.map(b=>`<tr><td style="color:var(--tx)">${esc(name(b.id))}${b.u>0?"":' <span class="w">no price</span>'}</td><td class="n">${b.q}</td><td class="n">${f1(b.u)}</td><td class="n">${f1(b.c)}</td></tr>`).join("")}</tbody></table></div>${Object.keys(c.pl.cr).length?`<p class="s" style="margin:6px 0 0">Parts crafted along the way: ${Object.entries(c.pl.cr).map(([id,n])=>esc(INT[id][0])+" ×"+n*INT[id][1]).join(", ")}</p>`:""}`:""}
+  $("lol").innerHTML=LO.length?LO.map(lo=>`<button type="button" class="ri" data-go="${lo.id}"><span>${esc(lo.name||"Unnamed loadout")}</span><small>${f1(calc(lo).cost)}</small></button>`).join(""):'<p class="s" style="margin:0 8px">No loadouts yet.</p>';
   cmp()}
+$("lol").onclick=e=>{const b=e.target.closest("[data-go]"),c=b&&$("lo-"+b.dataset.go);if(c){c.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});c.focus({preventScroll:true})}};
 function cmp(){if(!$("cmpd").open)return;const cs=LO.map(lo=>({lo,c:calc(lo)})),min=Math.min(...cs.map(x=>x.c.cost));
   $("cmp").innerHTML=`<table class="cmpt"><thead><tr><th>Slot</th>${cs.map(x=>`<th>${esc(x.lo.name)}<small style="display:block;font-weight:normal">Level ${x.lo.lv}</small></th>`).join("")}</tr></thead><tbody>`+
   SLOTS.map(([sl,lb])=>`<tr><td style="color:var(--mut)">${esc(lb)}</td>${cs.map(x=>{const it=byKey[x.lo.sel[sl]];return it?`<td>${esc(it.n)}<small>${f1(pc(it))} gr.</small></td>`:"<td>–</td>"}).join("")}</tr>`).join("")+
@@ -307,8 +191,4 @@ function exp(lo,a,b){
 $("nl").innerHTML=lvOpts;$("nl").value=7;
 if(IMP){save()}
 render();if(IMP){const n=LO.find(x=>x.id)&&LO[LO.length-1].name;toast("Added the shared loadout “"+n+"”.",()=>{restore(IMP)})}
-</script><script src="assets/tour.js" defer></script><script src="assets/changelog.js" defer></script><script>if("serviceWorker"in navigator&&(location.protocol==="https:"||location.hostname==="localhost")){addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});
-// When the worker finds a newer version of the site, reload once (saved prices and settings live in localStorage and are not touched).
-// If you are typing or in the tour, offer a Refresh button instead of interrupting.
-var kcdUp=0;navigator.serviceWorker.addEventListener("message",function(e){if(!e.data||e.data.kcd!=="updated"||kcdUp)return;kcdUp=1;var a=document.activeElement,busy=a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)||sessionStorage.getItem("kcd-tour");
-if(!busy){location.reload();return}var t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.innerHTML="<span>A new version of the site is ready.</span>";var b=document.createElement("button");b.type="button";b.textContent="Refresh";b.onclick=function(){location.reload()};t.appendChild(b);document.body.appendChild(t)})}</script></body></html>
+</script><script src="assets/tour.js" defer></script><script src="assets/changelog.js" defer></script></body></html>

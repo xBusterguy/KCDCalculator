@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "date": "2026-11-16",
+      "title": "One look for every page",
+      "changes": [
+        "Home, Farming and Loadouts now use the same layout as Crafting: a full-width title bar and, on wide screens, a list down the left with the working area filling the rest of the screen.",
+        "Farming: your farm setup sits in the left column, so the results and the crop table get the full width.",
+        "Loadouts: the left column lists your loadouts with their cost. Click one to jump to it.",
+        "Home: shows the latest changes and a few things worth knowing.",
+        "Crafting: your own custom recipes can now be removed.",
+        "Fixed on Farming: after changing a number, the next box you clicked or tabbed into lost the cursor.",
+        "Pages are smaller and load faster, because they now share one stylesheet and one script."
+      ]
+    },
+    {
       "date": "2026-11-10",
       "title": "Crafting page fills the screen",
       "changes": [

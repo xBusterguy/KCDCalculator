@@ -83,6 +83,8 @@ crafting.html       crafting cost calculator
 farming.html        farming efficiency
 loadouts.html       loadout builder
 404.html            page not found
+assets/site.css     the look shared by every page: colours, top bar, title bar, left rail (edit styles here)
+assets/site.js      shared behaviour: light/dark, backup and restore, loading feedback, offline copy and updates
 assets/recipes.js   every crafting recipe (edit recipes here only)
 assets/market.js   suggested material prices from the auction houses (dated snapshot)
 assets/categories.js   how the crafting page groups pieces into types (Swords, Helmets, Furniture...)
@@ -91,7 +93,7 @@ changelog.json     the list shown by the What's new button (add new entries at t
 sw.js               saves the site in the browser for fast repeat visits and offline use
 assets/social.png   picture shown when a link is shared in Discord or chat
 robots.txt, sitemap.xml   help search engines find the pages
-scripts/            recipe checker and wiki sync
+scripts/            recipe checker, site checker and wiki sync
 docs/screenshots/   images used in this README
 .github/            workflows, issue forms and pull request template
 CONTRIBUTING.md     how to fix a recipe
