@@ -2,6 +2,13 @@
   "entries": [
     {
       "date": "2026-11-16",
+      "title": "Suggested prices refreshed",
+      "changes": [
+        "The suggested material prices on Crafting and Loadouts now use the auction house averages from 16 November. Prices you typed yourself are unchanged."
+      ]
+    },
+    {
+      "date": "2026-11-16",
       "title": "Easier to use",
       "changes": [
         "Undo instead of “Are you sure?”: clearing prices, clearing or removing from an order and loading a preset now happen at once with an Undo button.",
