@@ -9,4 +9,5 @@
 ## Checked
 
 - [ ] `node scripts/check-recipes.js` passes (if recipes changed)
+- [ ] `node scripts/check-site.js` passes (if pages, `sw.js` or the changelog changed)
 - [ ] Opened the page in a browser and it looks right

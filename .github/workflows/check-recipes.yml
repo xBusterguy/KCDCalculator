@@ -1,13 +1,13 @@
-name: Check recipes
+name: Check recipes and site
 
-# Runs the recipe checker whenever recipe data or the checker itself changes,
-# so a typo in assets/recipes.js is caught before it reaches the site.
+# Runs the recipe checker and the site checker whenever the pages, data or checkers change,
+# so a typo in assets/recipes.js or a file missing from the offline list is caught before it reaches the site.
 on:
   push:
     branches: [main]
-    paths: ["assets/recipes.js", "assets/categories.js", "scripts/check-recipes.js"]
+    paths: ["assets/**", "scripts/**", "*.html", "sw.js", "changelog.json"]
   pull_request:
-    paths: ["assets/recipes.js", "assets/categories.js", "scripts/check-recipes.js"]
+    paths: ["assets/**", "scripts/**", "*.html", "sw.js", "changelog.json"]
   workflow_dispatch:
 
 permissions:
@@ -22,3 +22,4 @@ jobs:
         with:
           node-version: 24
       - run: node scripts/check-recipes.js
+      - run: node scripts/check-site.js

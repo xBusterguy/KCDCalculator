@@ -196,6 +196,12 @@ Then use its id in recipes as described above.
 
 The pages are plain HTML, CSS and JavaScript with no build step. Open `index.html` in a browser to try a change. Keep the `assets` folder next to the pages.
 
+Every page shares one stylesheet and one script: `assets/site.css` (colours, top bar, title bar, the rail down the left, cards and tables) and `assets/site.js` (light/dark, backup, loading feedback, offline copy). Change the look there and all pages follow. Each page keeps only its own extra styles in a small `<style>` block.
+
+Every page uses the same skeleton: a title bar (`<div class="tbar">`), then `<div class="layout">` holding an optional rail (`class="card rail"`) and the working area (`<div class="mc">`). On a phone the rail becomes a normal card above the content.
+
+If you add, rename or remove a file the pages load, update the `FILES` list in `sw.js` too. Run `node scripts/check-site.js` to confirm the pages, the offline list and `changelog.json` agree. GitHub runs it automatically.
+
 ## Automatic wiki check
 
 `scripts/wiki-sync.js` compares `assets/recipes.js` with the wiki and (with `--apply`) edits only the lines that changed. The daily workflow `.github/workflows/wiki-sync.yml` runs it and opens a pull request. You can still edit `assets/recipes.js` by hand at any time; the check will simply report anything that no longer matches the wiki.
