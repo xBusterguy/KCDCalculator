@@ -13,7 +13,7 @@ a{color:var(--ac)}
 .bar{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-bottom:8px}
 label.f{display:flex;flex-direction:column;font-size:.75rem;color:var(--mut);gap:2px}
 input,select,textarea,button{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:5px 8px;max-width:100%;box-sizing:border-box}
-input[type=checkbox]{width:auto}button{cursor:pointer}button.pri{background:var(--ac);color:var(--on);border:0}
+input[type=checkbox]{width:18px;height:18px;flex:none}button{cursor:pointer}button.pri{background:var(--ac);color:var(--on);border:0}
 :focus-visible{outline:2px solid var(--ac);outline-offset:1px}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:14px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:6px}
@@ -38,9 +38,9 @@ nav.site a.gh{margin-left:auto;color:var(--mut)}.sig a{color:var(--ac)}
 @media print{nav.site,footer.site{display:none}}
 /* theme picker */
 /* Medieval ledger theme (select "Medieval ledger" in the nav) */
-:root[data-skin=ledger]{--bg:#d8c59b;--card:#efe1bb;--tx:#2a1c0e;--mut:#5a4528;--ac:#8a1c1c;--on:#f4e8c8;--bd:#8d7147;--ok:#2d5a28;--bad:#8a1c1c;--bar:#a67a3a;color-scheme:light}
-@media (prefers-color-scheme:dark){:root[data-skin=ledger]:not([data-theme=light]){--bg:#17110a;--card:#241a0f;--tx:#e8d6a6;--mut:#a68e62;--ac:#e0705a;--on:#17110a;--bd:#5c4526;--ok:#86b66f;--bad:#e0705c;--bar:#8d6a30;color-scheme:dark}}
-:root[data-skin=ledger][data-theme=dark]{--bg:#17110a;--card:#241a0f;--tx:#e8d6a6;--mut:#a68e62;--ac:#e0705a;--on:#17110a;--bd:#5c4526;--ok:#86b66f;--bad:#e0705c;--bar:#8d6a30;color-scheme:dark}
+:root[data-skin=ledger]{--bg:#d8c59b;--card:#efe1bb;--tx:#2a1c0e;--mut:#5a4528;--ac:#8a1c1c;--on:#f4e8c8;--bd:#8d7147;--ok:#2d5a28;--bad:#8a1c1c;--bar:#a67a3a;--bdi:#75592f;color-scheme:light}
+@media (prefers-color-scheme:dark){:root[data-skin=ledger]:not([data-theme=light]){--bg:#17110a;--card:#241a0f;--tx:#e8d6a6;--mut:#a68e62;--ac:#e0705a;--on:#17110a;--bd:#5c4526;--ok:#86b66f;--bad:#e0705c;--bar:#8d6a30;--bdi:#94733f;color-scheme:dark}}
+:root[data-skin=ledger][data-theme=dark]{--bg:#17110a;--card:#241a0f;--tx:#e8d6a6;--mut:#a68e62;--ac:#e0705a;--on:#17110a;--bd:#5c4526;--ok:#86b66f;--bad:#e0705c;--bar:#8d6a30;--bdi:#94733f;color-scheme:dark}
 html[data-skin=ledger] body{min-height:100vh;font:16px/1.55 "Palatino Linotype","Book Antiqua",Palatino,"Iowan Old Style","URW Palladio L",Garamond,Georgia,serif;
  background-image:radial-gradient(ellipse at 50% 30%,rgba(255,244,205,.18),rgba(60,35,10,.22) 100%),repeating-linear-gradient(to bottom,transparent 0,transparent 27px,rgba(110,76,34,.16) 27px,rgba(110,76,34,.16) 28px);background-attachment:fixed,scroll}
 html[data-skin=ledger][data-theme=dark] body{background-image:radial-gradient(ellipse at 50% 30%,rgba(255,200,120,.05),rgba(0,0,0,.35) 100%),repeating-linear-gradient(to bottom,transparent 0,transparent 27px,rgba(200,150,80,.07) 27px,rgba(200,150,80,.07) 28px)}
@@ -55,8 +55,12 @@ html[data-skin=ledger] h3{border-bottom:1px solid var(--bd);padding-bottom:2px}
 html[data-skin=ledger] p.s{font-style:italic}
 html[data-skin=ledger] .card,html[data-skin=ledger] .tile{border:1px solid var(--bd);border-radius:2px;background-image:linear-gradient(rgba(255,250,225,.22),rgba(120,85,40,.07));box-shadow:inset 0 0 0 3px var(--card),inset 0 0 0 4px var(--bd),2px 3px 0 rgba(60,35,10,.18)}
 html[data-skin=ledger][data-theme=dark] .card,html[data-skin=ledger][data-theme=dark] .tile{background-image:linear-gradient(rgba(255,200,120,.04),rgba(0,0,0,.18));box-shadow:inset 0 0 0 3px var(--card),inset 0 0 0 4px var(--bd),2px 3px 0 rgba(0,0,0,.4)}
+/* the same when the device itself is set to dark and no choice has been made on the site */
+@media (prefers-color-scheme:dark){html[data-skin=ledger]:not([data-theme=light]) .card,html[data-skin=ledger]:not([data-theme=light]) .tile{background-image:linear-gradient(rgba(255,200,120,.04),rgba(0,0,0,.18));box-shadow:inset 0 0 0 3px var(--card),inset 0 0 0 4px var(--bd),2px 3px 0 rgba(0,0,0,.4)}}
 html[data-skin=ledger] .tile:hover{border-color:var(--ac)}
 html[data-skin=ledger] input,html[data-skin=ledger] select,html[data-skin=ledger] textarea,html[data-skin=ledger] button{border-radius:2px;border:1px solid var(--bd);background-color:var(--card);font-family:inherit}
+/* boxes you type in get a stronger outline than cards, so they are easy to pick out (3:1 against the page) */
+html[data-skin=ledger] input,html[data-skin=ledger] select,html[data-skin=ledger] textarea{border-color:var(--bdi,var(--bd))}
 html[data-skin=ledger] button:hover{border-color:var(--ac);color:var(--ac)}
 html[data-skin=ledger] button.pri{background:var(--ac);color:var(--on);border-color:var(--ac);letter-spacing:.04em}html[data-skin=ledger] button.pri:hover{color:var(--on);filter:brightness(1.12)}
 html[data-skin=ledger] table{border-top:2px solid var(--bd)}
@@ -88,6 +92,7 @@ nav.site .pop button,nav.site .pop select{width:100%;text-align:left}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 .toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:9px 14px;border-radius:8px;z-index:60;display:flex;gap:12px;align-items:center;box-shadow:0 6px 20px rgba(0,0,0,.35);max-width:calc(100vw - 24px)}
 .toast button{background:transparent;color:inherit;border:1px solid currentColor;min-height:0;padding:2px 10px}
+html[data-skin=ledger] .toast button,html[data-skin=ledger] .toast button:hover{background:transparent;color:inherit;border-color:currentColor}html[data-skin=ledger] .toast button:hover{text-decoration:underline}
 html[data-skin=ledger] nav.site .logo{display:inline-grid;place-items:center;width:1.9em;height:1.9em;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c4412f,#7a1212 70%);box-shadow:0 1px 2px rgba(0,0,0,.4),inset 0 0 0 2px rgba(255,255,255,.12);font-size:.75em;vertical-align:middle;margin-right:2px}
 html[data-skin=ledger] footer.site::before{content:"❦  ❦  ❦";display:block;text-align:center;color:var(--ac);letter-spacing:.4em;margin:-4px 0 10px}
 html[data-skin=ledger] nav.site details.menu>summary,html[data-skin=ledger] nav.site .pop{border-radius:2px}
@@ -118,9 +123,26 @@ html[data-skin=ledger] a{text-decoration-thickness:1px;text-underline-offset:2px
  nav.site,footer.site{max-width:none;padding-left:24px;padding-right:24px}
  .tbar{padding:10px 24px;border-bottom:3px double var(--bd)}.tbar h1,html[data-skin=ledger] .tbar h1{font-size:1.6rem;border:0;padding:0;margin:0}
  .layout{grid-template-columns:230px minmax(0,1fr);gap:0;margin-top:0;align-items:start}.layout.norail{grid-template-columns:minmax(0,1fr)}
- html .rail,html[data-skin=ledger] .rail{position:sticky;top:0;height:100vh;box-sizing:border-box;overflow:auto;margin:0;border:0;border-right:1px solid var(--bd);border-radius:0;box-shadow:none;background-image:none;padding:16px 12px}
+ html .rail,html[data-skin=ledger] .rail{position:sticky;top:0;height:100vh;box-sizing:border-box;overflow:auto;margin:0;border:0;border-right:1px solid var(--bd);border-radius:0;box-shadow:none!important;background-image:none!important;padding:16px 12px}
  .mc{padding:14px 24px 24px}
  .rform{flex-direction:column;flex-wrap:nowrap;align-items:stretch}.rform select,.rform input:not([type=checkbox]),.rform button{width:100%}
  .rail .crh:not(:first-child){margin-top:14px;padding-top:12px;border-top:1px solid var(--bd)}
 }
 @media print{.rail{display:none}}
+/* ---- top bar buttons (What's new, Tour). They are in the page from the start so nothing jumps when the scripts load ---- */
+nav.site .clbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--bd);border-radius:6px;padding:5px 10px;background:var(--card);color:var(--tx);cursor:pointer;font:inherit;position:relative}
+html[data-skin=ledger] nav.site .clbtn{border-radius:2px;font-variant:small-caps;letter-spacing:.05em}
+nav.site .clbtn:hover{border-color:var(--ac);color:var(--ac)}nav.site .clbtn svg{width:18px;height:18px;flex:none}
+.cldot{position:absolute;top:-4px;right:-4px;width:10px;height:10px;border-radius:50%;background:var(--ac);border:2px solid var(--bg)}
+nav.site .clpop{display:none}
+@media (max-width:900px){nav.site .clbtn .tl,nav.site .tourbtn .tl{display:none}nav.site .clbtn,nav.site .tourbtn{padding:5px 8px}}
+@media (max-width:560px){nav.site .clbtn{display:none}nav.site .pop .clpop{display:block}}
+nav.site .tourbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--bd);border-radius:6px;padding:5px 10px;background:var(--card);color:var(--tx);cursor:pointer;font:inherit}
+html[data-skin=ledger] nav.site .tourbtn{border-radius:2px;font-variant:small-caps;letter-spacing:.05em}
+nav.site .tourbtn:hover{border-color:var(--ac);color:var(--ac)}nav.site .tourbtn svg{width:18px;height:18px;flex:none}
+@media (max-width:560px){nav.site .tourbtn .tl{display:none}nav.site .tourbtn{margin-left:auto;padding:5px 7px}nav.site details.menu{margin-left:0!important}}
+@media (max-width:389px){nav.site a:not(.brand){padding:4px 4px!important;font-size:.82rem!important}}
+@media (max-width:340px){nav.site a:not(.brand){padding:4px 3px!important;font-size:.78rem!important}nav.site .tourbtn{padding:5px 5px}}
+/* ---- "Saved" note: confirms that a change has been kept in this browser ---- */
+.saved{position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:55;background:var(--card);border:1px solid var(--ok);color:var(--ok);padding:4px 10px;border-radius:2px;font-size:.85rem;opacity:0;transition:opacity .25s;pointer-events:none}.saved.on{opacity:1}
+@media print{.saved,.toast{display:none}}

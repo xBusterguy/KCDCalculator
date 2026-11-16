@@ -2,6 +2,20 @@
   "entries": [
     {
       "date": "2026-11-16",
+      "title": "Easier to use",
+      "changes": [
+        "Undo instead of “Are you sure?”: clearing prices, clearing or removing from an order and loading a preset now happen at once with an Undo button.",
+        "A small “Saved in this browser” note appears when your changes have been kept.",
+        "Big crafts such as Tailoring open about three times faster: the list loads 100 pieces at a time as you scroll.",
+        "The top bar no longer jumps when a page loads.",
+        "Crafting remembers the type you picked (for example Swords) next time you visit.",
+        "Keyboard: the box you Tab to no longer hides under the filter bar. Stars and column headings are easier to hit, and boxes you type in have a clearer outline.",
+        "Fixed: with the device set to dark mode, panels looked washed out until you used the light/dark switch. Fixed: the Undo button text was hard to read.",
+        "A negative price typed by mistake now counts as zero."
+      ]
+    },
+    {
+      "date": "2026-11-16",
       "title": "One look for every page",
       "changes": [
         "Home, Farming and Loadouts now use the same layout as Crafting: a full-width title bar and, on wide screens, a list down the left with the working area filling the rest of the screen.",
