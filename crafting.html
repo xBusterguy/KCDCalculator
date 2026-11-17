@@ -297,6 +297,11 @@ function clist(){$("csum").textContent=custom.length?"Custom recipes ("+custom.l
 $("cl").onclick=e=>{const b=e.target.closest("button[data-cd]");if(!b)return;const i=custom.findIndex(c=>c.k==b.dataset.cd);if(i<0)return;const c=custom[i];if(!confirm("Remove your recipe “"+c.n+"”?"))return;
   custom.splice(i,1);delete ORD[kk(c)];saveO();FAV.delete(kk(c));saveF();if(!all().some(x=>x.c==S.tab)&&S.tab!="★"){S.tab="Smithing";S.cat=""}save();$("msg").textContent="Removed “"+c.n+"”.";clist();render()};
 clist();
+// Links from the home page: crafting.html?q=cuirass or crafting.html?tab=Smithing&cat=Swords
+{const U=new URLSearchParams(location.search),t=U.get("tab"),q=(U.get("q")||"").trim();
+ if(t){S.tab=t;S.cat=U.get("cat")||"";S.q="";$("q").value=""}
+ if(q.length>=2){S.q=q.slice(0,80);$("q").value=S.q}
+ if(t||q){S.lv=0;S.lim=LIM;$("lvs").querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x.dataset.l=="0"));history.replaceState(null,"",location.pathname)}}
 if(!all().some(i=>i.c==S.tab)&&S.tab!="★")S.tab="Smithing";
 if(S.cat&&!catList(S.tab).includes(S.cat))S.cat="";
 render();

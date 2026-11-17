@@ -12,7 +12,8 @@
 
   var STEPS = [
     { p: "index.html", t: "Welcome to KCD Tools", x: "A quick tour of the whole site, about two minutes. It visits each page in turn. You can leave at any time with Esc or Skip, and start it again from the Tour button at the top right." },
-    { p: "index.html", s: ".tiles", t: "Three tools", x: "Crafting works out what things cost to make and what to sell them for. Farming ranks crops by how much they earn. Loadouts builds full sets of armour and a weapon and prices them. Each shows a short summary of your current numbers once you have used it." },
+    { p: "index.html", s: "#hf", t: "Find any piece", x: "Type part of a name, such as cuirass or ale, and pick a result to open it in Crafting with its cost and profit." },
+    { p: "index.html", s: ".tools", t: "Three tools", x: "Crafting works out what things cost to make and what to sell them for. Farming ranks crops by how much they earn. Loadouts builds full sets of armour and a weapon and prices them. Each shows a short summary of your current numbers once you have used it." },
     { p: "index.html", s: "#menu > summary", t: "Settings and backup", x: "Switch between light and dark here, and make a backup file of everything you have entered. You can restore it later or on another device. Everything is kept in this browser only, nothing is sent anywhere." },
 
     { p: "crafting.html", s: "#fsum", t: "Crafting: choose what to show", x: "Tap this bar to pick a craft, a type and a level, then tap Show pieces." },
