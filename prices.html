@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-skin="ledger"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark"><meta name="description" content="Set the material prices used by every KCD Tools calculator: your own prices, filled in with auction house averages.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="KCD Tools"><meta property="og:title" content="Prices – KCD Tools"><meta property="og:description" content="Set the material prices used by every KCD Tools calculator: your own prices, filled in with auction house averages."><meta property="og:url" content="https://xbusterguy.github.io/KCDCalculator/prices.html"><meta property="og:image" content="https://xbusterguy.github.io/KCDCalculator/assets/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#d8c59b">
+<link rel="preload" href="assets/recipes.js" as="script">
+<title>Prices – KCD Tools</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+
+<style>
+.ptools{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;margin-bottom:10px}
+.ptools .f{margin:0}.ptools #pq{min-width:220px}.ptools .ck{flex-direction:row;align-items:center;gap:8px;min-height:38px}
+.ptools .acts{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.psum{margin:0 0 10px}.psum b{color:var(--tx)}.psum .mi{color:var(--bad)}
+#pt{min-width:0;width:100%}#pt th,#pt td{white-space:nowrap}#pt td.nm{white-space:normal}
+#pt tr.gh th{background:color-mix(in srgb,var(--bd) 30%,var(--card));text-align:left;font-variant:small-caps;letter-spacing:.06em;color:var(--ac);position:static}
+#pt td input{width:90px;padding:3px 6px}#pt td input.miss{border-color:var(--bad)}
+#pt .tag{font-size:.8rem;margin-left:6px;color:var(--mut)}#pt .tag.yours{color:var(--ok)}#pt .tag.missing{color:var(--bad)}
+#pt td.n{text-align:right}#pt .farm{font-size:.75rem;border:1px solid var(--bd);padding:0 5px;border-radius:2px;margin-left:6px;color:var(--mut)}
+.pnote{margin:8px 0 0}
+.psec{margin-top:14px}.psec .pr{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dotted var(--bd)}
+#prail .ri.on small{opacity:1}
+@media (max-width:899px){#prail{padding:8px 10px}#prail .crh{padding:0 2px 4px}#prail .rlist{flex-direction:row;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-bottom:4px;scrollbar-width:thin}#prail .rlist+.crh{margin-top:6px}#prail .ri{width:auto;flex:none;min-height:40px;border-color:var(--bd)}#prail .ri small{margin-left:6px}}
+@media (max-width:640px){
+ #pt thead{display:none}#pt,#pt tbody,#pt tr{display:block}
+ #pt tr.r{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 2px;border-bottom:1px solid var(--bd)}
+ #pt tr.r td{border:0;padding:0;text-align:left}#pt tr.r td.nm{grid-column:1/-1;font-size:1.02rem}
+ #pt tr.r td.yp{grid-row:2}#pt tr.r td.us{grid-row:2;align-self:center;text-align:right}
+ #pt tr.r td.mk,#pt tr.r td.ui{grid-row:3;color:var(--mut);font-size:.82rem;text-align:left}#pt tr.r td.ui{text-align:right}
+ #pt tr.r td.mk::before{content:"Market: "}#pt tr.r td.ui::before{content:"Used in: "}
+ #pt tr.gh{display:block}#pt tr.gh th{display:block}
+ .ptools .acts{margin-left:0}
+}
+</style>
+
+</head><body><a class="skip" href="#main">Skip to content</a><nav class="site"><a class="brand" href="index.html" aria-label="KCD Tools home"><span class="logo">⚒️</span> KCD Tools</a><a href="crafting.html">Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><a href="prices.html" aria-current=page>Prices</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><button type="button" class="clbtn" aria-haspopup="dialog" aria-expanded="false" title="What's new"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h9l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 11h7M9 15h7M9 7h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="tl">What’s new</span></button><button type="button" class="tourbtn" title="Take a guided tour of the site" aria-label="Take the guided tour"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2.9-1.2 1.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/></svg><span class="tl">Tour</span></button><details class="menu" id="menu"><summary aria-label="Settings: light or dark mode, backup" title="Light/dark mode and backup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="mlabel">Settings</span></summary><div class="pop"><button id="theme" type="button" aria-label="Switch light or dark mode">Switch to dark</button><hr><button id="bk" type="button">Back up my data</button><button id="rsb" type="button">Restore from backup</button><input id="rs" aria-label="Choose a backup file" type="file" accept=".json,application/json" hidden><p class="s" id="bkmsg">Saves your prices, orders, favourites, loadouts and settings to a file.</p></div></details></nav>
+<main id="main" tabindex="-1"><div class="tbar"><h1>Prices</h1></div>
+<div class="layout">
+<nav class="card rail" id="prail" aria-label="Price groups">
+<div class="crh">Groups</div><div class="rlist" id="grp"></div>
+<div class="crh">Show only</div><div class="rlist" id="flt"></div>
+</nav>
+<div class="mc">
+<div class="ptools">
+<label class="f">Find a material<input id="pq" type="search" placeholder="e.g. hides" autocomplete="off"></label>
+<label class="f ck"><input type="checkbox" id="sg"> <span>Fill gaps with market prices (<span id="md"></span>)</span></label>
+<span class="acts"><button type="button" id="gosets">Price sets</button><button type="button" id="goshare">Share</button><button type="button" id="clr">Clear my prices</button></span>
+</div>
+<p class="s psum" id="psum" aria-live="polite"></p>
+<div class="card wrap"><table id="pt"><thead><tr><th>Material</th><th>Your price</th><th class="n">Market</th><th class="n">Calculators use</th><th class="n">Used in</th></tr></thead><tbody id="pb"></tbody></table></div>
+<p class="s pnote">Prices are per load or piece, in groschen. Leave a box empty to use the market price. Parts you can craft are worked out from their ingredients unless you enter a price. Crafting, Loadouts and Farming all use these prices.</p>
+<details class="card psec" id="sets"><summary>Price sets</summary><p class="s" style="margin:6px 0">Save your current prices under a name, for a town perhaps, and switch between sets.</p>
+<div class="bar" style="margin:6px 0"><label class="f" style="flex:1">Name<input id="psn" placeholder="e.g. Trosky" maxlength="40"></label><button type="button" class="pri" id="pss">Save current prices</button></div><div id="psl"></div></details>
+<details class="card psec" id="share"><summary>Share prices</summary><p class="s" style="margin:6px 0">Copy your prices to paste in a chat, or paste someone else’s list to bring them in.</p>
+<textarea id="shta" rows="7" style="width:100%" placeholder="Iron ore = 7&#10;Coal = 2" aria-label="Price list"></textarea>
+<div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><button type="button" id="shex">Copy my prices</button><button type="button" class="pri" id="shim">Bring these in</button></div><p class="s" id="shmsg" style="margin:6px 0 0"></p></details>
+</div></div>
+</main>
+<footer class="site">Unofficial fan tool. Recipes and crops from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Prices and settings are saved in your browser only.<div class="sig">Made by <b>Busterguy</b> · Found a bug or have an issue? Contact me on <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord.</div><div class="sig">Open source: <a href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer">view the repo</a> or <a href="https://github.com/xBusterguy/KCDCalculator/issues/new/choose" target="_blank" rel="noopener noreferrer">report an issue</a> on GitHub.</div></footer>
+<script src="assets/recipes.js"></script><script src="assets/market.js"></script><script src="assets/pricing.js"></script>
+<script>
+(function(){
+const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const f1=n=>(Math.round(n*100)/100).toLocaleString("en-GB",{maximumFractionDigits:2});
+const st={g:"all",f:"",q:""};
+// order: materials needed by the current Crafting order
+const NEED=(()=>{const s=new Set();let O={};try{O=JSON.parse(localStorage.getItem("kcd-o"))||{}}catch(e){}
+  const keys=new Set(Object.keys(O).filter(k=>+O[k]>0));if(!keys.size)return s;const RX=/\{(\w+)\}(\d+)|([A-Za-z])(\d+)/g;
+  const walk=id=>{if(s.has(id))return;s.add(id);if(INT[id])for(const k in INT[id][2])walk(k)};
+  DATA.split("\n").forEach(l=>{const p=l.split("|");if(p.length<5)return;p[2].split(";").forEach(n=>{if(keys.has(CR[p[0]]+"|"+n+"|"+(+p[1])))p[4].replace(RX,(m,w,a,k)=>{walk(w||k);return m})})});return s})();
+const FILTERS=[["mine","Prices I set"],["missing","Missing a price"],["order","Needed for my order"]];
+const inF=(id,f)=>f=="mine"?KP.ov(id):f=="missing"?!INT[id]&&KP.source(id)=="missing"&&!!(KP.USED[id]||KP.FARMED[id]):f=="order"?NEED.has(id):true;
+const vis=id=>(st.g=="all"||KP.GROUP[id]==st.g)&&(!st.f||inF(id,st.f))&&(!st.q||KP.name(id).toLowerCase().includes(st.q));
+const order=KP.GROUPS.map(g=>g.id);
+const sorted=KP.ids.slice().sort((a,b)=>order.indexOf(KP.GROUP[a])-order.indexOf(KP.GROUP[b])||KP.name(a).localeCompare(KP.name(b)));
+function rail(){
+  const cnt=g=>KP.ids.filter(id=>(g=="all"||KP.GROUP[id]==g)).length;
+  $("grp").innerHTML=[["all","All materials"]].concat(KP.GROUPS.map(g=>[g.id,g.name])).map(([id,n])=>`<button type="button" class="ri${st.g==id?" on":""}" data-g="${id}" aria-pressed="${st.g==id}"><span>${esc(n)}</span><small>${cnt(id)}</small></button>`).join("");
+  $("flt").innerHTML=FILTERS.map(([id,n])=>`<button type="button" class="ri${st.f==id?" on":""}" data-f="${id}" aria-pressed="${st.f==id}"><span>${n}</span><small>${KP.ids.filter(x=>inF(x,id)).length}</small></button>`).join("")}
+function useCell(id){const s=KP.source(id),v=KP.unit(id);return s=="missing"&&!INT[id]?'<span class="tag missing">missing</span>':`<b>${f1(v)}</b><span class="tag ${s.replace(" ","-")}">${s}</span>`}
+function table(){
+  let h="",last="",n=0;
+  sorted.forEach(id=>{if(!vis(id))return;n++;const g=KP.GROUP[id];if(st.g=="all"&&g!=last){last=g;h+=`<tr class="gh"><th colspan="5">${esc((KP.GROUPS.find(x=>x.id==g)||{}).name||"")}</th></tr>`}
+    const m=KP.mkt(id),u=KP.USED[id]||0,miss=KP.source(id)=="missing"&&!INT[id]&&(u||KP.FARMED[id]);
+    const ph=INT[id]?"≈ "+f1(KP.unit(id)):KP.sug(id)?"≈ "+f1(KP.sug(id)):"";
+    h+=`<tr class="r" data-id="${id}"><td class="nm">${esc(KP.name(id))}${KP.FARMED[id]?'<span class="farm" title="Also used as worth per load on Farming">farm</span>':""}</td>
+<td class="yp"><input type="text" inputmode="decimal" data-id="${id}" value="${KP.ov(id)?esc(KP.P[id]):""}" placeholder="${ph}" aria-label="Your price for ${esc(KP.name(id))}"${miss?' class="miss"':""}></td>
+<td class="n mk">${m?f1(m):"–"}</td><td class="n us">${useCell(id)}</td><td class="n ui">${u?u+" piece"+(u>1?"s":""):KP.FARMED[id]?"Farming":"–"}</td></tr>`});
+  $("pb").innerHTML=h||'<tr><td colspan="5" class="s">Nothing matches. Try another group or clear the search.</td></tr>';summary()}
+// refresh only the computed cells so the box being typed in keeps its cursor
+function refresh(){$("pb").querySelectorAll("tr.r").forEach(tr=>{const id=tr.dataset.id,i=tr.querySelector("input");tr.querySelector(".us").innerHTML=useCell(id);
+  if(INT[id])i.placeholder="≈ "+f1(KP.unit(id));i.classList.toggle("miss",KP.source(id)=="missing"&&!INT[id]&&!!(KP.USED[id]||KP.FARMED[id]))});summary();rail()}
+function summary(){const s=KP.stats();$("psum").innerHTML=`<b>${s.yours}</b> of your own · <b>${s.market}</b> from the market (${esc(KP.marketDate())})${KP.sg?"":" — switched off"} · <b class="${s.missing?"mi":""}">${s.missing}</b> with no price`}
+$("grp").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;st.g=b.dataset.g;rail();table()};
+$("flt").onclick=e=>{const b=e.target.closest("[data-f]");if(!b)return;st.f=st.f==b.dataset.f?"":b.dataset.f;rail();table()};
+let qt;$("pq").oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{st.q=e.target.value.trim().toLowerCase();table()},150)};
+let rt;$("pb").addEventListener("input",e=>{const i=e.target.closest("input[data-id]");if(!i)return;KP.set(i.dataset.id,i.value);clearTimeout(rt);rt=setTimeout(refresh,120)});
+$("pb").addEventListener("keydown",e=>{if(e.key!="Enter")return;const a=[...$("pb").querySelectorAll("input")],i=a.indexOf(e.target);if(i>=0){e.preventDefault();(a[i+(e.shiftKey?-1:1)]||e.target).focus()}});
+$("md").textContent=KP.marketDate();$("sg").checked=KP.sg;$("sg").onchange=e=>{KP.setSg(e.target.checked);table();rail()};
+$("clr").onclick=()=>{const old=KP.mine();if(!Object.keys(old).length){kcdToast("You have not set any prices.");return}KP.setAll({});table();rail();kcdToast("Cleared your prices.",()=>{KP.setAll(old);table();rail()})};
+// price sets
+let PR={};try{PR=JSON.parse(localStorage.getItem("kcd-presets"))||{}}catch(e){}if(!PR||typeof PR!="object"||Array.isArray(PR))PR={};for(const k in PR)if(!PR[k]||typeof PR[k]!="object")delete PR[k];
+const savePR=()=>{try{localStorage.setItem("kcd-presets",JSON.stringify(PR))}catch(e){}};
+function sets(){const k=Object.keys(PR).sort();$("psl").innerHTML=k.length?k.map(n=>`<div class="pr"><span>${esc(n)} <small class="s">(${Object.keys(PR[n]).length} prices)</small></span><span><button type="button" data-pl="${esc(n)}">Use</button> <button type="button" data-pd="${esc(n)}" aria-label="Delete set ${esc(n)}">Delete</button></span></div>`).join(""):'<p class="s">No sets yet.</p>'}
+$("pss").onclick=()=>{const n=$("psn").value.trim();if(!n){$("psn").focus();return}const had=PR[n];PR[n]=KP.mine();savePR();$("psn").value="";sets();kcdToast((had?"Updated":"Saved")+" “"+n+"”.",had?()=>{PR[n]=had;savePR();sets()}:()=>{delete PR[n];savePR();sets()})};
+$("psl").onclick=e=>{const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.pl){const old=KP.mine();KP.setAll(PR[b.dataset.pl]);table();rail();kcdToast("Now using “"+b.dataset.pl+"”.",()=>{KP.setAll(old);table();rail()})}
+  else if(b.dataset.pd){const n=b.dataset.pd,o=PR[n];delete PR[n];savePR();sets();kcdToast("Deleted “"+n+"”.",()=>{PR[n]=o;savePR();sets()})}};
+sets();
+// share
+$("shex").onclick=()=>{const o=KP.mine(),L=Object.keys(o).sort((a,b)=>KP.name(a).localeCompare(KP.name(b))).map(k=>KP.name(k)+" = "+o[k]),t=L.join("\n");$("shta").value=t;
+  $("shmsg").textContent=L.length?L.length+" prices ready to copy.":"You have not set any prices yet.";if(L.length)try{navigator.clipboard.writeText(t).then(()=>$("shmsg").textContent=L.length+" prices copied. Paste them in a chat.",()=>{})}catch(e){}};
+$("shim").onclick=()=>{const add={},bad=[];$("shta").value.split(/\r?\n/).forEach(l=>{l=l.trim();if(!l)return;const m=l.match(/^(.+?)\s*[:=\t]\s*(\d+(?:[.,]\d+)?)\s*(?:gr\.?)?$/i)||l.match(/^(.+?)\s+(\d+(?:[.,]\d+)?)\s*(?:gr\.?)?$/i),id=m&&KP.BYNAME[m[1].trim().toLowerCase()];if(id)add[id]=m[2].replace(",",".");else bad.push(l)});
+  const n=Object.keys(add).length;if(!n){$("shmsg").textContent="No prices recognised. Each line should look like “Iron ore = 7”.";return}
+  const old=KP.mine();KP.setAll(Object.assign({},old,add));table();rail();$("shmsg").textContent=n+" prices brought in"+(bad.length?"; "+bad.length+" lines not recognised ("+bad.slice(0,3).join(", ")+(bad.length>3?"…":"")+").":".");
+  kcdToast(n+" prices brought in.",()=>{KP.setAll(old);table();rail();$("shmsg").textContent="Import undone."})};
+const openSec=id=>{const d=$(id);d.open=true;d.scrollIntoView({block:"start",behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"})};
+$("gosets").onclick=()=>openSec("sets");$("goshare").onclick=()=>openSec("share");
+// links from other pages: prices.html?show=missing, ?show=order, ?group=farm, ?q=iron
+{const U=new URLSearchParams(location.search),s=U.get("show"),g=U.get("group"),q=(U.get("q")||"").trim();
+ if(FILTERS.some(f=>f[0]==s))st.f=s;if(g&&(g=="all"||KP.GROUPS.some(x=>x.id==g)))st.g=g;if(q){st.q=q.toLowerCase();$("pq").value=q}
+ if(location.hash=="#sets")$("sets").open=true;if(location.hash=="#share")$("share").open=true}
+addEventListener("storage",e=>{if(e.key=="kcd-p"||e.key=="kcd-s"){KP.read();$("sg").checked=KP.sg;table();rail()}});
+addEventListener("pagehide",KP.flush);
+rail();table();
+})();
+</script><script src="assets/tour.js" defer></script><script src="assets/changelog.js" defer></script></body></html>
