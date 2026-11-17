@@ -18,7 +18,6 @@
 .tab,.chip{white-space:nowrap;border-radius:999px;padding:5px 12px;flex:none}.chip{padding:2px 9px}
 .tab.on,.chip.on{background:var(--ac);color:var(--on);border-color:var(--ac)}html[data-skin=ledger] .tab.on:hover,html[data-skin=ledger] .chip.on:hover{color:var(--on)}.tab small{opacity:.7}
 /* Navigation: on a wide screen the crafts are a list in the left column; on a phone one summary button opens a filter sheet */
-#matbody .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
 #crafts #tabs{flex-direction:column;overflow:visible;gap:2px;margin:0}
 #crafts .tab{display:flex;justify-content:space-between;align-items:center;border:1px solid transparent;background:transparent;border-radius:2px;padding:0 12px;min-height:44px;font-size:1rem;text-align:left;width:100%;box-sizing:border-box}#crafts .tab:hover{border-color:var(--bd);background:var(--card)}#crafts .tab.on,#crafts .tab.on:hover{background:var(--ac);border-color:var(--ac);color:var(--on)}#crafts .tab small{font-size:.8rem}
 #lvs{gap:0}#lvs .chip{border-radius:0;margin-left:-1px;padding:4px 11px}#lvs .chip:first-child{border-radius:2px 0 0 2px;margin-left:6px}#lvs .chip:last-child{border-radius:0 2px 2px 0}
@@ -44,8 +43,6 @@
  .hr2{align-items:flex-end}.hr2 .f:not(.sq){margin:0}
  .mc{padding-top:0}
  /* the three price panels sit side by side while closed, and take the full width as soon as one is open */
- #pricecard{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 18px}#pricecard>details{margin-top:0!important}
- #pricecard:has(>details[open]){display:block}#pricecard:has(>details[open])>details+details{margin-top:10px!important}
  .top{padding:14px 0 10px}
 }
 @media (max-width:899px){.hr1 h2{display:none}.hr2 .sq{margin-left:0;flex:1 1 100%}}
@@ -89,7 +86,7 @@ table.np td.tc,table.np td.sc,table.np td.pc{color:var(--mut);font-weight:normal
 @media (max-width:700px){html[data-skin=ledger] .top h1{font-size:1.15rem}.top .bar label.f:last-child{padding-bottom:0!important}}
 #totop{display:none;position:fixed;right:14px;bottom:14px;z-index:20;width:44px;height:44px;border-radius:50%;align-items:center;justify-content:center;padding:0;background:var(--ac);color:var(--on);border:0;box-shadow:0 3px 10px rgba(0,0,0,.35);font-size:1.2rem}</style>
 
-</head><body><a class="skip" href="#main">Skip to content</a><nav class="site"><a class="brand" href="index.html" aria-label="KCD Tools home"><span class="logo">⚒️</span> KCD Tools</a><a href="crafting.html" aria-current=page>Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><button type="button" class="clbtn" aria-haspopup="dialog" aria-expanded="false" title="What's new"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h9l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 11h7M9 15h7M9 7h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="tl">What’s new</span></button><button type="button" class="tourbtn" title="Take a guided tour of the site" aria-label="Take the guided tour"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2.9-1.2 1.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/></svg><span class="tl">Tour</span></button><details class="menu" id="menu"><summary aria-label="Settings: light or dark mode, backup" title="Light/dark mode and backup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="mlabel">Settings</span></summary><div class="pop"><button id="theme" type="button" aria-label="Switch light or dark mode">Switch to dark</button><hr><button id="bk" type="button">Back up my data</button><button id="rsb" type="button">Restore from backup</button><input id="rs" aria-label="Choose a backup file" type="file" accept=".json,application/json" hidden><p class="s" id="bkmsg">Saves your prices, orders, favourites, loadouts and settings to a file.</p></div></details></nav>
+</head><body><a class="skip" href="#main">Skip to content</a><nav class="site"><a class="brand" href="index.html" aria-label="KCD Tools home"><span class="logo">⚒️</span> KCD Tools</a><a href="crafting.html" aria-current=page>Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><a href="prices.html">Prices</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><button type="button" class="clbtn" aria-haspopup="dialog" aria-expanded="false" title="What's new"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h9l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 11h7M9 15h7M9 7h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="tl">What’s new</span></button><button type="button" class="tourbtn" title="Take a guided tour of the site" aria-label="Take the guided tour"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2.9-1.2 1.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/></svg><span class="tl">Tour</span></button><details class="menu" id="menu"><summary aria-label="Settings: light or dark mode, backup" title="Light/dark mode and backup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="mlabel">Settings</span></summary><div class="pop"><button id="theme" type="button" aria-label="Switch light or dark mode">Switch to dark</button><hr><button id="bk" type="button">Back up my data</button><button id="rsb" type="button">Restore from backup</button><input id="rs" aria-label="Choose a backup file" type="file" accept=".json,application/json" hidden><p class="s" id="bkmsg">Saves your prices, orders, favourites, loadouts and settings to a file.</p></div></details></nav>
 <main id="main" tabindex="-1"><div class="ld" id="ld" role="status"><i aria-hidden="true"></i><span>Loading recipes…</span></div>
 <div class="tbar"><h1>Crafting Cost Calculator</h1></div>
 <div class="layout">
@@ -99,11 +96,8 @@ table.np td.tc,table.np td.sc,table.np td.pc{color:var(--mut);font-weight:normal
 <div class="hr1" id="hr1"><h2 id="cname"></h2><div class="chips" id="cats" role="group" aria-label="Type of piece"></div></div>
 <div class="hr2" id="hr2"><div class="chips" id="lvs"></div><label class="f">Markup %<input id="mk" type="number" min="0" step="1" style="width:80px"></label><label class="f">Sort by<select id="srt"><option value="lv">Level</option><option value="name">Name A–Z</option><option value="cost">Cost: low to high</option><option value="costd">Cost: high to low</option><option value="profitd">Profit: high to low</option><option value="profit">Profit: low to high</option><option value="fee">Bench fee: high to low</option></select></label><label class="f" style="flex-direction:row;align-items:center;gap:6px;padding-bottom:6px"><input id="hp" type="checkbox"> Fully priced only</label><label class="f sq">Search all crafts<input id="q" type="search" placeholder="e.g. cuirass (2+ letters)"></label></div>
 </header>
-<section><aside class="card" id="pricecard"><details id="matd"><summary>Material prices (gr.)</summary><p class="s" style="margin-top:6px" id="matnote"></p><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="unp"> Only raw materials without a price</label><label class="f" style="flex-direction:row;align-items:center;gap:6px;margin-bottom:4px"><input type="checkbox" id="sg"> Use suggested market prices</label><p class="s" id="sgn" style="margin:0 0 6px"></p><input id="mq" type="text" placeholder="Filter materials…" aria-label="Filter materials" autocomplete="off"><div id="matbody"></div>
-<p style="margin:10px 0 0"><button id="reset" type="button">Clear prices</button></p></details>
-<details style="margin-top:10px"><summary>Price presets</summary><p class="s" style="margin:6px 0">Save your current prices under a name (a town, say) and switch between them.</p><div class="bar" style="margin:6px 0"><label class="f" style="flex:1">Name<input id="psn" placeholder="e.g. Prague" maxlength="40"></label><button type="button" class="pri" id="pss">Save preset</button></div><div id="psl"></div></details>
-<details style="margin-top:10px"><summary>Share prices</summary><p class="s" style="margin:6px 0">Export your prices to paste in a chat, or paste someone else’s list and import it.</p><textarea id="shta" rows="7" style="width:100%" placeholder="Iron ore = 3&#10;Coal = 2" aria-label="Price list"></textarea><div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap"><button type="button" id="shex">Export my prices</button><button type="button" class="pri" id="shim">Import prices</button></div><p class="s" id="shmsg" style="margin:6px 0 0"></p></details></aside>
-<div class="card ban" id="ban" hidden><b>Add your material prices to get real costs.</b> Until you do, costs only include bench fees. <button type="button" class="pri" id="banopen">Enter prices</button></div>
+<section><p class="card pline" id="pline"></p>
+<div class="card ban" id="ban" hidden><b>Add your material prices to get real costs.</b> Until you do, costs only include bench fees. <a class="btn pri" href="prices.html" id="banopen">Enter prices</a></div>
 <div class="card" id="ordc"><details id="ordd"><summary id="ords">Order &amp; shopping list</summary><div id="ordb" style="margin-top:8px"></div></details></div>
 <div class="card wrap" id="tblc" style="overflow:visible"><table class="rt" id="tbl"><thead id="th"></thead><tbody id="rows"></tbody></table>
 <p class="s" id="note" style="margin:8px 0 0"></p></div>
@@ -124,6 +118,7 @@ table.np td.tc,table.np td.sc,table.np td.pc{color:var(--mut);font-weight:normal
 </section>
 <script src="assets/recipes.js"></script>
 <script src="assets/market.js"></script>
+<script src="assets/pricing.js"></script>
 <script src="assets/categories.js"></script>
 <script>
 if(typeof DATA==="undefined"){document.body.insertAdjacentHTML("afterbegin",'<p style="margin:16px;padding:12px;border:1px solid #b03a2e;border-radius:8px">Recipe data (assets/recipes.js) failed to load. Upload the whole website folder, including the assets folder, next to this page.</p>');throw new Error("recipes.js missing")}
@@ -137,7 +132,7 @@ try{P=JSON.parse(localStorage.getItem("kcd-p")||"{}");custom=JSON.parse(localSto
 if(!P||typeof P!="object"||Array.isArray(P))P={};if(!PR||typeof PR!="object"||Array.isArray(PR))PR={};for(const n in PR)if(!PR[n]||typeof PR[n]!="object")delete PR[n];
 custom=(Array.isArray(custom)?custom:[]).filter(c=>c&&typeof c=="object"&&c.r&&typeof c.r=="object").map(c=>{const r={};for(const k in c.r)if((RAW[k]||INT[k])&&+c.r[k]>0)r[k]=+c.r[k];return{c:String(c.c||"Custom").slice(0,40),l:0,n:String(c.n||"Custom piece").slice(0,80),y:Math.max(1,+c.y||1),f:Math.max(0,+c.f||0),r}}).filter(c=>Object.keys(c.r).length);
 custom.forEach(c=>c.k=K++);
-let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-p",JSON.stringify(P));localStorage.setItem("kcd-c",JSON.stringify(custom));localStorage.setItem("kcd-s",JSON.stringify({mk:S.mk,tab:S.tab,cat:S.cat,lv:S.lv,hp:S.hp,unp:S.unp,sg:S.sg,sort:S.sort}))}catch(e){}},250)};
+let sv;const save=()=>{clearTimeout(sv);sv=setTimeout(()=>{try{localStorage.setItem("kcd-c",JSON.stringify(custom));let o={};try{o=JSON.parse(localStorage.getItem("kcd-s"))||{}}catch(x){}localStorage.setItem("kcd-s",JSON.stringify(Object.assign(o,{mk:S.mk,tab:S.tab,cat:S.cat,lv:S.lv,hp:S.hp,sort:S.sort})))}catch(e){}},250)};
 const all=()=>items.concat(custom);
 const name=id=>RAW[id]||(INT[id]&&INT[id][0])||id;
 const ov=id=>P[id]!==undefined&&P[id]!=="";
@@ -160,15 +155,9 @@ $("tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.tab=b.da
 $("lvs").innerHTML="Level "+["All",1,2,3,4,5,6,7,8,9,10].map(l=>`<button class="chip${(l=="All"?0:l)==S.lv?" on":""}" data-l="${l=="All"?0:l}">${l}</button>`).join("");
 $("lvs").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.lv=+b.dataset.l;$("lvs").querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",+x.dataset.l==S.lv));save();rows();fsum()};
 
-function mats(){
-  const u=new Set(),walk=r=>{for(const k in r)if(!u.has(k)){u.add(k);if(INT[k])walk(INT[k][2])}};(S.q?base().slice(0,S.lim):base()).forEach(i=>walk(i.r));
-  const fld=k=>`<label class="f">${esc(name(k))}<input type="number" min="0" step="0.1" data-id="${k}" value="${ov(k)?esc(P[k]):""}"></label>`;
-  const rk=Object.keys(RAW).filter(k=>u.has(k)&&(!S.unp||!(ov(k)||sgp(k)))).sort((a,b)=>(ov(a)?1:0)-(ov(b)?1:0)),ik=Object.keys(INT).filter(k=>u.has(k));
-  $("matnote").textContent=S.q?"Materials for the search results.":S.tab=="★"?"Materials needed for your favourites.":"Materials needed for "+S.tab+".";
-  $("matbody").innerHTML=`<h3>Raw materials</h3>${rk.length?`<div class="grid">${rk.map(fld).join("")}</div>`:'<p class="s">Every raw material here has a price.</p>'}`+(ik.length?`<h3>Intermediate parts</h3><p class="s">Leave blank to work it out from raw prices, or enter a price if you buy the part.</p><div class="grid">${ik.map(fld).join("")}</div>`:"");
-  $("matbody").querySelectorAll("input").forEach(e=>e.oninput=()=>{P[e.dataset.id]=e.value;save();upd()});mfilter();ph()}
-const mfilter=()=>{const q=$("mq").value.trim().toLowerCase();$("matbody").querySelectorAll("label.f").forEach(l=>{l.hidden=!!q&&!l.textContent.toLowerCase().includes(q)})};$("mq").oninput=mfilter;
-const ph=()=>$("matbody").querySelectorAll("input").forEach(e=>{const k=e.dataset.id;if(INT[k])e.placeholder="≈ "+f1(derived(k));else if(sgp(k))e.placeholder="≈ "+f1(sgp(k))});
+// Prices are set on the Prices page; this line says where the numbers come from.
+function mats(){const t=KP.stats();$("pline").innerHTML=`<span class="plh">Prices</span><span><b>${t.yours}</b> of your own · <b>${t.market}</b> from the market (${esc(KP.marketDate())})${KP.sg?"":" — switched off"} · ${t.missing?`<a href="prices.html?show=missing" class="mi"><b>${t.missing}</b> with no price</a>`:"<b>0</b> with no price"}</span><a class="go" href="prices.html">Edit prices →</a>`}
+const ph=()=>{};
 let t,RW=[];const set=(el,v)=>{if(el.textContent!==v)el.textContent=v};
 // Update numbers in place instead of rebuilding the whole table
 function patch(){
@@ -230,23 +219,10 @@ function render(){tabs();cats();mats();rows();hh();if(!hints.length)hints=[hint(
 addEventListener("resize",()=>hints.forEach(f=>f()));
 $("mk").value=S.mk;$("mk").oninput=e=>{S.mk=e.target.value;save();patch()};
 $("hp").checked=S.hp;$("hp").onchange=e=>{S.hp=e.target.checked;save();rows()};
-$("sg").checked=S.sg;const sgn=()=>{$("sgn").textContent=S.sg?"Greyed-in prices are auction house averages from "+MARKET.date+". Type your own to override one.":"Suggested prices are off: only prices you enter are used."};sgn();$("sg").onchange=e=>{S.sg=e.target.checked;C={};save();sgn();mats();rows()};$("unp").checked=S.unp;$("unp").onchange=e=>{S.unp=e.target.checked;save();mats()};
 $("srt").value=S.sort;$("srt").onchange=e=>{S.sort=e.target.value;save();rows()};
 $("th").onclick=e=>{const b=e.target.closest("button.sb");if(!b)return;const [a,c]=TG[b.dataset.s];S.sort=S.sort==a?c:a;save();rows()};
-$("banopen").onclick=()=>{$("matd").open=true;$("matd").scrollIntoView({block:"start"});const i=$("matbody").querySelector("input");if(i)i.focus()};
 document.addEventListener("keydown",e=>{if(e.key!="Enter")return;const i=e.target;if(!(i.matches&&i.matches("#matbody input, input.qty")))return;e.preventDefault();const L=[...document.querySelectorAll(i.closest("#matbody")?"#matbody input":"input.qty")],n=L[L.indexOf(i)+(e.shiftKey?-1:1)];if(n){n.focus();n.select()}});
-const savePR=()=>{try{localStorage.setItem("kcd-presets",JSON.stringify(PR))}catch(e){}};
-function presets(){const k=Object.keys(PR).sort();$("psl").innerHTML=k.length?k.map(n=>`<div class="pr"><span>${esc(n)} <small class="s">(${Object.keys(PR[n]).length} prices)</small></span><span><button type="button" data-pl="${esc(n)}">Load</button> <button type="button" data-pd="${esc(n)}" aria-label="Delete preset ${esc(n)}">×</button></span></div>`).join(""):'<p class="s">No presets yet.</p>'}
-$("pss").onclick=()=>{const n=$("psn").value.trim();if(!n)return;if(PR[n]&&!confirm("Replace the preset “"+n+"”?"))return;const o={};for(const k in P)if(ov(k))o[k]=P[k];PR[n]=o;savePR();$("psn").value="";presets()};
-$("psl").onclick=e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.pl){const o=PR[b.dataset.pl],old=P;P={...o};C={};save();mats();rows();kcdToast("Loaded “"+b.dataset.pl+"”.",()=>{P=old;C={};save();mats();rows()})}else if(b.dataset.pd&&confirm("Delete preset “"+b.dataset.pd+"”?")){delete PR[b.dataset.pd];savePR();presets()}};
-presets();
 let qt;$("q").oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{const v=e.target.value.trim(),nq=v.length>=2?v:"";if(nq===S.q)return;S.q=nq;S.lim=LIM;render()},250)};
-$("reset").onclick=()=>{if(!Object.keys(P).some(ov)){kcdToast("There are no prices to clear.");return}const old=P;P={};C={};save();mats();rows();kcdToast("Cleared your prices.",()=>{P=old;C={};save();mats();rows()})};
-const NAMES=(()=>{const m={};for(const k in RAW)m[RAW[k].toLowerCase()]=k;for(const k in INT)m[INT[k][0].toLowerCase()]=k;return m})();
-$("shex").onclick=()=>{const L=Object.keys(P).filter(k=>ov(k)&&name(k)!==k).sort((a,b)=>name(a).localeCompare(name(b))).map(k=>name(k)+" = "+P[k]),t=L.join("\n");$("shta").value=t;$("shmsg").textContent=L.length?L.length+" prices exported.":"You have not entered any prices yet.";
-  if(L.length)try{navigator.clipboard.writeText(t).then(()=>$("shmsg").textContent=L.length+" prices exported and copied.",()=>{})}catch(e){}};
-$("shim").onclick=()=>{let n=0;const bad=[];$("shta").value.split(/\r?\n/).forEach(l=>{l=l.trim();if(!l)return;const m=l.match(/^(.+?)\s*[:=\t]\s*(\d+(?:[.,]\d+)?)\s*(?:gr\.?)?$/i)||l.match(/^(.+?)\s+(\d+(?:[.,]\d+)?)\s*(?:gr\.?)?$/i),id=m&&NAMES[m[1].trim().toLowerCase()];if(id){P[id]=m[2].replace(",",".");n++}else bad.push(l)});
-  C={};save();mats();rows();$("shmsg").textContent=n+" prices imported"+(bad.length?"; "+bad.length+" lines not recognised ("+bad.slice(0,3).join(", ")+(bad.length>3?"…":"")+").":".")};
 const ORD=(()=>{try{return JSON.parse(localStorage.getItem("kcd-o")||"{}")}catch(e){return{}}})();
 const saveO=()=>{try{localStorage.setItem("kcd-o",JSON.stringify(ORD))}catch(e){}};
 const kk=i=>i.c+"|"+i.n+"|"+i.l;let TXT="";
@@ -279,7 +255,6 @@ $("ordb").onclick=e=>{const b=e.target.closest("button");if(!b)return;
   else if(b.id=="ordcopy"){const done=()=>b.textContent="Copied!",fb=()=>{const t=document.createElement("textarea");t.value=TXT;document.body.appendChild(t);t.select();try{document.execCommand("copy");done()}catch(x){alert(TXT)}t.remove()};
     try{navigator.clipboard.writeText(TXT).then(done,fb)}catch(x){fb()}}};
 addEventListener("resize",hh);$("totop").onclick=()=>scrollTo({top:0,behavior:"smooth"});
-if(matchMedia("(max-width:899px)").matches)$("matd").open=false;
 
 $("add").onclick=()=>{
   const lookup={};for(const k in RAW)lookup[RAW[k].toLowerCase()]=k;for(const k in INT)lookup[INT[k][0].toLowerCase()]=k;
@@ -305,4 +280,6 @@ clist();
 if(!all().some(i=>i.c==S.tab)&&S.tab!="★")S.tab="Smithing";
 if(S.cat&&!catList(S.tab).includes(S.cat))S.cat="";
 render();
+const reprice=()=>{try{P=JSON.parse(localStorage.getItem("kcd-p"))||{};const o=JSON.parse(localStorage.getItem("kcd-s"))||{};if(o.sg!=null)S.sg=!!o.sg}catch(e){}if(!P||typeof P!="object"||Array.isArray(P))P={};KP.read();C={};mats();rows()};
+addEventListener("storage",e=>{if(e.key=="kcd-p"||e.key=="kcd-s")reprice()});addEventListener("pageshow",e=>{if(e.persisted)reprice()});
 </script><script src="assets/tour.js" defer></script><script src="assets/changelog.js" defer></script></body></html>

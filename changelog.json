@@ -2,6 +2,17 @@
   "entries": [
     {
       "date": "2026-11-17",
+      "title": "New Prices page",
+      "changes": [
+        "All material prices now live on their own Prices page, linked from the top bar. Every material is listed in groups, with your price, the market price, which one the calculators use and how many pieces need it.",
+        "Show only the prices you set, the ones still missing, or the materials your current order needs. Price sets and sharing moved here too.",
+        "Crafting and Loadouts show one line saying where their prices come from, with a link to change them.",
+        "Farming now uses the same prices for worth per load: your price, otherwise the market average. Worth values you had typed on Farming were moved over as your prices.",
+        "On phones, Tour is now in the Settings menu so all five pages fit in the top bar."
+      ]
+    },
+    {
+      "date": "2026-11-17",
       "title": "New home page",
       "changes": [
         "The home page now starts with a search box: type part of a name to find any of the 1,211 pieces and open it in Crafting.",

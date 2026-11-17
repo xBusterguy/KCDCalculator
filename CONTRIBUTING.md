@@ -212,4 +212,4 @@ The button in the top bar reads `changelog.json`. Add a new object at the top of
 
 ## Updating the suggested market prices
 
-`assets/market.js` holds a dated snapshot of material prices (groschen) taken from the Auction houses page of the KCDRoleplay account site (the 7-day average sale price). That page needs a game login, so the file is updated by hand: change the numbers under `p` (the keys are the material ids used in `assets/recipes.js`) and set `date`. Prices a visitor types on the site always override these, and a tick box turns the suggestions off.
+`assets/market.js` holds a dated snapshot of material prices (groschen) taken from the Auction houses page of the KCDRoleplay account site (the 7-day average sale price). That page needs a game login, so the file is updated by hand: change the numbers under `p` (the keys are the material ids used in `assets/recipes.js`) and set `date`. Prices a visitor types on the Prices page always override these, and a tick box there turns the suggestions off. Groups for the Prices page are set at the top of `assets/pricing.js`; a new raw material lands in “Other” until you add its id to a group.

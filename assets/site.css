@@ -140,9 +140,15 @@ nav.site .clpop{display:none}
 nav.site .tourbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--bd);border-radius:6px;padding:5px 10px;background:var(--card);color:var(--tx);cursor:pointer;font:inherit}
 html[data-skin=ledger] nav.site .tourbtn{border-radius:2px;font-variant:small-caps;letter-spacing:.05em}
 nav.site .tourbtn:hover{border-color:var(--ac);color:var(--ac)}nav.site .tourbtn svg{width:18px;height:18px;flex:none}
-@media (max-width:560px){nav.site .tourbtn .tl{display:none}nav.site .tourbtn{margin-left:auto;padding:5px 7px}nav.site details.menu{margin-left:0!important}}
+nav.site .tourpop{display:none}
+/* phones: Tour moves into the Settings menu (like What’s new) so the five page links fit */
+@media (max-width:560px){nav.site .tourbtn{display:none}nav.site .pop .tourpop{display:block}nav.site details.menu{margin-left:auto!important}}
+@media (max-width:430px){nav.site a:not(.brand){padding:4px 5px!important;font-size:.85rem!important}}
 @media (max-width:389px){nav.site a:not(.brand){padding:4px 4px!important;font-size:.82rem!important}}
 @media (max-width:340px){nav.site a:not(.brand){padding:4px 3px!important;font-size:.78rem!important}nav.site .tourbtn{padding:5px 5px}}
 /* ---- "Saved" note: confirms that a change has been kept in this browser ---- */
 .saved{position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:55;background:var(--card);border:1px solid var(--ok);color:var(--ok);padding:4px 10px;border-radius:2px;font-size:.85rem;opacity:0;transition:opacity .25s;pointer-events:none}.saved.on{opacity:1}
 @media print{.saved,.toast{display:none}}
+/* ---- the "Prices" line on Crafting and Loadouts ---- */
+.pline{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin:0 0 12px;padding:10px 14px}.pline .plh{font-variant:small-caps;letter-spacing:.1em;color:var(--ac)}.pline b{color:var(--tx)}.pline .mi{color:var(--bad)}.pline .go{margin-left:auto}
+.btn{display:inline-block;padding:4px 12px;border:1px solid var(--ac);border-radius:2px;text-decoration:none}a.btn.pri{background:var(--ac);color:var(--on)}

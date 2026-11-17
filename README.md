@@ -16,18 +16,17 @@ Everything runs in your browser. There is no account and nothing is sent anywher
 ![Crafting cost calculator](docs/screenshots/crafting.png)
 
 - All nine crafts: Smithing, Armouring, Tailoring, Bowyery, Jewelling, Alchemy, Brewing, Cooking and Carpentry (1,211 pieces).
-- Enter your material prices and see each piece's cost, bench fee, selling price and profit at your markup.
+- See each piece's cost, bench fee, selling price and profit at your markup, using the prices from the Prices page.
 - Intermediate parts such as steel, leather and padding are worked out from raw materials, or use your own price.
 - Filter by level and by type within each craft (for example Swords, Helmets, Furniture or Lighting), sort by any column, star favourites, and search across every craft.
 - Build an order and get a combined shopping list.
-- Save named price presets (for example one per town), and share or import price lists as plain text.
 
 ## Farming efficiency
 
 ![Farming efficiency](docs/screenshots/farming.png)
 
 - Compare every crop by value per hour, value per harvest and value in a time window.
-- Set your trade level, whether strips are weeded and watered, how many strips you have, and your own selling prices.
+- Set your trade level, whether strips are weeded and watered and how many strips you have. Worth per load uses the same prices as everything else.
 - Quick-setup buttons, a top 3 chart, and a note on how every number is worked out.
 
 ## Loadout builder
@@ -39,6 +38,15 @@ Everything runs in your browser. There is no account and nothing is sent anywher
 - Find a piece by name, compare loadouts side by side, and undo clears, deletes and fills.
 - See what each costs to make and get a shopping list of materials.
 - Copy a loadout as text or as a link, or save it as a picture.
+
+## Prices
+
+![Prices page](docs/screenshots/prices.png)
+
+- One page for every material price the calculators use (124 materials, plus hemp fibre for Farming), grouped as ores, timber, hunt, herbs, farm and food, fish, rare finds and parts you can craft.
+- Type your own price, or leave it empty to use the auction house average (`assets/market.js`). Each row shows which one the calculators use and how many pieces need it.
+- Show only the prices you set, the ones still missing, or what your current order needs.
+- Save named price sets (for example one per town), and share or bring in price lists as plain text.
 
 ## Everywhere
 
@@ -82,11 +90,13 @@ index.html          home page
 crafting.html       crafting cost calculator
 farming.html        farming efficiency
 loadouts.html       loadout builder
+prices.html         the Prices page: every material price in one place
 404.html            page not found
 assets/site.css     the look shared by every page: colours, top bar, title bar, left rail (edit styles here)
 assets/site.js      shared behaviour: light/dark, backup and restore, loading feedback, offline copy and updates
 assets/recipes.js   every crafting recipe (edit recipes here only)
 assets/market.js   suggested material prices from the auction houses (dated snapshot)
+assets/pricing.js  shared price logic: groups, your price vs market, worked-out parts (used by Prices, Farming and the price line)
 assets/categories.js   how the crafting page groups pieces into types (Swords, Helmets, Furniture...)
 assets/tour.js         the guided tour (one list of steps, edit the text there)
 changelog.json     the list shown by the What's new button (add new entries at the top)

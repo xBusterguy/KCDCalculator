@@ -5,8 +5,8 @@
      or none for a centred card), a title and some text. Steps whose element is missing are skipped. */
 (function () {
   "use strict";
-  var PAGES = ["index.html", "crafting.html", "farming.html", "loadouts.html"];
-  var NAMES = { "index.html": "Home", "crafting.html": "Crafting", "farming.html": "Farming", "loadouts.html": "Loadouts" };
+  var PAGES = ["index.html", "crafting.html", "farming.html", "loadouts.html", "prices.html"];
+  var NAMES = { "index.html": "Home", "crafting.html": "Crafting", "farming.html": "Farming", "loadouts.html": "Loadouts", "prices.html": "Prices" };
   var here = (location.pathname.split("/").pop() || "index.html").toLowerCase();
   if (PAGES.indexOf(here) < 0) return;
 
@@ -21,19 +21,17 @@
     { p: "crafting.html", s: "#lvs", t: "Filter by level", x: "Show just one crafting level, or All." },
     { p: "crafting.html", s: "#cats", t: "Filter by type", x: "Each craft splits into types that suit it, such as Swords and Helmets, or Furniture and Lighting.", tryit: "Try it: tap one of the types.", ev: "click" },
     { p: "crafting.html", s: "#q", t: "Search every craft", x: "Type two or more letters to search all crafts at once. Press / anywhere on the page to jump to this box.", tryit: "Try it: type “sword”.", ev: "input" },
-    { p: "crafting.html", s: "aside > details:first-of-type", open: true, t: "Enter your prices", x: "These are the materials the pieces on screen need. Fill in what you pay for each and every cost updates. Parts such as Steel are worked out from their ingredients unless you enter a price for them. Press Enter to move to the next box." },
+    { p: "crafting.html", s: "#pline", t: "Prices", x: "Costs use the material prices from the Prices page: your own, with market averages filling the gaps. This line shows how many of each, with a link to change them." },
     { p: "crafting.html", s: "#ban", t: "Why costs show dashes", x: "Until you enter at least one price, Sell at and Profit show a dash and Total cost is only the bench fee, so nothing looks like a real result." },
     { p: "crafting.html", s: "#mk", t: "Markup", x: "Sell at is the cost plus this percentage, rounded up to a whole groschen." },
     { p: "crafting.html", s: "#th", t: "Reading the table", x: "Bench fee and Total cost are per piece. Click a column heading to sort by it. The headings stay at the top as you scroll." },
     { p: "crafting.html", s: "#rows tr.r", t: "Pieces", x: "Click a row to see exactly which materials add up to its cost. Use the star to keep a piece in your favourites, and type a quantity in the Qty box to add it to an order.", tryit: "Try it: click the row.", ev: "click" },
     { p: "crafting.html", s: "#ordc", t: "Order and shopping list", x: "Everything with a quantity is combined here into a list of materials to buy, with the total cost. You can copy it as text." },
-    { p: "crafting.html", s: "aside > details:nth-of-type(2)", open: true, t: "Price presets", x: "Save your prices under a name, for a town perhaps, and switch between sets in one click." },
-    { p: "crafting.html", s: "aside > details:nth-of-type(3)", open: true, t: "Share prices", x: "Copy your price list as text to paste in a chat, or paste someone else’s list to import it." },
     { p: "crafting.html", s: "section > .card:last-child", t: "Custom recipes", x: "Missing something, or want to try a house recipe? Add your own piece here and it joins the table." },
 
     { p: "farming.html", s: "main .card", t: "Farming: your setup", x: "Set your trade level, whether strips are weeded and watered, how many strips you have and the time window you care about. The quick setup buttons fill these in for common cases." },
     { p: "farming.html", s: "#stats", t: "The best choices", x: "The headline results: best value per hour, per harvest and within your time window, and which crop is fastest." },
-    { p: "farming.html", s: "table.ft", t: "Every crop", x: "All crops side by side. Click a heading to sort. The worth of a load can be edited, so use the price you actually get when selling." },
+    { p: "farming.html", s: "table.ft", t: "Every crop", x: "All crops side by side. Click a heading to sort. Worth per load comes from the Prices page, so a price you set there or here is used everywhere." },
 
     { p: "loadouts.html", s: "main .card", t: "Loadouts: start one", x: "Choose a crafting level and add a loadout. You can keep several and compare them." },
     { p: "loadouts.html", s: "#fq", t: "Find a piece", x: "Search for any armour or weapon and put it straight into one of your loadouts. Press / to jump here." },
@@ -41,8 +39,10 @@
     { p: "loadouts.html", s: "#los .card .btns", t: "Fill buttons", x: "Fill every slot with the best pieces for your level, the priciest or the cheapest, then change anything you like." },
     { p: "loadouts.html", s: "#los .card .btns + .btns", t: "Share a loadout", x: "Copy it as text, with or without the materials, copy a link that opens the same loadout, or save it as a picture for a chat." },
     { p: "loadouts.html", s: "#cmpd", t: "Compare side by side", x: "Open this to see all your loadouts in one table and which costs most." },
-    { p: "loadouts.html", s: "#mat", t: "Prices are shared", x: "These are the same material prices as on the crafting page. Enter them in either place." },
-    { p: "loadouts.html", t: "That is the tour", x: "You can replay it whenever you like with the Tour button at the top right. Happy crafting!", last: true }
+    { p: "prices.html", s: "#prail", t: "Prices: one place for every price", x: "Every material the calculators use, in groups. Pick a group, or show only the prices you set, the ones still missing, or what your current order needs." },
+    { p: "prices.html", s: "#pt", t: "Your price, or the market’s", x: "Type what you pay in Your price. Leave it empty and the market average is used instead. Calculators use shows which one applies, and Used in shows how many pieces need it. Press Enter to move to the next box." },
+    { p: "prices.html", s: ".ptools .acts", t: "Sets and sharing", x: "Save your prices as a named set, for a town perhaps, copy them to share in a chat, or clear them. Each change can be undone straight away." },
+    { p: "prices.html", t: "That is the tour", x: "You can replay it whenever you like from the Tour button, or from Settings on a phone. Happy crafting!", last: true }
   ];
 
   var SEEN = "kcd-tour-seen", POS = "kcd-tour";
@@ -74,6 +74,8 @@
   function addButton() {
     var nav = document.querySelector("nav.site"), menu = nav && nav.querySelector("details.menu");
     if (!nav) return;
+    var pop = nav.querySelector(".pop");   // on phones the Tour button is hidden and this menu entry is used instead
+    if (pop && !pop.querySelector(".tourpop")) { var tp = el("button", { type: "button", class: "tourpop" }, "Take the tour"); tp.onclick = function () { var m = nav.querySelector("details.menu"); if (m) m.open = false; start(0); }; var cp = pop.querySelector(".clpop"); pop.insertBefore(tp, cp ? cp.nextSibling : pop.firstChild); }
     var had = nav.querySelector(".tourbtn"); if (had) { had.onclick = function () { start(0); }; return; }   // the button is normally already in the page
     var b = el("button", { type: "button", class: "tourbtn", title: "Take a guided tour of the site", "aria-label": "Take the guided tour" },
       '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2.9-1.2 1.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/></svg><span class="tl">Tour</span>');
