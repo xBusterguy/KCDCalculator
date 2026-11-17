@@ -7,18 +7,45 @@
 <title>KCD Tools – Crafting, Farming and Loadouts</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/site.css">
-<style>.hero{padding:0 0 4px}.hero p{font-size:1.05rem;margin:0 0 12px}.tile{padding:18px}.hrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px;margin-top:14px;align-items:start}.hrow .card{margin:0}#wn{min-height:15rem;box-sizing:border-box}.gk{margin:0;padding-left:1.2em;color:var(--mut)}.gk li{margin:4px 0}#wnb h3{margin:8px 0 0;text-transform:none;letter-spacing:0;border:0;color:var(--tx);font-size:.98rem}#wnb h3:first-child{margin-top:0}#wnb small{color:var(--mut)}#wnb p{margin:2px 0 0;color:var(--mut)}</style>
+<style>
+.hs{text-align:center;padding:28px 0 22px}.hs h2{margin:0;border:0;padding:0;font-size:clamp(1.7rem,4vw,2.6rem);font-variant:small-caps;letter-spacing:.05em;color:var(--ac);text-transform:none;font-weight:normal}
+.hsp{margin:8px auto 0;color:var(--mut);font-size:1.05rem;max-width:40rem}
+.hf{max-width:44rem;margin:18px auto 0;text-align:left}.hf label{display:block;font-size:.85rem;color:var(--mut);margin-bottom:4px}
+.hfr{display:flex;gap:8px}.hfr input{flex:1;min-width:0;min-height:52px;font-size:1.15rem;padding:0 16px;border-width:2px;border-color:var(--ac)}.hfr button{min-height:52px;padding:0 20px}
+.hs .hst{max-width:44rem;margin:6px auto 0;text-align:left;min-height:1.2em}
+.hres{list-style:none;max-width:44rem;margin:4px auto 0;padding:0;text-align:left;border:1px solid var(--bd);background:var(--card)}
+.hres a{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:10px 14px;min-height:44px;box-sizing:border-box;color:var(--tx);text-decoration:none;border-bottom:1px dotted var(--bd)}
+.hres li:last-child a{border-bottom:0}.hres a:hover,.hres a:focus{background:color-mix(in srgb,var(--ac) 14%,var(--card));outline:none}.hres a:focus-visible{outline:2px solid var(--ac);outline-offset:-2px}
+.hres small{color:var(--mut);white-space:nowrap}.hres .all{color:var(--ac);justify-content:center}.hres mark{background:none;color:var(--ac);font-weight:bold}
+.try{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;margin:14px 0 0;font-size:.95rem}.try span{color:var(--mut)}
+.try a{display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border:1px solid var(--bd);border-radius:2px;color:var(--tx);text-decoration:none}.try a:hover{border-color:var(--ac);color:var(--ac)}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px}
+.tool{display:flex;align-items:center;gap:16px;min-height:96px;padding:12px 20px;box-sizing:border-box;background:var(--card);border:1px solid var(--bd);color:var(--tx);text-decoration:none}
+.tool:hover{border-color:var(--ac)}.tool svg{width:40px;height:40px;flex:none;fill:none;stroke:var(--ac);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.tool>span{display:flex;flex-direction:column;gap:2px}.tn{font-size:1.3rem;font-variant:small-caps;letter-spacing:.04em}.td{color:var(--mut);font-size:.92rem}.tool .sum{font-size:.85rem;font-style:italic;color:var(--mut)}.tool .sum:empty{display:none}
+.mkt{display:flex;align-items:baseline;gap:6px 18px;flex-wrap:wrap;margin-top:20px;padding-top:12px;border-top:1px solid var(--bd);font-size:.95rem}
+.mkt .mh{font-variant:small-caps;letter-spacing:.1em;color:var(--ac)}.mkt .mn{color:var(--mut);margin-left:auto;font-size:.85rem}
+.hrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px;margin-top:20px;align-items:start}.hrow .card{margin:0}#wn{min-height:15rem;box-sizing:border-box}.gk{margin:0;padding-left:1.2em;color:var(--mut)}.gk li{margin:4px 0}#wnb h3{margin:8px 0 0;text-transform:none;letter-spacing:0;border:0;color:var(--tx);font-size:.98rem}#wnb h3:first-child{margin-top:0}#wnb small{color:var(--mut)}#wnb p{margin:2px 0 0;color:var(--mut)}
+@media (max-width:560px){.hs{padding:16px 0 14px}.hfr button{padding:0 14px}.mkt .mn{margin-left:0;flex-basis:100%}}
+</style>
 <script src="assets/site.js"></script>
 
 
 
 </head><body><a class="skip" href="#main">Skip to content</a><nav class="site"><a class="brand" href="index.html" aria-label="KCD Tools home"><span class="logo">⚒️</span> KCD Tools</a><a href="crafting.html">Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><button type="button" class="clbtn" aria-haspopup="dialog" aria-expanded="false" title="What's new"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h9l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 11h7M9 15h7M9 7h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="tl">What’s new</span></button><button type="button" class="tourbtn" title="Take a guided tour of the site" aria-label="Take the guided tour"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2.9-1.2 1.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/></svg><span class="tl">Tour</span></button><details class="menu" id="menu"><summary aria-label="Settings: light or dark mode, backup" title="Light/dark mode and backup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="mlabel">Settings</span></summary><div class="pop"><button id="theme" type="button" aria-label="Switch light or dark mode">Switch to dark</button><hr><button id="bk" type="button">Back up my data</button><button id="rsb" type="button">Restore from backup</button><input id="rs" aria-label="Choose a backup file" type="file" accept=".json,application/json" hidden><p class="s" id="bkmsg">Saves your prices, orders, favourites, loadouts and settings to a file.</p></div></details></nav>
 <main id="main" tabindex="-1"><div class="tbar"><h1>KCD Tools</h1></div>
-<div class="layout norail"><div class="mc"><div class="hero"><p>Calculators for Kingdom Come: Deliverance II roleplay. Enter your own prices, pick a craft or crop, and see what is worth your time.</p></div>
-<div class="tiles">
-<a class="tile" href="crafting.html"><h2>Crafting cost calculator →</h2><p>Material prices, bench fees and markup for Smithing, Armouring, Tailoring, Bowyery, Jewelling, Alchemy, Brewing, Cooking and Carpentry. Build an order and get a shopping list.</p><p class="sum" id="sc" style="margin-top:8px;font-style:italic"></p></a>
-<a class="tile" href="farming.html"><h2>Farming efficiency →</h2><p>Compare every crop by value per harvest, value per hour and value in a time window, for your trade level and strip conditions.</p><p class="sum" id="sf" style="margin-top:8px;font-style:italic"></p></a>
-<a class="tile" href="loadouts.html"><h2>Loadout builder →</h2><p>Set up armour and weapon loadouts at different levels and see what each costs to craft. Copy a loadout as text or save it as a picture.</p><p class="sum" id="sl" style="margin-top:8px;font-style:italic"></p></a></div>
+<div class="layout norail"><div class="mc">
+<section class="hs" aria-labelledby="hsq">
+<h2 id="hsq">What do you want to make?</h2>
+<p class="hsp">Search <span id="hn">every piece</span> across every craft. See the cost, the profit and what to buy.</p>
+<form class="hf" id="hf" action="crafting.html" method="get" role="search"><label for="hq">Find a piece</label>
+<div class="hfr"><input id="hq" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. cuirass, longsword, marigold decoction" aria-describedby="hst" aria-controls="hres"><button type="submit" class="pri">Search</button></div></form>
+<p class="s hst" id="hst" role="status" aria-live="polite"></p>
+<ul class="hres" id="hres" hidden></ul>
+<p class="try"><span>Try:</span><a href="crafting.html?tab=Smithing&amp;cat=Swords">Swords</a><a href="crafting.html?tab=Armouring&amp;cat=Helmets">Helmets</a><a href="crafting.html?tab=Alchemy">Potions</a><a href="crafting.html?tab=Tailoring&amp;cat=Footwear">Footwear</a><a href="crafting.html?tab=%E2%98%85">My favourites</a></p>
+</section>
+<div class="tools"><a class="tool" href="crafting.html"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21l8-8"/><path d="M13 5l6 6-3 3-6-6z"/><path d="M14 4l2-2 6 6-2 2"/></svg><span><span class="tn">Crafting</span><span class="td">Costs, profit, shopping list</span><span class="sum" id="sc"></span></span></a><a class="tool" href="farming.html"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 22V8"/><path d="M12 12c-3 0-5-2-5-5 3 0 5 2 5 5z"/><path d="M12 12c3 0 5-2 5-5-3 0-5 2-5 5z"/><path d="M12 17c-3 0-5-2-5-5 3 0 5 2 5 5z"/><path d="M12 17c3 0 5-2 5-5-3 0-5 2-5 5z"/></svg><span><span class="tn">Farming</span><span class="td">Best crop for your strips</span><span class="sum" id="sf"></span></span></a><a class="tool" href="loadouts.html"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span><span class="tn">Loadouts</span><span class="td">Builds and their cost by level</span><span class="sum" id="sl"></span></span></a></div>
+<div class="mkt" id="mkt" hidden></div>
 <div class="hrow"><div class="card" id="wn"><h2>What’s new</h2><div id="wnb"><p class="s" id="wnl" style="margin:0">Loading the latest changes…</p></div></div>
 <div class="card"><h2>Good to know</h2><ul class="gk"><li>Everything you enter stays in your own browser, so nothing is shared between devices. Use Settings → Back up my data to move it.</li><li>Material prices are filled in with auction house averages until you type your own.</li><li>The site keeps working offline once it has loaded, and updates itself when a new version is published.</li></ul></div></div>
 </div></div></main>
@@ -29,4 +56,30 @@ if(n)a.push(n+" price"+(n>1?"s":"")+" entered");if(f)a.push(f+" favourite"+(f>1?
 var F=g("kcd-farm");if(F&&F.lv)set("sf","Last view: level "+F.lv+(F.ww?", weeded & watered":"")+", "+(F.st||1)+" strip"+((F.st||1)>1?"s":""));
 fetch("changelog.json").then(function(r){return r.json()}).then(function(d){var b=document.getElementById("wnb"),es=(d.entries||[]).slice(0,3);if(!es.length)throw 0;b.textContent="";es.forEach(function(e){var h=document.createElement("h3"),sm=document.createElement("small"),p=document.createElement("p"),t=new Date(e.date+"T12:00:00");h.textContent=e.title+" ";sm.textContent=isNaN(t)?e.date:t.toLocaleDateString("en-GB",{day:"numeric",month:"short"});h.appendChild(sm);p.textContent=(e.changes||[])[0]||"";b.appendChild(h);b.appendChild(p)});}).catch(function(){var l=document.getElementById("wnl");if(l)l.textContent="Use the What’s new button at the top to see recent changes."});
 var L=g("kcd-lo");if(L&&L.length)set("sl",L.length+" loadout"+(L.length>1?"s":"")+" saved");})();
+</script><script src="assets/recipes.js" defer></script><script src="assets/market.js" defer></script>
+<script>
+// Home search: finds pieces as you type and opens them in Crafting. Without scripts the form still goes to Crafting's search.
+addEventListener("DOMContentLoaded",function(){
+ var $=function(i){return document.getElementById(i)},esc=function(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+ var items=[];
+ if(typeof DATA==="string"&&typeof CR==="object"){DATA.split("\n").forEach(function(l){var p=l.split("|");if(p.length<3)return;p[2].split(";").forEach(function(n){items.push({n:n,c:CR[p[0]],l:+p[1]})})})}
+ try{(JSON.parse(localStorage.getItem("kcd-c"))||[]).forEach(function(c){if(c&&c.n)items.push({n:String(c.n).slice(0,80),c:"Your recipes",l:0})})}catch(e){}
+ if(items.length)$("hn").textContent=items.length.toLocaleString("en-GB")+" pieces";
+ var q=$("hq"),list=$("hres"),st=$("hst"),go=function(v){return"crafting.html?q="+encodeURIComponent(v)};
+ function hl(n,v){var i=n.toLowerCase().indexOf(v.toLowerCase());return i<0?esc(n):esc(n.slice(0,i))+"<mark>"+esc(n.slice(i,i+v.length))+"</mark>"+esc(n.slice(i+v.length))}
+ function show(){var v=q.value.trim();if(v.length<2||!items.length){list.hidden=true;list.innerHTML="";st.textContent=v.length==1?"Type one more letter.":"";return}
+  var lv=v.toLowerCase(),m=items.filter(function(i){return i.n.toLowerCase().indexOf(lv)>=0||(i.c||"").toLowerCase()==lv});
+  m.sort(function(a,b){var x=a.n.toLowerCase().indexOf(lv)==0?0:1,y=b.n.toLowerCase().indexOf(lv)==0?0:1;return x-y||a.l-b.l||a.n.localeCompare(b.n)});
+  if(!m.length){list.hidden=true;list.innerHTML="";st.textContent="No piece matches “"+v+"”. Try a shorter word.";return}
+  var top=m.slice(0,8);list.innerHTML=top.map(function(i){return'<li><a href="'+go(i.n)+'"><span>'+hl(i.n,v)+'</span><small>'+esc(i.c)+(i.l?" · level "+i.l:"")+'</small></a></li>'}).join("")+(m.length>top.length?'<li><a class="all" href="'+go(v)+'">See all '+m.length+' matches in Crafting →</a></li>':"");
+  list.hidden=false;st.textContent=m.length+" match"+(m.length>1?"es":"")+(m.length>top.length?", showing the first "+top.length:"")+". Press the down arrow to choose one."}
+ var t;q.addEventListener("input",function(){clearTimeout(t);t=setTimeout(show,120)});
+ q.addEventListener("keydown",function(e){if(e.key=="ArrowDown"&&!list.hidden){e.preventDefault();list.querySelector("a").focus()}else if(e.key=="Escape"){q.value="";show()}});
+ list.addEventListener("keydown",function(e){var a=[].slice.call(list.querySelectorAll("a")),i=a.indexOf(document.activeElement);if(e.key=="ArrowDown"&&i<a.length-1){e.preventDefault();a[i+1].focus()}else if(e.key=="ArrowUp"){e.preventDefault();(i>0?a[i-1]:q).focus()}else if(e.key=="Escape"){q.focus()}});
+ $("hf").addEventListener("submit",function(e){var v=q.value.trim();if(v.length<2){e.preventDefault();st.textContent="Type at least two letters.";q.focus()}});
+ if(q.value)show();
+ // Market strip: the suggested prices the calculators use
+ if(typeof MARKET==="object"&&typeof RAW==="object"){var ids=["O","C","L","H","A","G","honey"].filter(function(k){return MARKET.p[k]&&RAW[k]}),d=new Date(MARKET.date+"T12:00:00"),ds=isNaN(d)?MARKET.date:d.toLocaleDateString("en-GB",{day:"numeric",month:"short"});
+  $("mkt").innerHTML='<span class="mh">Market · '+esc(ds)+'</span>'+ids.map(function(k){return"<span>"+esc(RAW[k])+" <b>"+MARKET.p[k]+"</b></span>"}).join("")+'<span class="mn">groschen, 7-day average · used until you type your own</span>';$("mkt").hidden=false}
+});
 </script><script src="assets/tour.js" defer></script><script src="assets/changelog.js" defer></script></body></html>
