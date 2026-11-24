@@ -4,7 +4,7 @@
 // changed it saves the new copies and tells the open page, which reloads itself (or offers a
 // Refresh button if you are in the middle of typing). Nothing here touches localStorage, so saved
 // prices, loadouts, favourites, orders and settings are never cleared by an update.
-const CACHE = "kcd-tools-v9";
+const CACHE = "kcd-tools-v10";
 const FILES = ["./", "index.html", "crafting.html", "farming.html", "loadouts.html", "prices.html", "404.html",
   "assets/site.css", "assets/site.js", "assets/recipes.js", "assets/market.js", "assets/pricing.js", "assets/categories.js", "assets/tour.js", "assets/changelog.js", "changelog.json"];
 const fresh = f => new Request(f, { cache: "no-cache" }); // always ask the server, never the browser's own cache

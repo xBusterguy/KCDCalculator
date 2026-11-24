@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "date": "2026-11-24",
+      "title": "Suggested prices refreshed",
+      "changes": [
+        "Market prices on the Prices page, and everywhere they are used, now come from the auction house averages of 24 November. Prices you set yourself are unchanged."
+      ]
+    },
+    {
       "date": "2026-11-17",
       "title": "New Prices page",
       "changes": [
