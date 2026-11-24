@@ -210,6 +210,14 @@ If you add, rename or remove a file the pages load, update the `FILES` list in `
 
 The button in the top bar reads `changelog.json`. Add a new object at the top of `entries` (newest first) with a `date` (`YYYY-MM-DD`), a short `title` and a `changes` list in plain language. Do it in the same pull request as the change. The small dot on the button appears for visitors whenever the top entry is new to them.
 
-## Updating the suggested market prices
+## Adding a week of market prices
 
-`assets/market.js` holds a dated snapshot of material prices (groschen) taken from the Auction houses page of the KCDRoleplay account site (the 7-day average sale price). That page needs a game login, so the file is updated by hand: change the numbers under `p` (the keys are the material ids used in `assets/recipes.js`) and set `date`. Prices a visitor types on the Prices page always override these, and a tick box there turns the suggestions off. Groups for the Prices page are set at the top of `assets/pricing.js`; a new raw material lands in “Other” until you add its id to a group.
+Once a week, copy the whole **Prices** table from the Auction houses page of the KCDRoleplay account site (it needs a game login) into a text file, then run:
+
+```
+node scripts/add-market-week.js week.txt 2026-12-01
+```
+
+This stores the week in `assets/market-history.js` (the Market page's data; running it again for the same date replaces that week) and, when it is the newest week, refreshes the suggested prices in `assets/market.js` from the 7-day averages. It prints every price that changed so you can check them before committing.
+
+Odd names on the auction page (another language, for example `cibule` for onions) are fixed in the `alias` list at the top of `assets/market-history.js`; names that do not match a site material by name alone go in its `ids` list. Prices a visitor types on the Prices page always override the suggestions, and a tick box there turns them off.

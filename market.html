@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-skin="ledger"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark"><meta name="description" content="Weekly KCD Roleplay auction house report: price trends, bargains, goods running low, and a searchable list of every good.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="KCD Tools"><meta property="og:title" content="Market – KCD Tools"><meta property="og:description" content="Weekly KCD Roleplay auction house report: price trends, bargains, goods running low, and a searchable list of every good."><meta property="og:url" content="https://xbusterguy.github.io/KCDCalculator/market.html"><meta property="og:image" content="https://xbusterguy.github.io/KCDCalculator/assets/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#d8c59b">
+<link rel="preload" href="assets/recipes.js" as="script">
+<title>Market – KCD Tools</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⚒️%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/site.js"></script>
+
+<style>
+.mh{display:flex;align-items:baseline;gap:6px 18px;flex-wrap:wrap}.mh .s{margin:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px;margin:0 0 14px}
+.kpi{margin:0;padding:12px 16px}.kpi .kl{font-size:.75rem;letter-spacing:.1em;font-variant:small-caps;color:var(--mut)}.kpi .kv{font-size:1.6rem;line-height:1.2;margin-top:2px}.kpi .kv.sm{font-size:1.25rem}.kpi .kd{font-size:.85rem;color:var(--mut)}
+.up{color:var(--ok)}.dn{color:var(--bad)}.flat{color:var(--mut)}.warn{color:#b9822c}html[data-theme=dark] .warn{color:#d9a44f}
+@media (prefers-color-scheme:dark){html:not([data-theme=light]) .warn{color:#d9a44f}}
+.msec{margin:0 0 14px;scroll-margin-top:12px}.msec>h2{margin:0 0 8px}
+.obs{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px;line-height:1.45}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px;margin:0 0 14px}.two .card{margin:0}
+.mini{list-style:none;margin:0;padding:0}.mini li{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dotted var(--bd)}.mini li:last-child{border:0}.mini small{color:var(--mut)}
+table.mv td,table.mv th,#gt td,#gt th{white-space:nowrap}table.mv td.nm,#gt td.nm{white-space:normal}
+.spark{display:block}
+.xtools{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;margin:0 0 10px}.xtools .f{margin:0}
+#gt tr.r{cursor:pointer}#gt tr.r:hover td{background:color-mix(in srgb,var(--ac) 8%,transparent)}#gt tr.r.open td{background:color-mix(in srgb,var(--ac) 12%,transparent)}
+#gt td.sig{font-size:.85rem}#gt .nmb{border:0;background:none;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer;min-height:24px}
+#gt tr.det td{white-space:normal;background:color-mix(in srgb,var(--bd) 18%,var(--card));padding:12px 14px}
+.dw{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:16px;align-items:start}
+.dstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 10px}.dstats div{border:1px solid var(--bd);padding:6px 8px;font-size:.95rem}.dstats b{display:block;font-weight:normal;font-size:.72rem;letter-spacing:.08em;font-variant:small-caps;color:var(--mut)}
+.story{margin:0 0 8px;line-height:1.45}
+#mrail .ri.on small{opacity:1}
+.note{margin:6px 0 0}
+@media (max-width:899px){#mrail{padding:8px 10px}#mrail .crh{padding:0 2px 4px}#mrail .rlist{flex-direction:row;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-bottom:4px}#mrail .rlist+.crh{margin-top:6px}#mrail .ri{width:auto;flex:none;min-height:40px;border-color:var(--bd)}#mrail .ri small{margin-left:6px}.dw{grid-template-columns:1fr}}
+@media (max-width:640px){
+ #gt thead{display:none}#gt,#gt tbody,#gt tr{display:block}
+ #gt tr.r{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 2px;border-bottom:1px solid var(--bd)}
+ #gt tr.r td{border:0;padding:0;text-align:left}#gt tr.r td.nm{grid-column:1}#gt tr.r td.sp{grid-column:2;grid-row:1}
+ #gt tr.r td.av{grid-column:1;font-size:1.05rem}#gt tr.r td.ch{grid-column:2;text-align:right}
+ #gt tr.r td.ce,#gt tr.r td.so,#gt tr.r td.st{display:inline;color:var(--mut);font-size:.82rem}
+ #gt tr.r td.ce::before{content:"Cheapest "}#gt tr.r td.so::before{content:"Sold "}#gt tr.r td.st::before{content:"Stock "}
+ #gt tr.r td.av::before{content:"Average "}#gt tr.r td.sig{grid-column:1/-1}
+ #gt tr.det{display:block}#gt tr.det td{display:block}
+ table.mv th:nth-child(n+2):nth-last-child(n+4),table.mv td:nth-child(n+2):nth-last-child(n+4){display:none}
+ .dstats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+</head><body><a class="skip" href="#main">Skip to content</a><nav class="site"><a class="brand" href="index.html" aria-label="KCD Tools home"><span class="logo">⚒️</span> KCD Tools</a><span class="nl"><a href="crafting.html">Crafting</a><a href="farming.html">Farming</a><a href="loadouts.html">Loadouts</a><a href="prices.html">Prices</a><a href="market.html" aria-current=page>Market</a></span><a class="gh" href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer" title="View the code or report an issue on GitHub">GitHub ↗</a><button type="button" class="clbtn" aria-haspopup="dialog" aria-expanded="false" title="What's new"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h9l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 11h7M9 15h7M9 7h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="tl">What’s new</span></button><button type="button" class="tourbtn" title="Take a guided tour of the site" aria-label="Take the guided tour"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2.9-1.2 1.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/></svg><span class="tl">Tour</span></button><details class="menu" id="menu"><summary aria-label="Settings: light or dark mode, backup" title="Light/dark mode and backup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span class="mlabel">Settings</span></summary><div class="pop"><button id="theme" type="button" aria-label="Switch light or dark mode">Switch to dark</button><hr><button id="bk" type="button">Back up my data</button><button id="rsb" type="button">Restore from backup</button><input id="rs" aria-label="Choose a backup file" type="file" accept=".json,application/json" hidden><p class="s" id="bkmsg">Saves your prices, orders, favourites, loadouts and settings to a file.</p></div></details></nav>
+<main id="main" tabindex="-1"><div class="tbar mh"><h1>Market</h1><p class="s" id="sub"></p></div>
+<div class="layout">
+<nav class="card rail" id="mrail" aria-label="Market">
+<div class="crh">On this page</div>
+<div class="rlist"><a class="ri" href="#summary"><span>Summary</span></a><a class="ri" href="#moves"><span>Biggest moves</span></a><a class="ri" href="#quick"><span>Bargains &amp; running low</span></a><a class="ri" href="#explore"><span>All goods</span></a></div>
+<div class="crh">Week</div><div class="rlist" id="weeks"></div>
+<div class="crh">All goods: groups</div><div class="rlist" id="grp"></div>
+<div class="crh">All goods: signals</div><div class="rlist" id="sig"></div>
+</nav>
+<div class="mc">
+<section class="msec" id="summary" aria-labelledby="h-sum"><h2 id="h-sum" class="vh">Summary</h2>
+<div class="kpis" id="kpis"></div>
+<div class="card"><h2 style="margin-top:0">What we see this week</h2><ol class="obs" id="obs"></ol></div>
+</section>
+<section class="msec card wrap" id="moves" aria-labelledby="h-mv"><h2 id="h-mv" style="margin-top:0">Biggest moves</h2><table class="mv"><thead id="mvh"></thead><tbody id="mvb"></tbody></table>
+<p class="s note">Goods with at least 20 sales in both weeks. Change is against the week before.</p></section>
+<div class="two" id="quick">
+<section class="card" aria-labelledby="h-bg"><h2 id="h-bg" style="margin-top:0">Bargains now</h2><p class="s" style="margin:0 0 6px">Cheapest listing well under the weekly average.</p><ul class="mini" id="bgl"></ul></section>
+<section class="card" aria-labelledby="h-lo"><h2 id="h-lo" style="margin-top:0">Running low</h2><p class="s" style="margin:0 0 6px">Little on sale compared with how fast it sells.</p><ul class="mini" id="lol"></ul></section>
+</div>
+<section class="msec" id="explore" aria-labelledby="h-ex"><h2 id="h-ex">All goods</h2>
+<div class="xtools"><label class="f">Find a good<input id="xq" type="search" placeholder="e.g. hides" autocomplete="off"></label>
+<label class="f">Sort by<select id="xs"><option value="name">Name</option><option value="chg">Biggest change</option><option value="sold">Most sold</option><option value="avg">Highest price</option><option value="stock">Least stock</option></select></label>
+<p class="s" id="xn" aria-live="polite" style="margin:0 0 6px"></p></div>
+<div class="card wrap"><table id="gt"><thead><tr><th>Good</th><th>Trend</th><th class="n">Average</th><th class="n">vs last week</th><th class="n">Cheapest</th><th class="n">Sold</th><th class="n">Stock</th><th>Signal</th></tr></thead><tbody id="gb"></tbody></table></div>
+<p class="s note">Average = 7-day average sale price, in groschen. Stock = how many weeks the goods on sale would last at the week’s selling rate. Click a good for its full story. Suggestions are rules of thumb from these numbers, not predictions.</p>
+</section>
+</div></div>
+</main>
+<footer class="site">Unofficial fan tool. Recipes and crops from <a href="https://wiki.kcdroleplay.com/recipes/">wiki.kcdroleplay.com</a>. Prices and settings are saved in your browser only.<div class="sig">Made by <b>Busterguy</b> · Found a bug or have an issue? Contact me on <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord.</div><div class="sig">Open source: <a href="https://github.com/xBusterguy/KCDCalculator" target="_blank" rel="noopener noreferrer">view the repo</a> or <a href="https://github.com/xBusterguy/KCDCalculator/issues/new/choose" target="_blank" rel="noopener noreferrer">report an issue</a> on GitHub.</div></footer>
+<script src="assets/recipes.js"></script><script src="assets/market.js"></script><script src="assets/pricing.js"></script><script src="assets/market-history.js"></script>
+<script>
+(function(){
+"use strict";
+const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const H=MARKET_HISTORY,W=H.weeks;if(!W.length){$("sub").textContent="No market data yet.";return}
+const fmt=n=>n==null?"–":(Math.round(n*10)/10).toLocaleString("en-GB",{maximumFractionDigits:1});
+const big=n=>n>=1e6?(Math.round(n/1e4)/100).toLocaleString("en-GB")+"m":n>=1e4?Math.round(n/1e3).toLocaleString("en-GB")+"k":fmt(n);
+const pct=x=>(x>0?"▲ ":x<0?"▼ ":"")+Math.abs(Math.round(x*100))+"%",cls=x=>x>=.005?"up":x<=-.005?"dn":"flat";
+const dshort=d=>{const t=new Date(d+"T12:00:00");return isNaN(t)?d:t.toLocaleDateString("en-GB",{day:"numeric",month:"short"})};
+const list=a=>a.length<2?a.join(""):a.slice(0,-1).join(", ")+" and "+a[a.length-1];
+// [cheapest, average, sold, on sale, houses, wanted at, instant sale]
+const C=0,A=1,SO=2,OS=3,HO=4,WA=5,IN=6;
+// every good seen in any week, with its site material when there is one
+const NAMES=[...new Set(W.flatMap(w=>Object.keys(w.g)))];
+const twin=n=>n!==n.toLowerCase()&&NAMES.includes(n.toLowerCase());
+const idOf=n=>H.ids[n]||(twin(n)?null:KP.BYNAME[n.toLowerCase()])||null;
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const G=NAMES.map(n=>{const id=idOf(n);return{n,id,label:id?KP.name(id):cap(n)+(twin(n)?" (other kind)":""),grp:id?KP.GROUP[id]:"othergoods"}});
+const GROUPS=KP.GROUPS.filter(g=>G.some(x=>x.grp==g.id)).concat([{id:"othergoods",name:"Other goods"}]);
+const st={w:W.length-1,g:"all",s:"",q:"",sort:"name",open:null};
+const row=(n,i)=>(i>=0&&W[i]&&W[i].g[n])||null;
+// what one good looks like in the chosen week
+function info(x){const r=row(x.n,st.w),p=row(x.n,st.w-1);if(!r)return null;
+  const a=r[A],ap=p&&p[A],ch=a!=null&&ap?a/ap-1:null,sold=r[SO]||0,few=a!=null&&sold<10,ok=sold>=20&&p&&(p[SO]||0)>=20;
+  const stock=sold?r[OS]/sold:null,low=stock!=null&&stock<.25&&sold>=50,bargain=r[C]!=null&&a&&r[C]<=a*.7&&sold>=20&&r[OS]>=50,orders=r[WA]!=null&&r[C]!=null&&r[WA]>r[C];
+  let sig="Steady",sc="flat";
+  if(a==null&&!r[OS]){sig="No trade";sc="flat"}else if(a==null){sig="Listed, none sold";sc="flat"}
+  else if(few){sig="Too few sales to trust ("+sold+")";sc="flat"}
+  else if(low){sig="Running low: "+fmt(r[OS])+" on sale";sc="dn"}
+  else if(bargain){sig="Bargain: "+fmt(r[C])+" vs "+fmt(a)+" average";sc="up"}
+  else if(orders){sig="Buy orders at "+fmt(r[WA])+", above cheapest";sc="warn"}
+  else if(ch!=null&&ch>=.2){sig="Rising";sc="up"}else if(ch!=null&&ch<=-.2){sig="Falling";sc="dn"}
+  else if(stock!=null&&stock>8){sig="Plenty in stock";sc="flat"}
+  return{r,p,a,ch,sold,few,ok,stock,low,bargain,orders,sig,sc}}
+function spark(x,w,h){const v=W.map((_,i)=>{const r=row(x.n,i);return r&&r[A]}),pts=v.map((y,i)=>[i,y]).filter(p=>p[1]!=null);if(pts.length<2)return'<span class="s">–</span>';
+  const lo=Math.min(...pts.map(p=>p[1])),hi=Math.max(...pts.map(p=>p[1])),X=i=>4+i*(w-8)/Math.max(1,W.length-1),Y=y=>hi==lo?h/2:h-3-(y-lo)/(hi-lo)*(h-6);
+  const f=pts[0][1],l=pts[pts.length-1][1],c=l>f*1.005?"var(--ok)":l<f*.995?"var(--bad)":"var(--mut)";
+  return`<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="Average ${pts.map(p=>fmt(p[1])).join(" then ")}"><polyline points="${pts.map(p=>X(p[0]).toFixed(1)+","+Y(p[1]).toFixed(1)).join(" ")}" fill="none" stroke="${c}" stroke-width="2"/></svg>`}
+function chart(x){const w=340,h=170,v=W.map((wk,i)=>{const r=row(x.n,i);return{d:dshort(wk.date),y:r&&r[A]}}),pts=v.map((p,i)=>({...p,i})).filter(p=>p.y!=null);if(!pts.length)return"";
+  const lo=Math.min(...pts.map(p=>p.y)),hi=Math.max(...pts.map(p=>p.y)),X=i=>30+i*(w-60)/Math.max(1,W.length-1),Y=y=>hi==lo?h/2-10:h-42-(y-lo)/(hi-lo)*(h-72);
+  return`<svg width="100%" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(x.label)} average price by week: ${pts.map(p=>p.d+" "+fmt(p.y)).join(", ")}" style="max-width:${w}px"><line x1="16" y1="${h-26}" x2="${w-10}" y2="${h-26}" stroke="var(--bd)"/>`+
+  (pts.length>1?`<polyline points="${pts.map(p=>X(p.i)+","+Y(p.y)).join(" ")}" fill="none" stroke="var(--ac)" stroke-width="2.5"/>`:"")+
+  pts.map(p=>`<circle cx="${X(p.i)}" cy="${Y(p.y)}" r="4" fill="var(--ac)"/><text x="${X(p.i)}" y="${Y(p.y)-10}" fill="var(--tx)" font-size="13" text-anchor="middle">${fmt(p.y)}</text>`).join("")+
+  v.map((p,i)=>`<text x="${X(i)}" y="${h-8}" fill="var(--mut)" font-size="12" text-anchor="middle">${esc(p.d)}</text>`).join("")+"</svg>"}
+// the story of one good, in words
+function story(x,f){const s=[],v=W.slice(0,st.w+1).map((_,i)=>{const r=row(x.n,i);return r&&r[A]}).filter(y=>y!=null);
+  if(f.a==null)return f.r[OS]?"None sold this week, though "+fmt(f.r[OS])+" are on sale.":"No trade this week.";
+  if(v.length>=3&&v.every((y,i)=>!i||y>v[i-1]))s.push("The price has risen every week ("+v.map(fmt).join(" → ")+").");
+  else if(v.length>=3&&v.every((y,i)=>!i||y<v[i-1]))s.push("The price has fallen every week ("+v.map(fmt).join(" → ")+").");
+  else if(f.ch!=null)s.push("The average is "+(Math.abs(f.ch)<.05?"about the same as":f.ch>0?Math.round(f.ch*100)+"% higher than":Math.round(-f.ch*100)+"% lower than")+" last week.");
+  if(f.p&&f.p[OS]&&f.r[OS]!=null){const k=f.r[OS]/f.p[OS];if(k<.5)s.push("Stock on sale fell from "+fmt(f.p[OS])+" to "+fmt(f.r[OS])+".");else if(k>2)s.push("Stock on sale grew from "+fmt(f.p[OS])+" to "+fmt(f.r[OS])+".")}
+  if(f.low)s.push("At the current rate it would sell out in "+(f.stock<1/7?"under a day":"about "+Math.max(1,Math.round(f.stock*7))+" days")+", so buy early if you need it.");
+  else if(f.bargain)s.push("The cheapest listing ("+fmt(f.r[C])+") is well under the average, a good moment to buy.");
+  else if(f.orders)s.push("Buyers are asking for it at "+fmt(f.r[WA])+", more than the cheapest listing of "+fmt(f.r[C])+".");
+  else if(f.stock!=null&&f.stock>8)s.push("There is plenty on sale: about "+Math.round(f.stock)+" weeks of stock.");
+  if(f.few)s.push("Only "+f.sold+" sold, so the average may be far off.");
+  return s.join(" ")}
+// ---- report
+function costs(i){const M={},p=MARKET.p;for(const x of G){const r=row(x.n,i);if(x.id&&p[x.id]!=null&&r&&r[A]!=null)M[x.id]=r[A]}
+  const memo={},u=id=>{if(id in memo)return memo[id];memo[id]=NaN;let v;if(INT[id]){const r=INT[id][2];let s=0;for(const k in r)s+=r[k]*u(k);v=(s+(INT[id][3]||0))/INT[id][1]}else v=M[id]!=null?M[id]:NaN;return memo[id]=v};
+  const RX=/\{(\w+)\}(\d+)|([A-Za-z])(\d+)/g,out={};DATA.split("\n").forEach(l=>{const q=l.split("|");if(q.length<5)return;let s=0;q[4].replace(RX,(m,w,a,k,b)=>{s+=(+(a||b))*u(w||k);return m});out[q[0]+"|"+q[2]]=[CR[q[0]],(s+(+q[5]||0))/(+q[3]||1)]});return out}
+function report(){const i=st.w,wk=W[i],pw=W[i-1];
+  $("sub").textContent=H.land+" auction houses · week to "+dshort(wk.date)+(i<W.length-1?" (an older week)":"");
+  const tot=k=>{let s=0,v=0;for(const n in W[k].g){const r=W[k].g[n];s+=r[SO]||0;if(r[A]!=null)v+=(r[SO]||0)*r[A]}return[s,v]};
+  const [s,v]=tot(i),[ps,pv]=pw?tot(i-1):[0,0],F=G.map(x=>({x,f:info(x)})).filter(o=>o.f);
+  const rel=F.filter(o=>o.f.ok&&o.f.ch!=null&&Math.max(o.f.a,o.f.p[A])>=5).sort((a,b)=>b.f.ch-a.f.ch),top=rel[0],bot=rel[rel.length-1];
+  const kd=(a,b)=>b?`<span class="${cls(a/b-1)}">${pct(a/b-1)}</span> on the week before`:"first week recorded";
+  $("kpis").innerHTML=`<div class="card kpi"><div class="kl">Sold this week</div><div class="kv">${s.toLocaleString("en-GB")}</div><div class="kd">${kd(s,ps)}</div></div>
+<div class="card kpi"><div class="kl">Value traded</div><div class="kv">${big(v)} gr.</div><div class="kd">${kd(v,pv)}</div></div>`+
+  (top&&top.f.ch>0?`<div class="card kpi"><div class="kl">Biggest riser</div><div class="kv sm">${esc(top.x.label)}</div><div class="kd up">▲ ${fmt(top.f.p[A])} → ${fmt(top.f.a)} gr.</div></div>`:"")+
+  (bot&&bot.f.ch<0?`<div class="card kpi"><div class="kl">Biggest faller</div><div class="kv sm">${esc(bot.x.label)}</div><div class="kd dn">▼ ${fmt(bot.f.p[A])} → ${fmt(bot.f.a)} gr.</div></div>`:"");
+  // observations, worked out from the numbers
+  const ob=[];
+  if(i>=1){const k0=Math.max(0,i-3),s0=tot(k0)[0],c=s/s0-1,n=i-k0,piles=F.filter(o=>o.f.stock!=null&&o.f.sold>=50).sort((a,b)=>b.f.r[OS]-a.f.r[OS]).slice(0,2);
+    ob.push(c<=-.15?`<b>Trade is slowing.</b> Pieces sold went ${s0.toLocaleString("en-GB")} → ${s.toLocaleString("en-GB")} over the last ${n} week${n>1?"s":""}`+(piles.length?`, while ${list(piles.map(o=>fmt(o.f.r[OS])+" "+esc(o.x.label.toLowerCase())))} sit on sale.`:"."):
+      c>=.15?`<b>Trade is picking up.</b> Pieces sold went ${s0.toLocaleString("en-GB")} → ${s.toLocaleString("en-GB")} over the last ${n} week${n>1?"s":""}.`:`<b>Trade is steady</b> at about ${s.toLocaleString("en-GB")} pieces a week.`)}
+  const climb=F.filter(o=>o.f.sold>=20&&o.f.a>=10).map(o=>({o,v:W.slice(0,i+1).map((_,k)=>{const r=row(o.x.n,k);return r&&r[A]})})).filter(z=>z.v.length>=3&&z.v.every((y,k)=>y!=null&&(!k||y>z.v[k-1]))).sort((a,b)=>b.v[b.v.length-1]/b.v[0]-a.v[a.v.length-1]/a.v[0]).slice(0,3);
+  if(climb.length)ob.push(`<b>${climb.length>1?"Prices keep climbing":"A price keeps climbing"}.</b> `+list(climb.map(z=>esc(z.o.x.label)+" "+z.v.map(fmt).join(" → ")))+".");
+  else if(top&&top.f.ch>=.3)ob.push(`<b>${esc(top.x.label)} jumped</b> from ${fmt(top.f.p[A])} to ${fmt(top.f.a)} this week.`);
+  const lows=F.filter(o=>o.f.low).sort((a,b)=>a.f.stock-b.f.stock).slice(0,2);
+  if(lows.length)ob.push(`<b>${list(lows.map(o=>esc(o.x.label)))} ${lows.length>1?"are":"is"} nearly sold out.</b> Only ${list(lows.map(o=>fmt(o.f.r[OS])))} on sale against ${list(lows.map(o=>fmt(o.f.sold)))} sold last week.`);
+  if(pw){const a=costs(i-1),b=costs(i),by={};for(const k in b){const x=a[k],y=b[k];if(x&&isFinite(x[1])&&isFinite(y[1])&&x[1]>0)(by[y[0]]=by[y[0]]||[]).push(y[1]/x[1]-1)}
+    const cr=Object.entries(by).filter(e=>e[1].length>=5).map(([c,l])=>[c,l.reduce((p,q)=>p+q,0)/l.length]).sort((p,q)=>p[1]-q[1]);
+    if(cr.length&&(Math.abs(cr[0][1])>=.03||Math.abs(cr[cr.length-1][1])>=.03)){const d=cr[0],u=cr[cr.length-1],t=[];
+      if(d[1]<=-.03)t.push(`${d[0]} recipes cost ${Math.round(-d[1]*100)}% less`);if(u[1]>=.03)t.push(`${u[0]} ${Math.round(u[1]*100)}% more`);
+      ob.push(`<b>For crafters:</b> at market prices ${t.join(" and ")} than the week before.`)}}
+  $("obs").innerHTML=ob.length?ob.map(o=>"<li>"+o+"</li>").join(""):"<li>Not enough weeks yet to compare. Check back after the next update.</li>";
+  // biggest moves
+  const cols=W.slice(Math.max(0,i-3),i+1),mv=rel.filter(o=>o.f.ch>0).slice(0,5).concat(rel.filter(o=>o.f.ch<0).slice(-4).reverse());
+  $("mvh").innerHTML="<tr><th>Good</th>"+cols.map(c=>`<th class="n">${esc(dshort(c.date))}</th>`).join("")+'<th>Trend</th><th class="n">Change</th><th class="n">Sold</th></tr>';
+  $("mvb").innerHTML=mv.length?mv.map(o=>`<tr><td class="nm">${esc(o.x.label)}</td>`+cols.map(c=>{const r=c.g[o.x.n];return`<td class="n">${r&&r[A]!=null?fmt(r[A]):"–"}</td>`}).join("")+`<td>${spark(o.x,90,24)}</td><td class="n ${cls(o.f.ch)}">${pct(o.f.ch)}</td><td class="n">${fmt(o.f.sold)}</td></tr>`).join(""):`<tr><td colspan="${cols.length+4}" class="s">Needs two weeks of data.</td></tr>`;
+  const bg=F.filter(o=>o.f.bargain).sort((a,b)=>a.f.r[C]/a.f.a-b.f.r[C]/b.f.a).slice(0,4);
+  $("bgl").innerHTML=bg.length?bg.map(o=>`<li><span>${esc(o.x.label)}</span><span>cheapest <b>${fmt(o.f.r[C])}</b> <small>vs ${fmt(o.f.a)} average · ${fmt(o.f.r[OS])} on sale</small></span></li>`).join(""):'<li class="s">Nothing stands out this week.</li>';
+  const lo=F.filter(o=>o.f.low).sort((a,b)=>a.f.stock-b.f.stock).slice(0,4);
+  $("lol").innerHTML=lo.length?lo.map(o=>`<li><span>${esc(o.x.label)}</span><span><b>${fmt(o.f.r[OS])}</b> on sale <small>· ${fmt(o.f.sold)} sold last week</small></span></li>`).join(""):'<li class="s">Nothing is close to selling out.</li>'}
+// ---- explorer
+const SIGS=[["up","▲ Rising",f=>f.ch!=null&&f.ch>=.1&&!f.few],["dn","▼ Falling",f=>f.ch!=null&&f.ch<=-.1&&!f.few],["bargain","Bargain right now",f=>f.bargain],["low","Running low",f=>f.low],["orders","Buy orders above cheapest",f=>f.orders],["few","Too few sales to trust",f=>f.few]];
+function rail(){const F=G.map(x=>({x,f:info(x)})).filter(o=>o.f);
+  $("weeks").innerHTML=W.map((w,i)=>({w,i})).reverse().map(o=>`<button type="button" class="ri${o.i==st.w?" on":""}" data-w="${o.i}" aria-pressed="${o.i==st.w}"><span>${esc(dshort(o.w.date))}</span>${o.i==W.length-1?"<small>latest</small>":""}</button>`).join("");
+  $("grp").innerHTML=[{id:"all",name:"All goods"}].concat(GROUPS).map(g=>`<button type="button" class="ri${st.g==g.id?" on":""}" data-g="${g.id}" aria-pressed="${st.g==g.id}"><span>${esc(g.name)}</span><small>${F.filter(o=>g.id=="all"||o.x.grp==g.id).length}</small></button>`).join("");
+  $("sig").innerHTML=SIGS.map(([id,n,t])=>`<button type="button" class="ri${st.s==id?" on":""}" data-s="${id}" aria-pressed="${st.s==id}"><span>${n}</span><small>${F.filter(o=>t(o.f)).length}</small></button>`).join("")}
+function explore(){const t=st.s&&SIGS.find(s=>s[0]==st.s)[2];
+  let F=G.map(x=>({x,f:info(x)})).filter(o=>o.f&&(st.g=="all"||o.x.grp==st.g)&&(!t||t(o.f))&&(!st.q||o.x.label.toLowerCase().includes(st.q)||o.x.n.toLowerCase().includes(st.q)));
+  const by={name:(a,b)=>a.x.label.localeCompare(b.x.label),chg:(a,b)=>Math.abs(b.f.ch||0)-Math.abs(a.f.ch||0),sold:(a,b)=>b.f.sold-a.f.sold,avg:(a,b)=>(b.f.a||0)-(a.f.a||0),stock:(a,b)=>(a.f.stock==null?1e9:a.f.stock)-(b.f.stock==null?1e9:b.f.stock)};
+  F.sort(by[st.sort]||by.name);$("xn").textContent=F.length+" good"+(F.length==1?"":"s");
+  $("gb").innerHTML=F.length?F.map(o=>{const f=o.f,open=st.open==o.x.n;return`<tr class="r${open?" open":""}" data-n="${esc(o.x.n)}"><td class="nm"><button type="button" class="nmb" aria-expanded="${open}">${esc(o.x.label)}</button></td><td class="sp">${spark(o.x,80,24)}</td>
+<td class="n av">${fmt(f.a)}</td><td class="n ch ${f.ch==null?"flat":cls(f.ch)}">${f.ch==null?"–":pct(f.ch)}</td><td class="n ce">${fmt(f.r[C])}</td><td class="n so">${fmt(f.sold)}</td><td class="n st">${f.stock==null?"–":(f.stock<.1?"<0.1":fmt(f.stock))+" wk"}</td><td class="sig ${f.sc}">${esc(f.sig)}</td></tr>`+(open?detail(o):"")}).join(""):'<tr><td colspan="8" class="s">Nothing matches. Try another group or clear the search.</td></tr>'}
+function detail(o){const f=o.f,r=f.r,id=o.x.id,u=id?KP.USED[id]||0:0;
+  return`<tr class="det"><td colspan="8"><div class="dw"><div>${chart(o.x)}</div><div><div class="dstats"><div><b>On sale</b>${fmt(r[OS])}${f.p?` <small class="s">(${fmt(f.p[OS])})</small>`:""}</div><div><b>Sold</b>${fmt(r[SO])}${f.p?` <small class="s">(${fmt(f.p[SO])})</small>`:""}</div><div><b>Cheapest now</b>${fmt(r[C])}</div><div><b>Wanted at</b>${fmt(r[WA])}</div><div><b>Instant sale</b>${fmt(r[IN])}</div><div><b>Houses</b>${fmt(r[HO])}</div></div>
+<p class="story">${esc(story(o.x,f))}</p>`+(id?`<p class="s" style="margin:0 0 8px">${u?"Used in "+u+" crafted piece"+(u>1?"s":"")+". ":""}${KP.ov(id)?"Your price: "+fmt(+KP.P[id])+".":"The calculators use "+fmt(KP.unit(id))+"."}</p><a class="btn" href="prices.html?q=${encodeURIComponent(KP.name(id))}">Set my price on the Prices page →</a>`:"")+`</div></div></td></tr>`}
+$("weeks").onclick=e=>{const b=e.target.closest("[data-w]");if(!b)return;st.w=+b.dataset.w;st.open=null;rail();report();explore()};
+const toEx=()=>{const s=$("explore");if(s.getBoundingClientRect().top>innerHeight*.6||s.getBoundingClientRect().top<-20)s.scrollIntoView({block:"start",behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"})};
+$("grp").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;st.g=b.dataset.g;rail();explore();toEx()};
+$("sig").onclick=e=>{const b=e.target.closest("[data-s]");if(!b)return;st.s=st.s==b.dataset.s?"":b.dataset.s;rail();explore();toEx()};
+let qt;$("xq").oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{st.q=e.target.value.trim().toLowerCase();explore()},150)};
+$("xs").onchange=e=>{st.sort=e.target.value;explore()};
+$("gb").onclick=e=>{const tr=e.target.closest("tr.r");if(!tr||e.target.closest("a"))return;const n=tr.dataset.n;st.open=st.open==n?null:n;explore();const b=$("gb").querySelector(`tr.r[data-n="${CSS.escape(n)}"] .nmb`);if(b)b.focus({preventScroll:true})};
+{const U=new URLSearchParams(location.search),q=(U.get("q")||"").trim();if(q){st.q=q.toLowerCase();$("xq").value=q}}
+rail();report();explore();
+if(st.q)toEx();
+})();
+</script>
+<script src="assets/tour.js" defer></script><script src="assets/changelog.js" defer></script></body></html>

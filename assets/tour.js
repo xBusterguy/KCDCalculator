@@ -5,8 +5,8 @@
      or none for a centred card), a title and some text. Steps whose element is missing are skipped. */
 (function () {
   "use strict";
-  var PAGES = ["index.html", "crafting.html", "farming.html", "loadouts.html", "prices.html"];
-  var NAMES = { "index.html": "Home", "crafting.html": "Crafting", "farming.html": "Farming", "loadouts.html": "Loadouts", "prices.html": "Prices" };
+  var PAGES = ["index.html", "crafting.html", "farming.html", "loadouts.html", "prices.html", "market.html"];
+  var NAMES = { "index.html": "Home", "crafting.html": "Crafting", "farming.html": "Farming", "loadouts.html": "Loadouts", "prices.html": "Prices", "market.html": "Market" };
   var here = (location.pathname.split("/").pop() || "index.html").toLowerCase();
   if (PAGES.indexOf(here) < 0) return;
 
@@ -42,6 +42,9 @@
     { p: "prices.html", s: "#prail", t: "Prices: one place for every price", x: "Every material the calculators use, in groups. Pick a group, or show only the prices you set, the ones still missing, or what your current order needs." },
     { p: "prices.html", s: "#pt", t: "Your price, or the market’s", x: "Type what you pay in Your price. Leave it empty and the market average is used instead. Calculators use shows which one applies, and Used in shows how many pieces need it. Press Enter to move to the next box." },
     { p: "prices.html", s: ".ptools .acts", t: "Sets and sharing", x: "Save your prices as a named set, for a town perhaps, copy them to share in a chat, or clear them. Each change can be undone straight away." },
+    { p: "market.html", s: "#summary", t: "Market: this week at a glance", x: "A weekly report from the auction houses: how much sold, the biggest risers and fallers, and a few plain-English observations about what is going on." },
+    { p: "market.html", s: "#quick", t: "Bargains and shortages", x: "Goods listed well under their usual price, and goods that are close to selling out. Handy before you go shopping." },
+    { p: "market.html", s: "#explore", t: "Every good on the market", x: "Search or filter the whole market. Click any good to see its price over the weeks and what is happening to it." },
     { p: "prices.html", t: "That is the tour", x: "You can replay it whenever you like from the Tour button, or from Settings on a phone. Happy crafting!", last: true }
   ];
 

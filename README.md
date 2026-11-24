@@ -48,6 +48,14 @@ Everything runs in your browser. There is no account and nothing is sent anywher
 - Show only the prices you set, the ones still missing, or what your current order needs.
 - Save named price sets (for example one per town), and share or bring in price lists as plain text.
 
+## Market
+
+![Market page](docs/screenshots/market.png)
+
+- A weekly report from the Kuttenberg auction houses: pieces sold and value traded, the biggest risers and fallers, bargains, goods running low, and observations written from the numbers (including how the week's prices changed recipe costs).
+- Every good on the market below it: search, filter by group or by signal, sort, and click a good for its price over the weeks and what is happening to it.
+- Each week's auction house table is kept in `assets/market-history.js`, so the trends grow with every update.
+
 ## Everywhere
 
 ![The guided tour highlighting a feature](docs/screenshots/tour.png)
@@ -91,11 +99,13 @@ crafting.html       crafting cost calculator
 farming.html        farming efficiency
 loadouts.html       loadout builder
 prices.html         the Prices page: every material price in one place
+market.html         the Market page: weekly report and every good on the auction houses
 404.html            page not found
 assets/site.css     the look shared by every page: colours, top bar, title bar, left rail (edit styles here)
 assets/site.js      shared behaviour: light/dark, backup and restore, loading feedback, offline copy and updates
 assets/recipes.js   every crafting recipe (edit recipes here only)
 assets/market.js   suggested material prices from the auction houses (dated snapshot)
+assets/market-history.js  every weekly auction house snapshot (the Market page reads it)
 assets/pricing.js  shared price logic: groups, your price vs market, worked-out parts (used by Prices, Farming and the price line)
 assets/categories.js   how the crafting page groups pieces into types (Swords, Helmets, Furniture...)
 assets/tour.js         the guided tour (one list of steps, edit the text there)
@@ -103,7 +113,7 @@ changelog.json     the list shown by the What's new button (add new entries at t
 sw.js               saves the site in the browser for fast repeat visits and offline use
 assets/social.png   picture shown when a link is shared in Discord or chat
 robots.txt, sitemap.xml   help search engines find the pages
-scripts/            recipe checker, site checker and wiki sync
+scripts/            recipe checker, site checker, wiki sync and add-market-week
 docs/screenshots/   images used in this README
 .github/            workflows, issue forms and pull request template
 CONTRIBUTING.md     how to fix a recipe
