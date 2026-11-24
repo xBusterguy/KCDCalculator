@@ -2,6 +2,16 @@
   "entries": [
     {
       "date": "2026-11-24",
+      "title": "New Market page",
+      "changes": [
+        "A weekly report from the Kuttenberg auction houses: how much sold, the biggest risers and fallers, bargains, goods running low, and plain-English observations, including how prices changed recipe costs.",
+        "Below it, every good on the market: search, filter by group or signal (rising, falling, bargain, running low), and click a good to see its price over the weeks.",
+        "Pick an earlier week in the left column to see that week’s report.",
+        "On phones the page links now have their own row in the top bar, so all six fit."
+      ]
+    },
+    {
+      "date": "2026-11-24",
       "title": "Suggested prices refreshed",
       "changes": [
         "Market prices on the Prices page, and everywhere they are used, now come from the auction house averages of 24 November. Prices you set yourself are unchanged."
