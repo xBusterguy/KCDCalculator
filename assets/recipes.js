@@ -1,5 +1,5 @@
 // Single source of truth for every recipe. Used by crafting.html and loadouts.html.
-const RECIPES_UPDATED="13 Nov 2026";
+const RECIPES_UPDATED="28 Nov 2026";
 const RAW={O:"Iron ore",C:"Coal",K:"Copper ore",A:"Silver ore",G:"Gold ore",L:"Logs",H:"Hides",N:"Nettles",R:"Pine resin",W:"Owl feathers",F:"Wolf pelts",V:"White wolf pelts",P:"River pearls",U:"Pure silver nuggets",M:"Meteoric iron",D:"Sulphur",E:"Saltpetre",T:"Antlers",X:"Exotic wood",Z:"Tincal",Q:"Dogfish skin",J:"Jasper",u:"Dragon claw",v:"Weapon stub"};
 // code:[name, yield, ingredients, coin fee]
 const INT={x:["Scrap metal",3,{O:1,C:1},0],i:["Iron",3,{O:2,C:1},1],s:["Steel",2,{O:3,C:2},0],l:["Leather",2,{H:1},0],p:["Padding",2,{N:3,l:1},0],b:["Bowstrings",3,{H:1,R:1},0],h:["Hafts",2,{L:2,R:1},0],c:["Copper",1,{K:2,C:1},0],f:["Frankfurt steel",2,{s:2,C:2,L:1},0],t:["Toledo steel",2,{f:2,A:1,C:2},0],z:["Fastening material",5,{i:1,C:1},0],q:["Pig skin",1,{H:1},0],w:["Cow skin",1,{H:2},0],d:["Deer skin",1,{H:2,R:1},0],y:["Coin sword pommel",2,{i:1},0],g:["Sword guard (ordinary/straight)",1,{i:1,x:1},0],j:["Horned sword guard",2,{s:1,i:1},0],e:["Reinforced sword guard",2,{s:1,i:1},0],m:["Pear sword pommel",2,{i:1,c:1},0],n:["Eight-sided sword pommel",2,{i:1,c:1},0],a:["Antler shards",2,{T:1},0],o:["Decorated sword pommel",2,{c:1,S:2},0],k:["Sheet steel",2,{t:2,C:3},0],S:["Fine silver",2,{A:1,C:1},0],r:["Rock pitch",1,{R:3,C:2},0],B:["Enamel powder",3,{c:1,R:1,C:1},0],I:["Acidum chloridum",1,{N:2,belladonna:1,C:1},0],Y:["Coloured gold",2,{G:1,c:1,S:1},0],linen:["Linen",1,{flax:2},0],malt:["Barley malt",3,{barley:1},0],lcoal:["Leached coal",1,{charcoal:2,N:1},0],salami:["Salami",2,{pork:1,beef:1},0],cheese:["Cheese",1,{milk:1},0],hlongsword:["Henry’s longsword",1,{K:1,s:8,C:12,L:4,H:1,l:1},50]};
@@ -104,6 +104,7 @@ A|2|Mail collar (plain)|1|O2C4|2
 A|2|Bandit’s brigandine;Bandit’s brigandine - dark|1|O7C6H1|19
 A|2|Nuremberg bascinet (light)|1|O6C7H1|31
 A|2|Noble’s bascinet (open-faced)|1|O6C6H1|119
+A|2|Silver Lys Mail collar|1|O2C7|4
 A|3|Hounskull bascinet (open-faced);Nuremberg bascinet (open-faced)|1|O3C5|4
 A|3|Capon’s bascinet (light)|1|O3C7|4
 A|3|Italian hauberk|1|O4C5H1|6
@@ -156,6 +157,7 @@ A|7|Riding cuirass - blackened|1|K2s23H10C17p3|179
 A|7|Saxon plate legs|1|K4A1s22H10C16p3|461
 A|7|Saxon brigandine|1|K5A1s21H9C16p3|562
 A|7|Robber baron’s brigandine|1|K4A1s22H10C16p3|379
+A|7|Silver Lys chainmail|1|K1s8H4C7p3|24
 A|8|Tyrolian chanfron|1|A1s22p12H6U1|50
 A|8|Karachin’s chanfron|1|A1s22p12H6U1|52
 A|8|Mail collar with badge;Hauberk long (heavy)|1|s14p11H3U1|30
@@ -172,6 +174,7 @@ A|8|Noble brigandine legs (style 2)|1|A2s42p23H12U1|602
 A|8|Riding cuirass|1|A1s43p23H13U1|218
 A|8|Noble cuirass|1|A3s42p23H12U1|918
 A|8|Milanese plate leg armour|1|A2s42p23H12U1|662
+A|8|Silver Lys Hauberk long|1|s14p11H3U1|30
 A|9|Dragon chanfron|1|A1s45p24H13U2|99
 A|9|Italian bascinet (heavy);Nuremberg bascinet (visored)|1|A2G1s60p32H17U2|148
 A|9|Capon’s bascinet (heavy);Noble’s bascinet (visored);Saxon bascinet (heavy);Cuman helmet with a mask|1|A2G1s60p32H17U2|314
@@ -187,6 +190,12 @@ A|10|Kuttenberg plate legs;Noble’s plate legs;Noble’s plate legs - dark|1|A7
 A|10|Kuttenberg bascinet|1|A3G2s61p33H18U2M1|964
 A|10|Noble’s bascinet (heavy)|1|A5G3s45p45H19U2M1|1813
 A|10|Milanese cuirass|1|A7G3s42p42H23U2M1|2520
+A|10|Silver Lys mail chausses|1|s28p20H9U2M1|52
+A|10|Silver Lys Mail hood|1|A1G1s40p21H12U2M1|92
+A|10|Silver Lys gauntlets 1;Silver Lys plate arms 1|1|A3G2s61p33H18U2M1|1003
+A|10|Silver Lys bascinet 1;Silver Lys Italian bascinet 1|1|A5G3s49p43H18U2M1|1602
+A|10|Silver Lys plate legs 1|1|A7G3s43p43H22U2M1|2278
+A|10|Silver Lys noble cuirass 1;Silver Lys cuirass 1|1|A7G3s43p43H21U2M1|2266
 T|1|Hand wrap;Felt cap;Headscarf;Old straw hat;Beggar tunic;Beggar’s hood;Drowner’s hood;Wreath;Bonnet;Women’s straw hat;Short tunic;Frilled veil;Colourful headscarf;Work headscarf;Beggar’s shirt;Vagrant’s boots;Coif;Loose hose;Servant’s hood;Leather apron;Butcher’s apron;Worn tunic;Wanderer’s tunic;Baggy cap|1|N1|1
 T|1|Hunter’s belt|1|l1|1
 T|1|Crude padded coif;Padded collar (plain)|1|N2|1
